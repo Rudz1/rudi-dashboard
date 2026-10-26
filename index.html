@@ -57,12 +57,12 @@ h1{font-size:1.5rem;font-weight:800;letter-spacing:.06em;color:var(--gold)}
 #gate button{background:var(--gold);color:#042f33;border:0;border-radius:.8rem;font-size:1.6rem;font-weight:800;padding:.9rem 2.2rem;cursor:pointer}
 #pad{display:grid;grid-template-columns:repeat(3,5.2rem);gap:.7rem}#pad button{background:var(--card);color:var(--text);border:2px solid var(--line);border-radius:1rem;font-size:1.9rem;font-weight:800;padding:0;height:4.4rem;cursor:pointer;touch-action:manipulation}#pad button:active{background:var(--card2);border-color:var(--gold)}#pad button.go{background:var(--gold);color:#042f33;border-color:var(--gold)}#pad button.alt{color:var(--dim)}#gate input{letter-spacing:.5rem;background:var(--card);color:var(--text);border:2px solid var(--gold);border-radius:.8rem;font-size:1.6rem;padding:.8rem 1.2rem;width:min(26rem,86vw);text-align:center}#gate input:focus{outline:none;box-shadow:0 0 0 .25rem rgba(245,196,81,.35)}#gate .err{color:var(--warn);font-size:1rem;min-height:1.3rem}
 .banner{background:var(--gold);color:#042f33;font-weight:800;text-align:center;font-size:.8rem;padding:.15rem;border-radius:.4rem;margin-bottom:.4rem}
-</style>
+#fs{display:none}</style>
 </head>
 <body>
 <div id="gate"><h1>RUDI &middot; AT A GLANCE</h1><form id="f" autocomplete="off" style="display:flex;flex-direction:column;align-items:center;gap:1rem"><input id="pw" type="password" readonly inputmode="none" autocomplete="off" placeholder="Enter code" aria-label="Passcode" tabindex="-1"><div id="pad"><button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button><button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button><button type="button" data-k="del" class="alt">&#9003;</button><button type="button" data-k="0">0</button><button type="submit" id="signin" class="go">&#10003;</button></div></form><div class="err" id="err"></div></div>
 <div id="app" style="display:none;flex-direction:column;flex:1;min-height:0">
-<header class="top"><button class="lock" id="lock">Lock</button></header>
+<header class="top"><button class="lock" id="lock">Lock</button><button class="lock" id="fs" style="margin-left:.5rem">Full screen</button></header>
 <section class="strip" id="strip"></section>
 <div class="legend" id="legend"></div>
 <div class="later" id="later"></div>
@@ -185,6 +185,22 @@ document.addEventListener("keydown",e=>{ if(document.getElementById("gate").styl
 document.getElementById("lock").onclick=()=>showGate("Locked.");
 document.getElementById("gate").style.display="flex";
 setInterval(()=>{ if(RAW) render(); },30000);
+</script>
+<script>
+(function(){
+ var b=document.getElementById("fs"), de=document.documentElement;
+ var can=de.requestFullscreen||de.webkitRequestFullscreen;
+ if(!can) return;
+ b.style.display="inline-block";
+ function isFs(){return document.fullscreenElement||document.webkitFullscreenElement;}
+ function upd(){b.textContent=isFs()?"Exit full screen":"Full screen";}
+ b.onclick=function(){
+  if(isFs()){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
+  else { (de.requestFullscreen||de.webkitRequestFullscreen).call(de); }
+ };
+ document.addEventListener("fullscreenchange",upd);
+ document.addEventListener("webkitfullscreenchange",upd);
+})();
 </script>
 </body>
 </html>

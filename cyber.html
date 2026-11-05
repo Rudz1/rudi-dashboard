@@ -10,43 +10,52 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:#000;color:#dffcf6;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
 body{min-height:100dvh;touch-action:none;user-select:none;-webkit-user-select:none}
-
 #scene{position:fixed;inset:0;background:#000;overflow:hidden}
-
-/* soft teal glow — centre of the void */
-#glow{
-  position:absolute;left:50%;top:42%;
-  width:min(70vmin,560px);height:min(70vmin,560px);
+#centre{
+  position:absolute;left:50%;top:48%;
   transform:translate(-50%,-50%);
-  pointer-events:none;z-index:1;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(45,212,191,.38) 0%, rgba(20,184,166,.18) 28%, rgba(13,148,136,.08) 48%, transparent 68%);
-  filter:blur(28px);
-  animation:glowBreath 10s ease-in-out infinite alternate;
+  width:min(78vmin,720px);height:min(78vmin,720px);
+  z-index:2;pointer-events:none;
 }
-@keyframes glowBreath{
-  from{opacity:.75;transform:translate(-50%,-50%) scale(1)}
-  to{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
+#centre video{width:100%;height:100%;object-fit:contain;display:block}
+#phoenix{
+  position:absolute;
+  left:max(0px, env(safe-area-inset-left));
+  bottom:max(-4px, calc(env(safe-area-inset-bottom) - 4px));
+  width:min(220px,52vw);height:min(300px,62vh);
+  z-index:5;pointer-events:none;
 }
-
+#phoenix img{
+  position:absolute;left:0;bottom:0;width:100%;height:100%;
+  object-fit:contain;object-position:left bottom;
+  filter:drop-shadow(0 0 18px rgba(45,212,191,.18));
+  -webkit-user-drag:none;
+}
 #label{
-  position:fixed;
-  top:max(14px, env(safe-area-inset-top));
-  left:50%;
-  transform:translateX(-50%);
-  z-index:10;
-  font-size:.72rem;
-  letter-spacing:.28em;
-  text-transform:uppercase;
-  color:rgba(94,234,212,.55);
-  pointer-events:none;
+  position:fixed;top:max(14px, env(safe-area-inset-top));left:50%;
+  transform:translateX(-50%);z-index:10;font-size:.72rem;letter-spacing:.28em;
+  text-transform:uppercase;color:rgba(94,234,212,.55);pointer-events:none;
+}
+@media (max-width:480px){
+  #phoenix{width:min(170px,50vw);height:min(240px,55vh)}
 }
 </style>
 </head>
 <body>
 <div id="scene">
-  <div id="glow" aria-hidden="true"></div>
+  <div id="centre" aria-hidden="true">
+    <video src="assets/smoke-ring-centre.mp4" muted loop playsinline autoplay preload="auto"></video>
+  </div>
+  <div id="phoenix" aria-label="Phoenix">
+    <img src="assets/phoenix-wall-lean.png" alt="Phoenix" draggable="false">
+  </div>
   <div id="label">Cyber</div>
 </div>
+<script>
+(function(){
+  var v=document.querySelector('#centre video');
+  if(v) v.play().catch(function(){});
+})();
+</script>
 </body>
 </html>

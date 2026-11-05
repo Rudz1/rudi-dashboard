@@ -30,14 +30,12 @@ body{position:fixed;inset:0}
 @keyframes rip{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.75);opacity:0}}
 @keyframes glow{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.07)}}
 @keyframes breathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.035)}}
-.orb{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 24%,#ffd29c 0%,#ffa23d 34%,#ff7a00 70%,#e56000 100%);box-shadow:0 20px 50px rgba(255,122,0,.35),inset -16px -20px 36px rgba(190,70,0,.33),inset 12px 14px 26px rgba(255,255,255,.38);animation:breathe 4.2s ease-in-out infinite;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding-top:6px}
-.orb::after{content:"";position:absolute;left:17%;top:9%;width:34%;height:19%;border-radius:50%;background:rgba(255,255,255,.4);transform:rotate(-24deg);filter:blur(2px)}
-.face{width:92px;height:56px;display:block;margin-bottom:6px}
-.eye{transform-box:fill-box;transform-origin:center;animation:none}
-.blink .eye{animation:blink .17s ease-in-out}
-@keyframes blink{50%{transform:scaleY(.08)}}
-.hello{font-size:15px;font-weight:800;line-height:1.1;text-shadow:0 1px 2px rgba(150,60,0,.35)}
-.when{font-size:11px;font-weight:600;opacity:.95;margin-top:3px;line-height:1.2;text-shadow:0 1px 2px rgba(150,60,0,.3)}
+.orb{position:absolute;inset:0;border-radius:50%;overflow:hidden;background:#000;box-shadow:0 20px 50px rgba(255,122,0,.28),0 0 0 2px rgba(255,138,31,.35);animation:breathe 4.2s ease-in-out infinite;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;color:#fff;text-align:center;padding:0 10px 22px}
+.orb-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;pointer-events:none;z-index:0}
+.orb-overlay{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;padding-bottom:2px;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.2) 70%,transparent 100%);border-radius:0 0 50% 50%;padding-top:28px}
+.face{display:none}
+.hello{font-size:15px;font-weight:800;line-height:1.1;text-shadow:0 1px 3px rgba(0,0,0,.75),0 0 12px rgba(255,122,0,.45)}
+.when{font-size:11px;font-weight:600;opacity:.95;margin-top:3px;line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,.75),0 0 10px rgba(255,122,0,.35)}
 /* satellite / card */
 .frame{position:absolute;left:0;top:0;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;background:radial-gradient(circle at 30% 22%,var(--c2),var(--c) 64%,var(--c3));box-shadow:0 0 0 2px var(--c),0 12px 28px var(--cg),inset 0 -8px 16px rgba(0,0,0,.08);color:var(--ink2);opacity:0;will-change:transform}
 .frame.open{cursor:default;box-shadow:0 0 0 2px var(--c),0 16px 40px var(--cg)}
@@ -124,8 +122,8 @@ body{position:fixed;inset:0}
 .dot{position:absolute;border-radius:50%;pointer-events:none}
 /* gate */
 #gate{position:fixed;inset:0;background:#fff;opacity:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:2147483647;text-align:center;padding:1.2rem;overflow:hidden;transition:none;animation:none;backdrop-filter:none;-webkit-backdrop-filter:none;isolation:isolate}
-.gorb{width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 32% 24%,#ffd29c 0%,#ffa23d 34%,#ff7a00 70%,#e56000 100%);box-shadow:0 14px 36px rgba(255,122,0,.35),inset -8px -10px 20px rgba(190,70,0,.3),inset 7px 8px 16px rgba(255,255,255,.4);animation:breathe 4.2s ease-in-out infinite;position:relative}
-.gorb::after{content:"";position:absolute;left:17%;top:10%;width:34%;height:19%;border-radius:50%;background:rgba(255,255,255,.45);transform:rotate(-24deg)}
+.gorb{width:96px;height:96px;border-radius:50%;overflow:hidden;background:#000;box-shadow:0 14px 36px rgba(255,122,0,.35),0 0 0 2px rgba(255,138,31,.35);animation:breathe 4.2s ease-in-out infinite;position:relative}
+.gorb .orb-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;pointer-events:none}
 #gate h1{font-size:28px;font-weight:800;color:#e56000;letter-spacing:.02em}
 #gate form{display:flex;flex-direction:column;align-items:center;gap:16px}
 #pw{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
@@ -141,14 +139,14 @@ body{position:fixed;inset:0}
 @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}
 .shake{animation:shake .4s}
 @media (max-height:640px){#pad{grid-template-columns:repeat(3,3.6rem);gap:8px}#pad button{height:3.6rem;font-size:1.5rem}.gorb{width:64px;height:64px}#gate{gap:8px}}
-@media (prefers-reduced-motion:reduce){#amb i,.rip,.chief::before{animation:none}.orb{animation:none}}
+@media (prefers-reduced-motion:reduce){#amb i,.rip,.chief::before{animation:none}.orb,.gorb{animation:none}}
 </style>
 </head>
 <body>
-<div id="gate" style="display:flex"><div class="gorb"></div><h1>Rudi</h1><form id="f" autocomplete="off"><input id="pw" type="password" readonly inputmode="none" autocomplete="off" aria-label="Passcode" tabindex="-1"><div id="dots"></div><div id="pad"><button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button><button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button><button type="button" data-k="del" class="alt" aria-label="Delete">&#9003;</button><button type="button" data-k="0">0</button><button type="submit" id="signin" class="go" aria-label="Unlock">&#10003;</button></div></form><div class="err" id="err"></div></div>
+<div id="gate" style="display:flex"><div class="gorb"><video class="orb-vid" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video></div><h1>Rudi</h1><form id="f" autocomplete="off"><input id="pw" type="password" readonly inputmode="none" autocomplete="off" aria-label="Passcode" tabindex="-1"><div id="dots"></div><div id="pad"><button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button><button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button><button type="button" data-k="del" class="alt" aria-label="Delete">&#9003;</button><button type="button" data-k="0">0</button><button type="submit" id="signin" class="go" aria-label="Unlock">&#10003;</button></div></form><div class="err" id="err"></div></div>
 <div id="app" style="display:none;visibility:hidden">
  <div id="stage"><div id="amb"></div><div id="world"><svg id="threads"></svg>
-  <div class="chief" id="chief"><div class="rip"></div><div class="rip b"></div><div class="orb"><svg class="face" viewBox="0 0 96 58"><rect x="2" y="2" width="92" height="54" rx="27" fill="#fff" opacity=".96"/><g id="eyes"><ellipse class="eye" cx="34" cy="25" rx="5.8" ry="8" fill="#9a3d00"/><ellipse class="eye" cx="62" cy="25" rx="5.8" ry="8" fill="#9a3d00"/></g><path id="mouth" d="M39 41q9 7 18 0" stroke="#e56000" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg><div class="hello" id="hello">Hello, Rudi</div><div class="when" id="when"></div></div></div>
+  <div class="chief" id="chief"><div class="rip"></div><div class="rip b"></div><div class="orb"><video class="orb-vid" id="orbVid" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video><div class="orb-overlay"><div class="hello" id="hello">Hello, Rudi</div><div class="when" id="when"></div></div></div></div>
  </div></div>
  <div class="ctl" id="tr"><button class="btn pill" id="brief" type="button" aria-label="Play the morning brief" aria-pressed="false"><svg id="briefi" viewBox="0 0 24 24"><path d="M4 9.5v5h3.6L12.5 19V5L7.6 9.5H4z"/><path d="M16 9.2a4 4 0 0 1 0 5.6M18.6 6.6a7.7 7.7 0 0 1 0 10.8"/></svg><span id="briefl">Brief me</span></button><button class="btn pill" id="lock">Lock</button></div>
  <div id="cap" aria-live="polite"></div>
@@ -464,9 +462,9 @@ function step(dt){
  const a=1-Math.exp(-dt*5.5);
  cam.x+=(camT.x-cam.x)*a; cam.y+=(camT.y-cam.y)*a; cam.z+=(camT.z-cam.z)*a;
  world.style.transform=`translate(${(W/2-cam.x*cam.z).toFixed(2)}px,${(H/2-cam.y*cam.z).toFixed(2)}px) scale(${cam.z.toFixed(4)})`;
- // eyes follow pointer
+ // eyes follow pointer (face SVG removed when video orb is used)
  let ex=0,ey=0; if(ptrW){const l=Math.hypot(ptrW.x,ptrW.y)||1,m=Math.min(1,l/300); ex=ptrW.x/l*4.5*m; ey=ptrW.y/l*3.5*m;}
- eyeX+=(ex-eyeX)*.12; eyeY+=(ey-eyeY)*.12; $("eyes").setAttribute("transform",`translate(${eyeX.toFixed(2)} ${eyeY.toFixed(2)})`);
+ eyeX+=(ex-eyeX)*.12; eyeY+=(ey-eyeY)*.12; const eyesEl=$("eyes"); if(eyesEl) eyesEl.setAttribute("transform",`translate(${eyeX.toFixed(2)} ${eyeY.toFixed(2)})`);
 }
 function loop(ts){
  if(!running) return; requestAnimationFrame(loop);
@@ -526,7 +524,7 @@ stage.addEventListener("wheel",e=>{
 let chiefTm=[];
 function chiefTap(){
  $("chief").animate([{transform:"scale(1)"},{transform:"scale(.9,1.1)"},{transform:"scale(1.1,.92)"},{transform:"scale(.97,1.03)"},{transform:"scale(1)"}],{duration:620,easing:"ease-out"});
- const m=$("mouth"); m.setAttribute("d","M36 38q12 14 24 0"); setTimeout(()=>m.setAttribute("d","M39 41q9 7 18 0"),900);
+ const m=$("mouth"); if(m){ m.setAttribute("d","M36 38q12 14 24 0"); setTimeout(()=>m.setAttribute("d","M39 41q9 7 18 0"),900); }
  chiefTm.forEach(clearTimeout); chiefTm=[];
  const anyOpen=NODES.some(n=>n.open);
  const list=anyOpen?NODES.filter(n=>n.open):NODES.slice();
@@ -676,5 +674,6 @@ dots();
 if(PLAIN){ SNAP=PLAIN; RAW=SNAP.tabs; $("lock").style.display="none"; showApp(); renderAll(); window.__bubbles={SP,briefPlan,briefQueue,spStart,spStop,NODES,openNode,closeNode,toggleNode,refit,cam,camT,zoomAt}; }
 else { $("gate").style.display="flex"; }
 </script>
+<script src="assets/bubble-orb-data.js"></script>
 </body>
 </html>

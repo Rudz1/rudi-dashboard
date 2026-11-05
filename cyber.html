@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#000000">
+<title>Rudi · Cyber</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;color:#dffcf6;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
+body{min-height:100dvh;touch-action:none;user-select:none;-webkit-user-select:none}
+
+#scene{position:fixed;inset:0;background:#000;overflow:hidden}
+
+/* soft teal glow — centre of the void */
+#glow{
+  position:absolute;left:50%;top:42%;
+  width:min(70vmin,560px);height:min(70vmin,560px);
+  transform:translate(-50%,-50%);
+  pointer-events:none;z-index:1;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(45,212,191,.38) 0%, rgba(20,184,166,.18) 28%, rgba(13,148,136,.08) 48%, transparent 68%);
+  filter:blur(28px);
+  animation:glowBreath 10s ease-in-out infinite alternate;
+}
+@keyframes glowBreath{
+  from{opacity:.75;transform:translate(-50%,-50%) scale(1)}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
+}
+
+/* Phoenix — bottom left, transparent cutout / video */
+#phoenix{
+  position:absolute;
+  left:max(0px, env(safe-area-inset-left));
+  bottom:max(-6px, calc(env(safe-area-inset-bottom) - 6px));
+  width:min(240px,58vw);
+  height:min(320px,68vh);
+  z-index:5;
+  pointer-events:none;
+}
+#phoenix .figure{
+  position:absolute;inset:0;
+  display:flex;align-items:flex-end;justify-content:flex-start;
+}
+#phoenix .still,
+#phoenix .vid{
+  position:absolute;left:0;bottom:0;
+  width:100%;height:100%;
+  object-fit:contain;object-position:left bottom;
+  -webkit-user-drag:none;
+}
+#phoenix .still{z-index:1}
+#phoenix .vid{
+  z-index:2;
+  opacity:0;
+  transition:opacity .45s ease;
+}
+#phoenix.has-video .vid{opacity:1}
+#phoenix.has-video .still{opacity:0}
+
+#label{
+  position:fixed;
+  top:max(14px, env(safe-area-inset-top));
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+  font-size:.72rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:rgba(94,234,212,.55);
+  pointer-events:none;
+}
+
+@media (max-width:480px){
+  #phoenix{width:min(180px,56vw);height:min(250px,60vh)}
+}
+</style>
+</head>
+<body>
+<div id="scene">
+  <div id="glow" aria-hidden="true"></div>
+  <div id="label">Cyber</div>
+  <div id="phoenix" aria-label="Phoenix">
+    <div class="figure">
+      <img class="still" src="assets/phoenix.png" alt="Phoenix" draggable="false">
+      <!-- Drop in the transparent twirl loop as assets/phoenix-twirl.webm (or .mp4) -->
+      <video class="vid" muted loop playsinline preload="auto"></video>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const root = document.getElementById("phoenix");
+  const vid = root.querySelector(".vid");
+  const candidates = [
+    "assets/phoenix-twirl.webm",
+    "assets/phoenix-twirl.mp4",
+    "assets/phoenix-twirl-loop.webm",
+    "assets/phoenix-twirl-loop.mp4"
+  ];
+  function tryNext(i){
+    if(i >= candidates.length) return;
+    const src = candidates[i];
+    const probe = document.createElement("video");
+    probe.muted = true;
+    probe.playsInline = true;
+    probe.preload = "auto";
+    probe.onloadeddata = function(){
+      vid.src = src;
+      vid.onloadeddata = function(){
+        root.classList.add("has-video");
+        vid.play().catch(function(){});
+      };
+      vid.load();
+    };
+    probe.onerror = function(){ tryNext(i+1); };
+    probe.src = src;
+  }
+  tryNext(0);
+})();
+</script>
+</body>
+</html>

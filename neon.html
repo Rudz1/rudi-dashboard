@@ -11,7 +11,7 @@
 html,body{height:100%;background:#000;color:#e8f7ff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
 body{min-height:100dvh;touch-action:none;user-select:none;-webkit-user-select:none}
 
-/* -------- passcode gate (familiar keypad UX; neon has no encrypted payload) -------- */
+/* -------- passcode gate -------- */
 #gate{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:100;text-align:center;padding:1.2rem}
 #gate h1{font-size:28px;font-weight:800;color:#5eead4;letter-spacing:.08em;text-shadow:0 0 18px rgba(94,234,212,.45)}
 #gate form{display:flex;flex-direction:column;align-items:center;gap:16px}
@@ -31,142 +31,191 @@ body{min-height:100dvh;touch-action:none;user-select:none;-webkit-user-select:no
 .gorb .orb-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
 @media (max-height:640px){#pad{grid-template-columns:repeat(3,3.6rem);gap:8px}#pad button{height:3.6rem;font-size:1.5rem}.gorb{width:64px;height:64px}#gate{gap:8px}}
 
-/* -------- scene -------- */
+/* -------- cinematic scene -------- */
 #app{position:fixed;inset:0;display:none;background:#000;overflow:hidden}
-#scene{position:absolute;inset:0;overflow:hidden}
-#amb{position:absolute;inset:-10%;pointer-events:none;
+#scene{position:absolute;inset:0;overflow:hidden;background:#000}
+#amb{position:absolute;inset:-12%;pointer-events:none;z-index:1;
   background:
-    radial-gradient(ellipse 55% 45% at 52% 38%, rgba(14,116,144,.22), transparent 60%),
-    radial-gradient(ellipse 40% 35% at 30% 55%, rgba(124,58,237,.10), transparent 55%),
-    radial-gradient(ellipse 35% 30% at 70% 60%, rgba(249,115,22,.08), transparent 50%);
-  animation:ambPulse 12s ease-in-out infinite alternate}
-@keyframes ambPulse{from{opacity:.75;transform:scale(1)}to{opacity:1;transform:scale(1.04)}}
+    radial-gradient(ellipse 50% 42% at 54% 40%, rgba(14,116,144,.20), transparent 62%),
+    radial-gradient(ellipse 36% 32% at 28% 62%, rgba(124,58,237,.12), transparent 58%),
+    radial-gradient(ellipse 30% 28% at 72% 58%, rgba(249,115,22,.07), transparent 55%);
+  animation:ambPulse 14s ease-in-out infinite alternate}
+@keyframes ambPulse{from{opacity:.7;transform:scale(1)}to{opacity:1;transform:scale(1.05)}}
 
-/* centre living orb */
+/* living centre orb — soft masked into smoke, not a hard HUD disc */
 #core{
-  position:absolute;left:50%;top:42%;
-  width:min(42vmin,340px);height:min(42vmin,340px);
+  position:absolute;left:54%;top:38%;
+  width:min(52vmin,420px);height:min(52vmin,420px);
   transform:translate(-50%,-50%);
   z-index:4;pointer-events:none;
 }
 #core .orb-wrap{
-  position:absolute;inset:0;border-radius:50%;overflow:hidden;
-  box-shadow:
-    0 0 40px rgba(45,212,191,.35),
-    0 0 90px rgba(124,58,237,.22),
-    0 0 140px rgba(249,115,22,.12),
-    inset 0 0 40px rgba(0,0,0,.35);
-  animation:orbGlow 8s ease-in-out infinite alternate, orbSpin 48s linear infinite;
+  position:absolute;inset:6%;
+  border-radius:50%;
+  overflow:hidden;
+  -webkit-mask-image:radial-gradient(circle at 50% 48%, #000 34%, rgba(0,0,0,.9) 48%, rgba(0,0,0,.35) 60%, transparent 72%);
+  mask-image:radial-gradient(circle at 50% 48%, #000 34%, rgba(0,0,0,.9) 48%, rgba(0,0,0,.35) 60%, transparent 72%);
+  filter:saturate(1.15) contrast(1.08) brightness(1.05);
+  animation:orbBreath 9s ease-in-out infinite alternate;
 }
-@keyframes orbGlow{
-  from{box-shadow:0 0 36px rgba(45,212,191,.32),0 0 80px rgba(124,58,237,.18),0 0 120px rgba(249,115,22,.10),inset 0 0 40px rgba(0,0,0,.35)}
-  to{box-shadow:0 0 52px rgba(56,189,248,.42),0 0 110px rgba(168,85,247,.28),0 0 160px rgba(251,146,60,.16),inset 0 0 30px rgba(0,0,0,.25)}
+@keyframes orbBreath{
+  from{filter:saturate(1.1) contrast(1.05) brightness(1.0); transform:scale(1)}
+  to{filter:saturate(1.25) contrast(1.12) brightness(1.08); transform:scale(1.035)}
 }
-@keyframes orbSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 #core .orb-vid{
-  position:absolute;inset:-6%;width:112%;height:112%;
-  object-fit:cover;border-radius:50%;
-  animation:orbMorph 14s ease-in-out infinite alternate;
+  position:absolute;inset:-8%;width:116%;height:116%;
+  object-fit:cover;
+  animation:orbMorph 16s ease-in-out infinite alternate;
 }
 @keyframes orbMorph{
-  from{transform:scale(1) translate(0,0)}
-  to{transform:scale(1.06) translate(-1.5%,1%)}
+  from{transform:scale(1) translate(0,0) rotate(0deg)}
+  to{transform:scale(1.07) translate(-1.2%,1.4%) rotate(4deg)}
 }
-#core .smoke{
-  position:absolute;inset:-28%;border-radius:50%;pointer-events:none;z-index:2;
+#core .glow{
+  position:absolute;inset:-18%;border-radius:50%;pointer-events:none;z-index:0;
   background:
-    radial-gradient(circle at 30% 40%, rgba(45,212,191,.28), transparent 42%),
-    radial-gradient(circle at 70% 35%, rgba(168,85,247,.22), transparent 40%),
-    radial-gradient(circle at 55% 70%, rgba(251,146,60,.16), transparent 45%);
-  filter:blur(18px);opacity:.85;
-  animation:smokeDrift 16s ease-in-out infinite alternate;
+    radial-gradient(circle at 50% 48%, rgba(45,212,191,.32), transparent 42%),
+    radial-gradient(circle at 55% 55%, rgba(168,85,247,.22), transparent 50%),
+    radial-gradient(circle at 45% 60%, rgba(251,146,60,.14), transparent 48%);
+  filter:blur(22px);
+  animation:glowPulse 8s ease-in-out infinite alternate;
 }
-@keyframes smokeDrift{from{transform:scale(1) rotate(-4deg)}to{transform:scale(1.12) rotate(6deg)}}
-#core .rim{
-  position:absolute;inset:-2px;border-radius:50%;z-index:3;pointer-events:none;
-  box-shadow:inset 0 0 0 1px rgba(165,243,252,.22);
+@keyframes glowPulse{from{opacity:.75;transform:scale(.96)}to{opacity:1;transform:scale(1.08)}}
+#core .smoke{
+  position:absolute;inset:-42%;pointer-events:none;z-index:3;
+  background:
+    radial-gradient(ellipse 55% 40% at 28% 38%, rgba(45,212,191,.30), transparent 55%),
+    radial-gradient(ellipse 50% 42% at 74% 32%, rgba(168,85,247,.26), transparent 52%),
+    radial-gradient(ellipse 60% 45% at 52% 72%, rgba(99,102,241,.16), transparent 55%),
+    radial-gradient(ellipse 40% 30% at 60% 58%, rgba(251,146,60,.12), transparent 50%);
+  filter:blur(26px);opacity:.9;
+  animation:smokeDrift 18s ease-in-out infinite alternate;
+  -webkit-mask-image:radial-gradient(circle at 50% 48%, #000 20%, rgba(0,0,0,.7) 48%, transparent 72%);
+  mask-image:radial-gradient(circle at 50% 48%, #000 20%, rgba(0,0,0,.7) 48%, transparent 72%);
 }
+#core .smoke2{
+  position:absolute;inset:-55%;pointer-events:none;z-index:2;
+  background:
+    radial-gradient(ellipse 35% 50% at 18% 55%, rgba(34,211,238,.18), transparent 60%),
+    radial-gradient(ellipse 40% 35% at 82% 48%, rgba(192,38,255,.16), transparent 58%);
+  filter:blur(34px);opacity:.7;
+  animation:smokeDrift 22s ease-in-out infinite alternate-reverse;
+}
+@keyframes smokeDrift{from{transform:scale(1) rotate(-5deg) translate(-1%,0)}to{transform:scale(1.14) rotate(7deg) translate(2%,1%)}}
 
-/* electric vine / root tendrils */
-#tendrils{position:absolute;left:50%;top:42%;width:min(92vmin,720px);height:min(92vmin,720px);transform:translate(-50%,-50%);z-index:3;pointer-events:none;overflow:visible}
+/* electric vine / root tendrils — continuous organic, NOT dashed HUD orbits */
+#tendrils{
+  position:absolute;left:52%;top:40%;
+  width:min(110vmin,860px);height:min(110vmin,860px);
+  transform:translate(-50%,-50%);
+  z-index:3;pointer-events:none;overflow:visible;
+  opacity:.92;
+}
 #tendrils svg{width:100%;height:100%;overflow:visible}
-.vine{fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.85;filter:drop-shadow(0 0 4px currentColor)}
-.vine.a{stroke:#2dd4bf;stroke-width:1.6;animation:vinePulse 7s ease-in-out infinite}
-.vine.b{stroke:#818cf8;stroke-width:1.3;animation:vinePulse 9s ease-in-out infinite .6s}
-.vine.c{stroke:#c084fc;stroke-width:1.1;animation:vinePulse 11s ease-in-out infinite 1.2s}
-.vine.d{stroke:#67e8f9;stroke-width:.9;animation:vinePulse 8s ease-in-out infinite 1.8s}
-@keyframes vinePulse{0%,100%{opacity:.55;stroke-dashoffset:0}50%{opacity:.95;stroke-dashoffset:-24}}
+.vine{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.vine.a{stroke:#2dd4bf;stroke-width:2.4;opacity:.88;filter:url(#vineGlow)}
+.vine.b{stroke:#818cf8;stroke-width:2.1;opacity:.82;filter:url(#vineGlow)}
+.vine.c{stroke:#c084fc;stroke-width:1.8;opacity:.78;filter:url(#vineGlow)}
+.vine.d{stroke:#67e8f9;stroke-width:1.5;opacity:.72;filter:url(#vineGlow)}
+.vine.root{stroke:#1e3a5f;stroke-width:3.2;opacity:.55;filter:url(#vineGlow)}
+.vine.pulse{animation:vinePulse 8s ease-in-out infinite}
+.vine.pulse2{animation:vinePulse 10.5s ease-in-out infinite 1.2s}
+.vine.pulse3{animation:vinePulse 12s ease-in-out infinite 2.1s}
+@keyframes vinePulse{0%,100%{opacity:.45}50%{opacity:.95}}
 
 /* floating satellite orbs */
 .sat{
   position:absolute;border-radius:50%;z-index:6;cursor:grab;touch-action:none;
   width:var(--s,48px);height:var(--s,48px);
-  background:radial-gradient(circle at 35% 30%, #fff8, transparent 42%), radial-gradient(circle at 50% 55%, var(--c), #0000 70%);
-  box-shadow:0 0 18px color-mix(in srgb, var(--c) 70%, transparent), 0 0 40px color-mix(in srgb, var(--c) 35%, transparent);
-  border:1px solid color-mix(in srgb, var(--c) 55%, #fff3);
-  transition:box-shadow .2s;
+  background:
+    radial-gradient(circle at 32% 28%, #fff9, transparent 38%),
+    radial-gradient(circle at 50% 55%, var(--c), #0000 72%);
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--c) 75%, transparent),
+    0 0 42px color-mix(in srgb, var(--c) 40%, transparent),
+    0 0 70px color-mix(in srgb, var(--c) 22%, transparent);
+  border:1px solid color-mix(in srgb, var(--c) 60%, #fff4);
+  transition:box-shadow .2s, transform .15s;
 }
-.sat:active,.sat.dragging{cursor:grabbing;box-shadow:0 0 28px var(--c),0 0 60px color-mix(in srgb, var(--c) 50%, transparent);transform:scale(1.08)}
-.sat .spark{position:absolute;inset:-30%;border-radius:50%;background:radial-gradient(circle, color-mix(in srgb, var(--c) 25%, transparent), transparent 60%);animation:spark 3.5s ease-in-out infinite;pointer-events:none}
-@keyframes spark{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:.85;transform:scale(1.15)}}
+.sat:active,.sat.dragging{cursor:grabbing;transform:scale(1.1);
+  box-shadow:0 0 30px var(--c),0 0 70px color-mix(in srgb, var(--c) 55%, transparent)}
+.sat .spark{position:absolute;inset:-36%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle, color-mix(in srgb, var(--c) 28%, transparent), transparent 62%);
+  animation:spark 3.6s ease-in-out infinite}
+@keyframes spark{0%,100%{opacity:.35;transform:scale(.88)}50%{opacity:.9;transform:scale(1.18)}}
 
-/* Phoenix bottom-LEFT */
+/* Phoenix bottom-LEFT — silhouette in the void, NO frame/disc/widget */
 #phoenix{
   position:fixed;z-index:8;
-  left:max(8px, env(safe-area-inset-left));
-  bottom:max(0px, env(safe-area-inset-bottom));
-  width:min(210px,38vw);height:min(280px,52vw);
+  left:max(-12px, calc(env(safe-area-inset-left) - 12px));
+  bottom:max(-8px, calc(env(safe-area-inset-bottom) - 8px));
+  width:min(300px,48vw);height:min(390px,72vh);
   pointer-events:none;user-select:none;
-  --spill: 255,140,40;
-  --spill-a: .0;
+  --spill: 192,38,255;
+  --spill-a: .88;
+  --spill-x: 68%;
+  --spill-y: 24%;
 }
-#phoenix .frame{
+#phoenix .figure{
   position:absolute;inset:0;
-  border-radius:48% 48% 42% 42% / 40% 40% 55% 55%;
-  overflow:hidden;background:#000;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.06),
-    0 12px 36px rgba(0,0,0,.55),
-    0 0 28px rgba(var(--spill), calc(var(--spill-a) * .55)),
-    0 0 60px rgba(var(--spill), calc(var(--spill-a) * .28));
-  transition:box-shadow .35s ease;
+  filter:
+    drop-shadow(0 0 12px rgba(var(--spill), calc(var(--spill-a) * .7)))
+    drop-shadow(0 0 28px rgba(var(--spill), calc(var(--spill-a) * .45)))
+    drop-shadow(0 0 56px rgba(var(--spill), calc(var(--spill-a) * .22)));
+  transition:filter .35s ease;
 }
 #phoenix .phoenix-still,
 #phoenix .phoenix-vid{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center 22%;
-  background:#000;
+  object-fit:contain;object-position:left bottom;
+  background:transparent;
 }
-#phoenix .phoenix-still{z-index:1}
-#phoenix .phoenix-vid{z-index:2;opacity:.82;mix-blend-mode:screen;filter:saturate(1.05) contrast(1.05)}
-#phoenix .tint{
+#phoenix .phoenix-still{
+  z-index:1;
+  /* slight warm key from centre orb + spill tint via CSS filters driven by vars is limited;
+     colour overlays below are masked to this image's alpha via mask-source later in JS if set */
+}
+#phoenix .phoenix-vid{
+  z-index:2;opacity:.42;mix-blend-mode:screen;
+  -webkit-mask-image:radial-gradient(ellipse 55% 40% at 58% 18%, #000 15%, transparent 68%);
+  mask-image:radial-gradient(ellipse 55% 40% at 58% 18%, #000 15%, transparent 68%);
+  filter:saturate(1.15) contrast(1.08);
+}
+/* spill layers sit ON the figure pixels only (masked to still once loaded) */
+#phoenix .tint, #phoenix .tint2{
   position:absolute;inset:0;z-index:3;pointer-events:none;
+  -webkit-mask-size:contain;mask-size:contain;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-position:left bottom;mask-position:left bottom;
+  transition:background .3s ease, opacity .3s ease;
+}
+#phoenix .tint{
   background:
-    linear-gradient(115deg, rgba(var(--spill), calc(var(--spill-a) * .55)) 0%, transparent 42%),
-    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(var(--spill), calc(var(--spill-a) * .7)), transparent 55%),
-    radial-gradient(ellipse 70% 50% at 30% 70%, rgba(var(--spill), calc(var(--spill-a) * .35)), transparent 60%);
-  mix-blend-mode:color;opacity:1;transition:background .35s ease;
+    radial-gradient(ellipse 65% 50% at var(--spill-x) var(--spill-y),
+      rgba(var(--spill), calc(var(--spill-a) * .95)) 0%,
+      rgba(var(--spill), calc(var(--spill-a) * .45)) 42%,
+      transparent 70%);
+  mix-blend-mode:color;
+  opacity:1;
 }
-#phoenix .rimlight{
-  position:absolute;inset:0;z-index:4;pointer-events:none;
-  box-shadow:inset -10px -6px 28px rgba(var(--spill), calc(var(--spill-a) * .75)),
-             inset 8px 4px 20px rgba(255,180,80,.18);
-  border-radius:inherit;transition:box-shadow .35s ease;
+#phoenix .tint2{
+  z-index:4;
+  background:
+    radial-gradient(ellipse 50% 40% at var(--spill-x) var(--spill-y),
+      rgba(var(--spill), calc(var(--spill-a) * .75)) 0%,
+      transparent 65%);
+  mix-blend-mode:soft-light;
 }
-#phoenix .label{
-  position:absolute;left:10px;bottom:10px;z-index:5;
-  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(255,255,255,.45);text-shadow:0 1px 4px #000;
-}
+#phoenix .rimlight, #phoenix .aura{display:none}
 @media (max-width:520px){
-  #phoenix{width:min(160px,42vw);height:min(214px,56vw)}
-  #core{width:min(48vmin,260px);height:min(48vmin,260px);top:38%}
+  #phoenix{width:min(200px,52vw);height:min(270px,62vh)}
+  #core{width:min(54vmin,280px);height:min(54vmin,280px);top:36%;left:55%}
 }
 @media (max-height:500px){
-  #phoenix{width:120px;height:160px;opacity:.95}
+  #phoenix{width:140px;height:190px}
 }
 @media (prefers-reduced-motion:reduce){
-  #core .orb-wrap,#core .orb-vid,#core .smoke,#amb,.vine,.sat .spark{animation:none}
+  #core .orb-wrap,#core .orb-vid,#core .smoke,#core .smoke2,#core .glow,#amb,.vine.pulse,.vine.pulse2,.vine.pulse3,.sat .spark{animation:none}
 }
 
 /* chrome */
@@ -178,7 +227,7 @@ body{min-height:100dvh;touch-action:none;user-select:none;-webkit-user-select:no
 }
 #chrome a:hover,#chrome button:hover{border-color:rgba(94,234,212,.55);color:#ccfbf1}
 #hint{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));right:max(12px,env(safe-area-inset-right));z-index:20;
-  font-size:.68rem;color:rgba(165,243,252,.35);max-width:14rem;text-align:right;pointer-events:none;line-height:1.35}
+  font-size:.68rem;color:rgba(165,243,252,.32);max-width:14rem;text-align:right;pointer-events:none;line-height:1.35}
 #card{
   position:fixed;z-index:30;display:none;min-width:200px;max-width:min(280px,86vw);
   background:rgba(6,10,16,.88);border:1px solid rgba(94,234,212,.3);border-radius:16px;
@@ -214,37 +263,51 @@ body{min-height:100dvh;touch-action:none;user-select:none;-webkit-user-select:no
     <div id="amb"></div>
     <div id="tendrils" aria-hidden="true">
       <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
-        <path class="vine a" stroke-dasharray="6 10" d="M100 118 C 95 140, 70 155, 48 168 C 40 174, 28 180, 22 188"/>
-        <path class="vine b" stroke-dasharray="5 12" d="M108 120 C 125 145, 150 158, 172 170 C 180 175, 188 182, 192 190"/>
-        <path class="vine c" stroke-dasharray="4 9" d="M92 115 C 70 130, 55 150, 42 175 C 36 185, 30 192, 26 198"/>
-        <path class="vine a" stroke-dasharray="7 11" d="M110 112 C 135 120, 160 125, 182 118 C 190 115, 196 108, 198 100"/>
-        <path class="vine d" stroke-dasharray="3 8" d="M88 110 C 65 105, 40 95, 22 78 C 14 70, 8 58, 6 48"/>
-        <path class="vine b" stroke-dasharray="5 10" d="M100 125 C 100 150, 105 170, 100 190"/>
-        <path class="vine c" stroke-dasharray="4 11" d="M96 118 C 80 145, 90 165, 78 188"/>
-        <path class="vine d" stroke-dasharray="6 9" d="M105 118 C 130 140, 140 165, 155 188"/>
-        <circle cx="48" cy="168" r="1.4" fill="#2dd4bf" opacity=".8"/>
-        <circle cx="172" cy="170" r="1.3" fill="#a78bfa" opacity=".8"/>
-        <circle cx="22" cy="78" r="1.2" fill="#67e8f9" opacity=".75"/>
-        <circle cx="155" cy="188" r="1.1" fill="#c084fc" opacity=".75"/>
+        <defs>
+          <filter id="vineGlow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="2.2" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- organic root/tendril paths — solid strokes, branching like concept stills -->
+        <path class="vine root pulse" d="M100 118 C 88 138, 70 155, 52 168 C 40 176, 28 184, 22 194"/>
+        <path class="vine root pulse2" d="M108 118 C 126 140, 148 156, 168 168 C 178 174, 186 182, 192 192"/>
+        <path class="vine root pulse3" d="M96 116 C 74 134, 56 156, 38 178 C 30 188, 24 196, 20 200"/>
+
+        <path class="vine a pulse" d="M100 112 C 92 128, 78 142, 62 152 C 48 162, 34 172, 28 186 C 26 178, 38 168, 44 160 C 56 148, 70 136, 78 124"/>
+        <path class="vine b pulse2" d="M108 114 C 122 130, 140 144, 156 156 C 168 166, 180 176, 188 188 C 176 178, 164 168, 152 158 C 138 146, 124 132, 114 120"/>
+        <path class="vine c pulse3" d="M94 110 C 72 122, 54 140, 40 160 C 30 172, 22 184, 18 196 C 28 182, 42 166, 56 152 C 70 138, 84 124, 92 114"/>
+        <path class="vine a pulse2" d="M112 108 C 130 112, 152 116, 170 110 C 182 106, 192 98, 198 88 C 188 96, 176 104, 160 108 C 142 112, 126 110, 114 108"/>
+        <path class="vine d pulse" d="M88 106 C 68 100, 48 88, 32 72 C 22 62, 14 48, 10 36 C 18 50, 30 64, 46 76 C 62 88, 78 98, 90 104"/>
+        <path class="vine b pulse3" d="M102 118 C 100 138, 104 158, 98 176 C 94 188, 90 196, 86 200 C 96 188, 102 172, 104 156 C 106 140, 104 126, 102 118"/>
+        <path class="vine c pulse" d="M96 116 C 78 136, 82 156, 70 176 C 62 188, 52 196, 44 200 C 58 188, 72 170, 82 152 C 90 138, 94 126, 96 116"/>
+        <path class="vine d pulse2" d="M108 116 C 126 132, 138 152, 150 172 C 158 184, 168 194, 176 200 C 162 188, 150 170, 140 152 C 130 136, 118 124, 108 116"/>
+        <path class="vine a pulse3" d="M104 100 C 118 86, 136 74, 152 66 C 164 60, 176 56, 186 52 C 172 58, 156 66, 142 76 C 128 86, 114 96, 104 100"/>
+        <path class="vine b pulse" d="M90 100 C 74 88, 58 74, 46 58 C 38 48, 30 36, 26 26 C 36 40, 50 56, 66 70 C 78 80, 86 92, 90 100"/>
+        <circle cx="28" cy="186" r="1.5" fill="#2dd4bf" opacity=".85"/>
+        <circle cx="188" cy="188" r="1.4" fill="#a78bfa" opacity=".85"/>
+        <circle cx="10" cy="36" r="1.3" fill="#67e8f9" opacity=".8"/>
+        <circle cx="176" cy="200" r="1.2" fill="#c084fc" opacity=".8"/>
+        <circle cx="186" cy="52" r="1.2" fill="#2dd4bf" opacity=".75"/>
       </svg>
     </div>
     <div id="core">
+      <div class="glow"></div>
+      <div class="smoke2"></div>
       <div class="smoke"></div>
       <div class="orb-wrap">
         <video class="orb-vid" id="orbVid" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
       </div>
-      <div class="rim"></div>
     </div>
     <div id="sats"></div>
   </div>
 
   <div id="phoenix" aria-hidden="true">
-    <div class="frame">
+    <div class="figure">
       <img class="phoenix-still" alt="" draggable="false">
       <video class="phoenix-vid" autoplay muted loop playsinline preload="auto"></video>
       <div class="tint"></div>
-      <div class="rimlight"></div>
-      <div class="label">Phoenix</div>
+      <div class="tint2"></div>
     </div>
   </div>
 
@@ -253,7 +316,7 @@ body{min-height:100dvh;touch-action:none;user-select:none;-webkit-user-select:no
     <a href="bubbles.html">Bubble</a>
     <button type="button" id="lock">Lock</button>
   </div>
-  <div id="hint">Drag the coloured orbs near Phoenix — her light shifts to match.</div>
+  <div id="hint">Drag coloured orbs near Phoenix — purple spill lights her face &amp; hair.</div>
   <div id="card"><button class="x" type="button" aria-label="Close">×</button><h3 id="cardt"></h3><p id="cardb"></p></div>
 </div>
 
@@ -319,16 +382,16 @@ const BLOB = {"v": 1, "iter": 600000, "salt": "gUlYpL69BZniaTUjcFUbOA==", "iv": 
   });
   $("lock").onclick = ()=> showGate("Locked.");
   setPw("");
-  // Session resume only after a prior successful decrypt this tab
   if(sessionStorage.getItem("rudi_neon_ok")==="1") showApp();
 
+  /* Purple starts near Phoenix face so spill is obvious on unlock (concept still #3) */
   const SATS = [
-    {c:"#c026ff", s:56, x:.18, y:.72, label:"Pulse", body:"Purple satellite — drag near Phoenix to spill violet light across her hair and shoulder."},
-    {c:"#22d3ee", s:42, x:.68, y:.36, label:"Tide", body:"Teal orb. Placeholder card — more neon tools can live here later."},
-    {c:"#fb923c", s:38, x:.72, y:.62, label:"Ember", body:"Warm orange satellite matching the orb core."},
-    {c:"#34d399", s:34, x:.22, y:.62, label:"Moss", body:"Soft green accent orb."},
-    {c:"#f472b6", s:36, x:.58, y:.22, label:"Bloom", body:"Pink neon accent."},
-    {c:"#818cf8", s:30, x:.40, y:.70, label:"Ion", body:"Indigo spark."}
+    {c:"#c026ff", s:68, x:.18, y:.48, label:"Pulse", body:"Purple satellite — drag near Phoenix to spill violet light across her hair, face and shoulder."},
+    {c:"#22d3ee", s:42, x:.70, y:.34, label:"Tide", body:"Teal orb matching the living centre."},
+    {c:"#fb923c", s:38, x:.74, y:.60, label:"Ember", body:"Warm orange satellite matching the orb core."},
+    {c:"#34d399", s:34, x:.30, y:.42, label:"Moss", body:"Soft green accent orb."},
+    {c:"#f472b6", s:36, x:.60, y:.20, label:"Bloom", body:"Pink neon accent."},
+    {c:"#818cf8", s:30, x:.44, y:.68, label:"Ion", body:"Indigo spark."}
   ];
   const satsEl = $("sats");
   const phoenix = $("phoenix");
@@ -341,7 +404,8 @@ const BLOB = {"v": 1, "iter": 600000, "salt": "gUlYpL69BZniaTUjcFUbOA==", "iv": 
   }
   function phoenixAnchor(){
     const r = phoenix.getBoundingClientRect();
-    return {x: r.left + r.width*0.62, y: r.top + r.height*0.28, w:r.width, h:r.height};
+    // face / upper torso — where spill should read strongest
+    return {x: r.left + r.width*0.58, y: r.top + r.height*0.26, w:r.width, h:r.height, left:r.left, top:r.top};
   }
   function hexToRgb(hex){
     const h=hex.replace("#","");
@@ -356,22 +420,29 @@ const BLOB = {"v": 1, "iter": 600000, "salt": "gUlYpL69BZniaTUjcFUbOA==", "iv": 
       const d = Math.hypot(cx - a.x, cy - a.y);
       if(d < bestD){ bestD=d; best=n; }
     });
-    const reach = Math.max(a.w, a.h) * 1.35;
+    const reach = Math.max(a.w, a.h) * 1.55;
     let alpha = 0;
-    let rgb = [255,140,40];
+    let rgb = [192,38,255];
+    let sx = 72, sy = 28;
     if(best){
       alpha = Math.max(0, Math.min(1, 1 - (bestD / reach)));
-      alpha = Math.pow(alpha, 1.15) * 0.95;
+      alpha = Math.pow(alpha, 0.85) * 1.05;
+      if(alpha > 1) alpha = 1;
       rgb = hexToRgb(best.c);
+      const cx = best.x*innerWidth, cy = best.y*innerHeight;
+      sx = Math.max(8, Math.min(92, ((cx - a.left) / a.w) * 100));
+      sy = Math.max(8, Math.min(92, ((cy - a.top) / a.h) * 100));
     }
     phoenix.style.setProperty("--spill", rgb.join(","));
     phoenix.style.setProperty("--spill-a", alpha.toFixed(3));
+    phoenix.style.setProperty("--spill-x", sx.toFixed(1) + "%");
+    phoenix.style.setProperty("--spill-y", sy.toFixed(1) + "%");
   }
   function tickFloat(t){
     nodes.forEach((n,i)=>{
       if(n.dragging) return;
-      const ox = n.bx + Math.sin(t*0.0004 + i*1.7)*0.018;
-      const oy = n.by + Math.cos(t*0.00035 + i*1.3)*0.022;
+      const ox = n.bx + Math.sin(t*0.0004 + i*1.7)*0.016;
+      const oy = n.by + Math.cos(t*0.00035 + i*1.3)*0.020;
       n.x = Math.min(.92, Math.max(.06, ox));
       n.y = Math.min(.88, Math.max(.08, oy));
       place(n);
@@ -415,8 +486,24 @@ const BLOB = {"v": 1, "iter": 600000, "salt": "gUlYpL69BZniaTUjcFUbOA==", "iv": 
     });
     n.el.addEventListener("pointercancel", ()=>{ n.dragging=false; n.el.classList.remove("dragging"); });
   }
+  function maskSpillToFigure(){
+    const still = phoenix.querySelector(".phoenix-still");
+    if(!still || !still.src) return;
+    phoenix.querySelectorAll(".tint, .tint2").forEach(el=>{
+      el.style.webkitMaskImage = "url("+still.src+")";
+      el.style.maskImage = "url("+still.src+")";
+    });
+  }
   function initScene(){
     if(nodes.length) return;
+    const still = phoenix.querySelector(".phoenix-still");
+    if(still){
+      if(still.complete && still.src) maskSpillToFigure();
+      still.addEventListener("load", maskSpillToFigure);
+      // sit-data.js may apply src async
+      const obs=new MutationObserver(()=>{ if(still.src){ maskSpillToFigure(); } });
+      obs.observe(still,{attributes:true,attributeFilter:["src"]});
+    }
     SATS.forEach(s=>{
       const el=document.createElement("div");
       el.className="sat";
@@ -437,7 +524,6 @@ const BLOB = {"v": 1, "iter": 600000, "salt": "gUlYpL69BZniaTUjcFUbOA==", "iv": 
     requestAnimationFrame(tickFloat);
   }
 })();
-</script>
 </script>
 <script src="assets/bubble-orb-data.js"></script>
 <script src="assets/phoenix-loop-data.js"></script>

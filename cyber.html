@@ -36,16 +36,17 @@ body{min-height:100dvh;touch-action:manipulation;user-select:none;-webkit-user-s
 /* each module: orb + expandable panel */
 .mod{position:absolute;pointer-events:auto;z-index:10;transform:translate(-50%,-50%);
  transition:left .45s cubic-bezier(.2,.85,.25,1), top .45s cubic-bezier(.2,.85,.25,1);
- --ox:0px; --oy:0px; --pw:min(42vw,460px); --ph:min(28vw,300px);}
-.mod.h{--pw:min(46vw,480px); --ph:min(30vw,280px);}
-.mod.v{--pw:min(28vw,320px); --ph:min(42vw,420px);}
+ --ox:0px; --oy:0px; --pw:min(48vw,540px); --ph:min(32vw,360px);}
+/* panels match neon asset aspect so % insets land inside the hollow */
+.mod.h{--pw:min(52vw,560px); --ph:auto; --par:525/350;}
+.mod.v{--pw:min(34vw,380px); --ph:auto; --par:1/1;}
 #mH{left:18%; top:58%}
 #mV{left:78%; top:28%}
 @media (max-width:700px){
  #mH{left:22%; top:62%}
  #mV{left:78%; top:26%}
- .mod.h{--pw:min(78vw,420px); --ph:min(48vw,260px)}
- .mod.v{--pw:min(52vw,280px); --ph:min(68vw,380px)}
+ .mod.h{--pw:min(86vw,520px)}
+ .mod.v{--pw:min(72vw,340px)}
 }
 
 .orb{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;
@@ -86,8 +87,8 @@ body{min-height:100dvh;touch-action:manipulation;user-select:none;-webkit-user-s
 }
 @keyframes rip{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.85);opacity:0}}
 
-/* expanded neon panel */
-.panel{position:absolute;left:50%;top:50%;width:var(--pw);height:var(--ph);
+/* expanded neon panel — sized to asset aspect; body inset to neon hollow */
+.panel{position:absolute;left:50%;top:50%;width:var(--pw);aspect-ratio:var(--par, 3/2);height:auto;
  transform:translate(-50%,-50%) scale(.18);opacity:0;pointer-events:none;
  transition:transform .45s cubic-bezier(.2,.85,.25,1), opacity .3s ease;
  z-index:4;cursor:default}
@@ -103,19 +104,21 @@ body{min-height:100dvh;touch-action:manipulation;user-select:none;-webkit-user-s
 .mod.v .panel .psmoke{left:-28%;top:20%;width:85%;aspect-ratio:1;
  -webkit-mask:radial-gradient(circle at 30% 70%,#000 0,transparent 28%);
  mask:radial-gradient(circle at 30% 70%,#000 0,transparent 28%)}
-.panel .body{position:absolute;z-index:3;inset:18% 12% 20% 12%;display:flex;flex-direction:column;
- color:#ffe8f6;overflow:hidden}
-.mod.v .panel .body{inset:16% 18% 18% 18%}
-.panel .hd{display:flex;align-items:center;gap:10px;flex:none;padding-bottom:8px;
+/* insets measured to neon tube hollow (+ pad); all writing stays inside the glow */
+.panel .body{position:absolute;z-index:3;inset:23% 19% 31% 19%;display:flex;flex-direction:column;
+ color:#ffe8f6;overflow:hidden;padding:10px 12px 12px;box-sizing:border-box;
+ background:rgba(0,0,0,.42);border-radius:12px;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.mod.v .panel .body{inset:20% 28% 24% 28%;padding:10px 12px 12px;border-radius:14px}
+.panel .hd{display:flex;align-items:center;gap:10px;flex:none;padding-bottom:8px;min-width:0;
  border-bottom:1px solid rgba(255,150,210,.25)}
-.panel .hd b{flex:1;font-size:clamp(13px,2.2vw,17px);font-weight:800;letter-spacing:.02em;
- text-shadow:0 0 10px rgba(255,80,160,.5)}
+.panel .hd b{flex:1;min-width:0;font-size:clamp(13px,2.2vw,17px);font-weight:800;letter-spacing:.02em;
+ text-shadow:0 0 10px rgba(255,80,160,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .panel .x{width:28px;height:28px;border-radius:50%;border:0;cursor:pointer;
  background:rgba(255,255,255,.12);color:#fff;font-size:18px;line-height:1;font-weight:700;
  display:flex;align-items:center;justify-content:center;flex:none}
 .panel .x:hover{background:rgba(255,120,200,.35)}
-.panel .bd{flex:1;min-height:0;overflow:auto;padding-top:10px;font-size:clamp(11px,1.7vw,13.5px);
- line-height:1.4;color:rgba(255,230,245,.88);scrollbar-width:thin}
+.panel .bd{flex:1;min-height:0;overflow:auto;overflow-x:hidden;padding-top:8px;font-size:clamp(11px,1.7vw,13.5px);
+ line-height:1.4;color:rgba(255,230,245,.88);scrollbar-width:thin;overflow-wrap:anywhere;-webkit-overflow-scrolling:touch}
 .panel .bd .ph{opacity:.55;font-style:italic;margin-top:8px}
 .panel .bd .row{padding:6px 0;border-top:1px solid rgba(255,150,210,.12)}
 .panel .bd .row:first-child{border-top:0}

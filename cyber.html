@@ -8,53 +8,78 @@
 <title>Rudi · Cyber</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#000;color:#dffcf6;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
-body{min-height:100dvh;touch-action:none;user-select:none;-webkit-user-select:none}
-#scene{position:fixed;inset:0;background:#000;overflow:hidden}
-#centre{
-  position:absolute;left:50%;top:48%;
-  transform:translate(-50%,-50%);
-  width:min(78vmin,720px);height:min(78vmin,720px);
-  z-index:2;pointer-events:none;
-}
-#centre video{width:100%;height:100%;object-fit:contain;display:block}
-#phoenix{
-  position:absolute;
-  left:max(0px, env(safe-area-inset-left));
-  bottom:max(-4px, calc(env(safe-area-inset-bottom) - 4px));
-  width:min(220px,52vw);height:min(300px,62vh);
-  z-index:5;pointer-events:none;
-}
-#phoenix img{
-  position:absolute;left:0;bottom:0;width:100%;height:100%;
-  object-fit:contain;object-position:left bottom;
-  filter:drop-shadow(0 0 18px rgba(45,212,191,.18));
-  -webkit-user-drag:none;
-}
-#label{
-  position:fixed;top:max(14px, env(safe-area-inset-top));left:50%;
-  transform:translateX(-50%);z-index:10;font-size:.72rem;letter-spacing:.28em;
-  text-transform:uppercase;color:rgba(94,234,212,.55);pointer-events:none;
-}
-@media (max-width:480px){
-  #phoenix{width:min(170px,50vw);height:min(240px,55vh)}
-}
+html,body{height:100%;background:#000;overflow:hidden;font-family:system-ui,sans-serif}
+body{min-height:100dvh;touch-action:none;user-select:none}
+#scene{position:fixed;inset:0;overflow:hidden;
+ background:
+  radial-gradient(ellipse 45% 30% at 78% 0%, rgba(255,255,255,.22), transparent 70%),
+  linear-gradient(180deg,#0b0b0c 0%,#141416 55%,#060607 78%,#1a1a1c 82%,#0d0d0e 100%);}
+#scene:before{content:"";position:absolute;inset:0;opacity:.35;mix-blend-mode:overlay;pointer-events:none;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+#floor{position:absolute;left:0;right:0;bottom:0;height:20%;pointer-events:none;
+ background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(90,90,100,.25),transparent 70%);
+ border-top:1px solid rgba(255,255,255,.04)}
+.smoke{position:absolute;pointer-events:none}
+.smoke video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;mix-blend-mode:screen;will-change:transform,opacity}
+#centre{left:50%;top:44%;width:min(62vmin,640px);aspect-ratio:1;transform:translate(-50%,-50%);z-index:3}
+#centre video{filter:saturate(.6) hue-rotate(-10deg) brightness(1.05)}
+.frame{position:absolute;z-index:4;pointer-events:none}
+.frame img.neon{position:relative;width:100%;display:block;z-index:2;mix-blend-mode:screen;animation:flick 7s infinite}
+.frame .smoke{z-index:1;inset:auto}
+.frame .smoke video{filter:sepia(1) saturate(6) hue-rotate(285deg) brightness(1.1);}
+#fH{left:7%;top:20%;width:min(34vw,420px)}
+#fH .smoke{left:-25%;top:-35%;width:80%;aspect-ratio:1;opacity:.5;-webkit-mask:radial-gradient(circle at 30% 70%,#000 0,transparent 28%);mask:radial-gradient(circle at 30% 70%,#000 0,transparent 28%)}
+#fV{right:9%;top:8%;width:min(24vw,300px)}
+#fV .smoke{left:-30%;top:25%;width:90%;aspect-ratio:1;opacity:.5;-webkit-mask:radial-gradient(circle at 30% 70%,#000 0,transparent 28%);mask:radial-gradient(circle at 30% 70%,#000 0,transparent 28%)}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.75}94%{opacity:1}96%{opacity:.85}}
+#phoenix{position:absolute;left:max(0px,env(safe-area-inset-left));bottom:-4px;width:min(230px,40vw);height:min(330px,48vh);z-index:6;pointer-events:none}
+#phoenix img{position:absolute;left:0;bottom:0;width:100%;height:100%;object-fit:contain;object-position:left bottom;filter:drop-shadow(0 0 16px rgba(255,80,160,.15))}
+@media (max-width:600px){#fH{left:3%;top:14%;width:52vw}#fV{right:3%;top:6%;width:34vw}#centre{top:46%;width:80vmin}}
+@media (prefers-reduced-motion:reduce){.neon{animation:none!important}}
 </style>
 </head>
 <body>
 <div id="scene">
-  <div id="centre" aria-hidden="true">
-    <video src="assets/smoke-ring-centre.webm" muted loop playsinline autoplay preload="auto"></video>
-  </div>
-  <div id="phoenix" aria-label="Phoenix">
-    <img src="assets/phoenix-wall-lean.png" alt="Phoenix" draggable="false">
-  </div>
-  <div id="label">Cyber</div>
+  <div id="floor"></div>
+  <div class="frame" id="fH"><div class="smoke" data-layers="2"></div><img class="neon" src="assets/neon-frame-horizontal.png" alt=""></div>
+  <div class="smoke" id="centre" data-layers="3" aria-hidden="true"></div>
+  <div class="frame" id="fV"><div class="smoke" data-layers="2"></div><img class="neon" src="assets/neon-frame-vertical.png" alt=""></div>
+  <div id="phoenix"><img src="assets/phoenix-wall-lean-v2.png" alt="Phoenix" draggable="false"></div>
 </div>
 <script>
 (function(){
-  var v=document.querySelector('#centre video');
-  if(v) v.play().catch(function(){});
+ var SRC='assets/smoke.webm',DUR=10;
+ var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var rates=[0.78,1.12,0.93,1.05,0.86], vids=[];
+ document.querySelectorAll('.smoke[data-layers]').forEach(function(box,bi){
+  var n=+box.dataset.layers;
+  for(var i=0;i<n;i++){
+   var v=document.createElement('video');
+   v.src=SRC;v.muted=true;v.loop=true;v.playsInline=true;v.autoplay=!reduce;v.preload='auto';
+   v.setAttribute('muted','');v.setAttribute('playsinline','');
+   var r=rates[(i+bi)%rates.length];
+   v.dataset.rate=r; v.dataset.ph=Math.random()*6.28; v.dataset.rot=(i*137+bi*61)%360;
+   v.style.opacity=i?0.55:0.9;
+   v.addEventListener('loadedmetadata',function(){var t=this;t.currentTime=Math.random()*(t.duration||DUR);t.playbackRate=+t.dataset.rate;if(!reduce)t.play().catch(function(){});});
+   box.appendChild(v);vids.push(v);
+  }
+ });
+ if(reduce)return;
+ // slow random drift: rotation, scale, opacity, and rate wander so loops never line up
+ var t0=performance.now();
+ (function tick(now){
+  var t=(now-t0)/1000;
+  vids.forEach(function(v,i){
+   var p=+v.dataset.ph, rot=+v.dataset.rot;
+   var s=1+0.04*Math.sin(t*0.13+p)+0.02*Math.sin(t*0.31+p*2);
+   var a=rot+ t*(i%2?-2.2:1.6) + 6*Math.sin(t*0.07+p);
+   var dx=6*Math.sin(t*0.11+p), dy=5*Math.cos(t*0.09+p);
+   v.style.transform='translate('+dx+'px,'+dy+'px) rotate('+a+'deg) scale('+s+')';
+   if(i%3) v.style.opacity=(0.45+0.25*Math.sin(t*0.17+p)).toFixed(3);
+   if(Math.floor(t)%4===0&&Math.random()<0.002) v.playbackRate=Math.max(0.6,Math.min(1.3,+v.dataset.rate+(Math.random()-.5)*0.2));
+  });
+  requestAnimationFrame(tick);
+ })(t0);
 })();
 </script>
 </body>

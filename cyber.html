@@ -33,24 +33,18 @@ body{min-height:100dvh;touch-action:manipulation;user-select:none;-webkit-user-s
 /* orbit ring around centre — hosts the two orbs */
 #ring{position:absolute;left:50%;top:44%;width:min(62vmin,640px);height:min(62vmin,640px);transform:translate(-50%,-50%);z-index:10;pointer-events:none}
 
-/* each module: orb + expandable panel */
-.mod{position:absolute;pointer-events:auto;z-index:10;transform:translate(-50%,-50%);
- transition:left .45s cubic-bezier(.2,.85,.25,1), top .45s cubic-bezier(.2,.85,.25,1);
- --ox:0px; --oy:0px; --pw:min(48vw,540px); --ph:min(32vw,360px);}
-/* panels match neon asset aspect so % insets land inside the hollow */
-.mod.h{--pw:min(52vw,560px); --ph:auto; --par:525/350;}
-.mod.v{--pw:min(34vw,380px); --ph:auto; --par:1/1;}
-#mH{left:18%; top:58%}
-#mV{left:78%; top:28%}
+/* each module is just the orb; the info box is a separate panel */
+.mod{position:absolute;width:0;height:0;pointer-events:none;z-index:10;transform:translate(-50%,-50%)}
+#mH{left:18%;top:58%}
+#mV{left:78%;top:28%}
 @media (max-width:700px){
- #mH{left:22%; top:62%}
- #mV{left:78%; top:26%}
- .mod.h{--pw:min(86vw,520px)}
- .mod.v{--pw:min(72vw,340px)}
+ #mH{left:22%;top:64%}
+ #mV{left:78%;top:22%}
 }
 
-.orb{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;
- border-radius:50%;cursor:pointer;-webkit-tap-highlight-color:transparent;
+.orb{position:absolute;left:0;top:0;width:56px;height:56px;margin:-28px 0 0 -28px;
+ border:0;padding:0;border-radius:50%;cursor:pointer;-webkit-tap-highlight-color:transparent;
+ pointer-events:auto;
  background:radial-gradient(circle at 32% 28%,#ffe0f4 0%,#ff6ec7 38%,#c2185b 78%,#7a1040 100%);
  box-shadow:
   0 0 0 2px rgba(255,120,200,.55),
@@ -59,7 +53,7 @@ body{min-height:100dvh;touch-action:manipulation;user-select:none;-webkit-user-s
   inset -8px -10px 18px rgba(90,10,50,.35),
   inset 6px 8px 14px rgba(255,255,255,.35);
  animation:breathe 3.8s ease-in-out infinite, orbitDrift 9s ease-in-out infinite;
- transition:opacity .3s ease, transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+ transition:box-shadow .3s;
  z-index:3}
 .orb::before{content:"";position:absolute;inset:-14px;border-radius:50%;
  border:1.5px solid rgba(255,120,200,.35);animation:rip 3.6s ease-out infinite;pointer-events:none}
@@ -76,7 +70,18 @@ body{min-height:100dvh;touch-action:manipulation;user-select:none;-webkit-user-s
   inset -8px -10px 18px rgba(50,10,80,.35),
   inset 6px 8px 14px rgba(255,255,255,.35)}
 .mod.v .orb::before{border-color:rgba(200,120,255,.35)}
-.mod.open .orb{opacity:0;transform:scale(.4);pointer-events:none;animation:none}
+.mod.open .orb{box-shadow:
+  0 0 0 2px rgba(255,180,220,.85),
+  0 0 22px 8px rgba(255,80,180,.7),
+  0 0 46px 14px rgba(255,40,140,.35),
+  inset -8px -10px 18px rgba(90,10,50,.35),
+  inset 6px 8px 14px rgba(255,255,255,.4)}
+.mod.v.open .orb{box-shadow:
+  0 0 0 2px rgba(230,190,255,.85),
+  0 0 22px 8px rgba(180,80,255,.7),
+  0 0 46px 14px rgba(140,40,220,.35),
+  inset -8px -10px 18px rgba(50,10,80,.35),
+  inset 6px 8px 14px rgba(255,255,255,.4)}
 
 @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 @keyframes orbitDrift{
@@ -87,54 +92,84 @@ body{min-height:100dvh;touch-action:manipulation;user-select:none;-webkit-user-s
 }
 @keyframes rip{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.85);opacity:0}}
 
-/* expanded neon panel — sized to asset aspect; body inset to neon hollow */
-.panel{position:absolute;left:50%;top:50%;width:var(--pw);aspect-ratio:var(--par, 3/2);height:auto;
- transform:translate(-50%,-50%) scale(.18);opacity:0;pointer-events:none;
- transition:transform .45s cubic-bezier(.2,.85,.25,1), opacity .3s ease;
- z-index:4;cursor:default}
-.mod.open .panel{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:auto}
-.panel .neon{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;mix-blend-mode:screen;
- pointer-events:none;animation:flick 7s infinite;filter:drop-shadow(0 0 12px rgba(255,80,180,.35))}
-.mod.v .panel .neon{filter:drop-shadow(0 0 12px rgba(180,80,255,.35))}
-.panel .psmoke{position:absolute;z-index:1;pointer-events:none;opacity:.5}
-.panel .psmoke video{filter:sepia(1) saturate(6) hue-rotate(285deg) brightness(1.1)}
-.mod.h .panel .psmoke{left:-22%;top:-32%;width:70%;aspect-ratio:1;
- -webkit-mask:radial-gradient(circle at 30% 70%,#000 0,transparent 28%);
- mask:radial-gradient(circle at 30% 70%,#000 0,transparent 28%)}
-.mod.v .panel .psmoke{left:-28%;top:20%;width:85%;aspect-ratio:1;
- -webkit-mask:radial-gradient(circle at 30% 70%,#000 0,transparent 28%);
- mask:radial-gradient(circle at 30% 70%,#000 0,transparent 28%)}
-/* insets measured to neon tube hollow (+ pad); all writing stays inside the glow */
-.panel .body{position:absolute;z-index:3;inset:23% 19% 31% 19%;display:flex;flex-direction:column;
- color:#ffe8f6;overflow:hidden;padding:10px 12px 12px;box-sizing:border-box;
- background:rgba(0,0,0,.42);border-radius:12px;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
-.mod.v .panel .body{inset:20% 28% 24% 28%;padding:10px 12px 12px;border-radius:14px}
-.panel .hd{display:flex;align-items:center;gap:10px;flex:none;padding-bottom:8px;min-width:0;
- border-bottom:1px solid rgba(255,150,210,.25)}
-.panel .hd b{flex:1;min-width:0;font-size:clamp(13px,2.2vw,17px);font-weight:800;letter-spacing:.02em;
- text-shadow:0 0 10px rgba(255,80,160,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.panel .x{width:28px;height:28px;border-radius:50%;border:0;cursor:pointer;
- background:rgba(255,255,255,.12);color:#fff;font-size:18px;line-height:1;font-weight:700;
- display:flex;align-items:center;justify-content:center;flex:none}
-.panel .x:hover{background:rgba(255,120,200,.35)}
-.panel .bd{flex:1;min-height:0;overflow:auto;overflow-x:hidden;padding-top:8px;font-size:clamp(11px,1.7vw,13.5px);
- line-height:1.4;color:rgba(255,230,245,.88);scrollbar-width:thin;overflow-wrap:anywhere;-webkit-overflow-scrolling:touch}
+/* CSS neon tube — a real box, not a frame image.
+   Pink for the wide Brief panel, magenta for the tall Ops panel. */
+.panel{
+ --neon:#ff3d86;
+ --neon-deep:rgba(255,30,100,.55);
+ position:absolute;z-index:20;display:flex;flex-direction:column;
+ left:0;top:0;width:480px;height:280px;
+ padding:12px 16px 14px;border-radius:18px;
+ background:linear-gradient(180deg,rgba(22,4,12,.72),rgba(0,0,0,.86) 46%);
+ color:#ffe8f6;overflow:visible;
+ opacity:0;visibility:hidden;pointer-events:none;
+ transform:scale(.14);transform-origin:center center;
+ transition:opacity .34s ease,transform .42s cubic-bezier(.2,.85,.25,1),visibility .42s;
+ touch-action:none}
+.panel.mag{--neon:#d24bff;--neon-deep:rgba(150,40,255,.55);
+ background:linear-gradient(180deg,rgba(20,4,28,.72),rgba(0,0,0,.86) 46%)}
+.panel.open{opacity:1;visibility:visible;pointer-events:auto}
+.panel.closing{pointer-events:none}
+.panel.dragging,.panel.resizing{transition:none!important}
+.panel .chrome{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+ border:1.5px solid rgba(255,255,255,.96);
+ box-shadow:
+  0 0 1px .5px #fff,
+  0 0 6px 1px var(--neon),
+  0 0 16px 3px var(--neon),
+  0 0 34px 8px var(--neon-deep),
+  inset 0 0 0 1px rgba(255,255,255,.45),
+  inset 0 0 12px 1px var(--neon),
+  inset 0 0 26px 2px var(--neon-deep);
+ animation:flick 7s infinite}
+.panel.mag .chrome{animation-duration:8.4s}
+.panel .hd{position:relative;z-index:2;flex:none;display:flex;align-items:center;gap:10px;
+ min-height:36px;padding:0 2px 8px;cursor:grab;touch-action:none;
+ border-bottom:1px solid rgba(255,120,180,.32)}
+.panel.mag .hd{border-bottom-color:rgba(200,120,255,.32)}
+.panel.dragging .hd{cursor:grabbing}
+.panel .hd b{flex:1;min-width:0;font-size:clamp(14px,2vw,17px);font-weight:800;letter-spacing:.03em;
+ text-shadow:0 0 10px var(--neon);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.panel .x{position:relative;z-index:5;width:28px;height:28px;border-radius:50%;cursor:pointer;flex:none;
+ border:1px solid rgba(255,180,220,.55);background:rgba(255,255,255,.08);color:#fff;
+ font-size:18px;line-height:1;font-weight:700;font-family:inherit;
+ display:flex;align-items:center;justify-content:center;
+ box-shadow:0 0 8px var(--neon)}
+.panel .x:hover{background:rgba(255,80,160,.28)}
+.panel.mag .x:hover{background:rgba(180,80,255,.28)}
+.panel .x:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.panel .bd{position:relative;z-index:2;flex:1;min-height:0;overflow:auto;overflow-x:hidden;
+ padding-top:8px;font-size:clamp(12px,1.6vw,14px);line-height:1.45;
+ color:rgba(255,230,245,.9);scrollbar-width:thin;scrollbar-color:rgba(255,140,190,.5) transparent;
+ overflow-wrap:anywhere;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
 .panel .bd .ph{opacity:.55;font-style:italic;margin-top:8px}
-.panel .bd .row{padding:6px 0;border-top:1px solid rgba(255,150,210,.12)}
+.panel .bd .row{padding:6px 0;border-top:1px solid rgba(255,150,210,.16)}
+.panel.mag .bd .row{border-top-color:rgba(200,140,255,.16)}
 .panel .bd .row:first-child{border-top:0}
 .panel .bd .t{font-weight:700;color:#fff}
-@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.75}94%{opacity:1}96%{opacity:.85}}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.72}94%{opacity:1}96%{opacity:.84}}
 
-
-.mod.open{z-index:12}
- .mod.h.open{left:42%;top:36%}
- .mod.v.open{left:74%;top:38%}
-@media (max-width:700px){
- .mod.h.open{left:50%;top:38%}
- .mod.v.open{left:50%;top:42%}
+/* resize grips — edges and corners, like a malleable info frame */
+.rz{position:absolute;z-index:4;touch-action:none}
+.rz.n{left:16px;right:16px;top:0;height:10px;cursor:ns-resize}
+.rz.s{left:16px;right:16px;bottom:0;height:10px;cursor:ns-resize}
+.rz.e{top:16px;bottom:16px;right:0;width:10px;cursor:ew-resize}
+.rz.w{top:16px;bottom:16px;left:0;width:10px;cursor:ew-resize}
+.rz.nw,.rz.ne,.rz.sw,.rz.se{width:18px;height:18px}
+.rz.nw{left:0;top:0;cursor:nwse-resize}
+.rz.ne{right:0;top:0;cursor:nesw-resize}
+.rz.sw{left:0;bottom:0;cursor:nesw-resize}
+.rz.se{right:0;bottom:0;width:22px;height:22px;cursor:nwse-resize}
+.rz.se::after{content:"";position:absolute;right:6px;bottom:6px;width:9px;height:9px;
+ border-right:2px solid rgba(255,255,255,.95);border-bottom:2px solid rgba(255,255,255,.95);
+ border-bottom-right-radius:2px;box-shadow:1px 1px 6px var(--neon);pointer-events:none}
+@media (pointer:coarse){
+ .rz.n,.rz.s{height:16px}
+ .rz.e,.rz.w{width:16px}
+ .rz.nw,.rz.ne,.rz.sw,.rz.se{width:28px;height:28px}
 }
 @media (prefers-reduced-motion:reduce){
- .orb,.orb::before,.panel .neon{animation:none!important}
+ .orb,.orb::before,.panel .chrome{animation:none!important}
  .panel{transition:none}
 }
 </style>
@@ -148,34 +183,37 @@ body{min-height:100dvh;touch-action:manipulation;user-select:none;-webkit-user-s
 
   <div class="mod h" id="mH" data-id="brief">
     <button type="button" class="orb" aria-label="Open Brief" aria-expanded="false"><span class="label">Brief</span></button>
-    <div class="panel" role="dialog" aria-label="Brief">
-      <div class="smoke psmoke" data-layers="2"></div>
-      <img class="neon" src="assets/neon-frame-horizontal.png" alt="">
-      <div class="body">
-        <div class="hd"><b>Brief</b><button type="button" class="x" aria-label="Close">&minus;</button></div>
-        <div class="bd">
-          <div class="row"><span class="t">Coming soon</span><div>Feed from other bots — briefs, shoot notes, couple prefs.</div></div>
-          <div class="row"><span class="t">Placeholder</span><div>Tap the orb again or the backdrop to close.</div></div>
-          <div class="ph">Will populate from Studio Ninja / bots later.</div>
-        </div>
-      </div>
-    </div>
   </div>
-
   <div class="mod v" id="mV" data-id="ops">
     <button type="button" class="orb" aria-label="Open Ops" aria-expanded="false"><span class="label">Ops</span></button>
-    <div class="panel" role="dialog" aria-label="Ops">
-      <div class="smoke psmoke" data-layers="2"></div>
-      <img class="neon" src="assets/neon-frame-vertical.png" alt="">
-      <div class="body">
-        <div class="hd"><b>Ops</b><button type="button" class="x" aria-label="Close">&minus;</button></div>
-        <div class="bd">
-          <div class="row"><span class="t">Coming soon</span><div>Calendar load, month wedding count, travel buffers.</div></div>
-          <div class="row"><span class="t">Placeholder</span><div>Content will arrive from the other bots.</div></div>
-          <div class="ph">Neon orb → framed panel · same pattern as Bubble.</div>
-        </div>
-      </div>
+  </div>
+
+  <div class="panel" id="pH" data-mod="mH" role="dialog" aria-label="Brief" aria-hidden="true">
+    <div class="chrome" aria-hidden="true"></div>
+    <div class="hd"><b>Brief</b><button type="button" class="x" aria-label="Close">&minus;</button></div>
+    <div class="bd">
+      <div class="row"><span class="t">Coming soon</span><div>Feed from other bots — briefs, shoot notes, couple prefs.</div></div>
+      <div class="row"><span class="t">Placeholder</span><div>Tap the orb again or the backdrop to close.</div></div>
+      <div class="ph">Will populate from Studio Ninja / bots later.</div>
     </div>
+    <span class="rz n" data-d="n"></span><span class="rz e" data-d="e"></span>
+    <span class="rz s" data-d="s"></span><span class="rz w" data-d="w"></span>
+    <span class="rz nw" data-d="nw"></span><span class="rz ne" data-d="ne"></span>
+    <span class="rz sw" data-d="sw"></span><span class="rz se" data-d="se"></span>
+  </div>
+
+  <div class="panel mag" id="pV" data-mod="mV" role="dialog" aria-label="Ops" aria-hidden="true">
+    <div class="chrome" aria-hidden="true"></div>
+    <div class="hd"><b>Ops</b><button type="button" class="x" aria-label="Close">&minus;</button></div>
+    <div class="bd">
+      <div class="row"><span class="t">Coming soon</span><div>Calendar load, month wedding count, travel buffers.</div></div>
+      <div class="row"><span class="t">Placeholder</span><div>Content will arrive from the other bots.</div></div>
+      <div class="ph">Neon orb → framed panel · same pattern as Bubble.</div>
+    </div>
+    <span class="rz n" data-d="n"></span><span class="rz e" data-d="e"></span>
+    <span class="rz s" data-d="s"></span><span class="rz w" data-d="w"></span>
+    <span class="rz nw" data-d="nw"></span><span class="rz ne" data-d="ne"></span>
+    <span class="rz sw" data-d="sw"></span><span class="rz se" data-d="se"></span>
   </div>
 </div>
 <script>
@@ -213,38 +251,256 @@ body{min-height:100dvh;touch-action:manipulation;user-select:none;-webkit-user-s
   })(t0);
  }
 
- // orb open / close
  var dim=document.getElementById('dim');
+ var scene=document.getElementById('scene');
  var mods=[].slice.call(document.querySelectorAll('.mod'));
- var openMod=null;
-
- function closeAll(){
-  mods.forEach(function(m){
-   m.classList.remove('open');
-   var o=m.querySelector('.orb'); if(o) o.setAttribute('aria-expanded','false');
-  });
-  openMod=null; dim.classList.remove('on');
- }
- function openOne(m){
-  if(openMod===m){ closeAll(); return; }
-  mods.forEach(function(x){
-   x.classList.toggle('open', x===m);
-   var o=x.querySelector('.orb'); if(o) o.setAttribute('aria-expanded', x===m?'true':'false');
-  });
-  openMod=m; dim.classList.add('on');
- }
+ var zTop=20;
+ var drag=null;
 
  mods.forEach(function(m){
-  m.querySelector('.orb').addEventListener('click', function(e){ e.stopPropagation(); openOne(m); });
-  m.querySelector('.x').addEventListener('click', function(e){ e.stopPropagation(); closeAll(); });
-  m.querySelector('.panel').addEventListener('click', function(e){ e.stopPropagation(); });
+  m.panel=document.querySelector('.panel[data-mod="'+m.id+'"]');
+  m.panel._mod=m;
+  m.panel._tok=0;
+  m.userBox=null;
+ });
+
+ function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+ function limits(){
+  var vw=window.innerWidth, vh=window.innerHeight;
+  var edge=10;
+  return {vw:vw,vh:vh,edge:edge,
+   minW:Math.min(240,Math.max(160,vw-edge*2)),
+   minH:Math.min(150,Math.max(120,vh-edge*2)),
+   maxW:Math.max(160,vw-edge*2),
+   maxH:Math.max(120,vh-edge*2)};
+ }
+ function layout(p,b){
+  p.style.left=Math.round(b.x)+'px';
+  p.style.top=Math.round(b.y)+'px';
+  p.style.width=Math.round(b.w)+'px';
+  p.style.height=Math.round(b.h)+'px';
+ }
+ function readBox(p){return {x:p.offsetLeft,y:p.offsetTop,w:p.offsetWidth,h:p.offsetHeight};}
+ function fitBox(b){
+  var L=limits();
+  var w=clamp(b.w,L.minW,L.maxW), h=clamp(b.h,L.minH,L.maxH);
+  var x=clamp(b.x,L.edge,Math.max(L.edge,L.vw-w-L.edge));
+  var y=clamp(b.y,L.edge,Math.max(L.edge,L.vh-h-L.edge));
+  return {x:x,y:y,w:w,h:h};
+ }
+ function defaultBox(mod){
+  var L=limits(), wide=!mod.classList.contains('v'), narrow=L.vw<760;
+  var w,h,x,y;
+  if(narrow){
+   var gap=14;
+   var briefH=clamp(Math.round(L.vh*0.32), L.minH, Math.min(260,L.maxH));
+   w=clamp(Math.round(L.vw*0.92), L.minW, L.maxW);
+   x=Math.round((L.vw-w)/2);
+   if(wide){ h=briefH; y=L.edge; }
+   else {
+    y=L.edge+briefH+gap;
+    h=clamp(Math.round(L.vh*0.34), L.minH, Math.max(L.minH, L.vh-y-L.edge));
+   }
+   return fitBox({x:x,y:y,w:w,h:h});
+  }
+  if(wide){
+   w=clamp(Math.round(L.vw*0.44), L.minW, Math.min(540,L.maxW));
+   h=clamp(Math.round(L.vh*0.34), L.minH, Math.min(280,L.maxH));
+   x=Math.round(Math.max(L.edge,L.vw*0.06));
+   y=Math.round(Math.max(L.edge,L.vh*0.12));
+  }else{
+   w=clamp(Math.round(L.vw*0.24), L.minW, Math.min(320,L.maxW));
+   h=clamp(Math.round(L.vh*0.4), L.minH, Math.min(360,L.maxH));
+   x=L.vw-w-Math.round(Math.max(L.edge,L.vw*0.06));
+   y=Math.round(L.vh*0.28+64);
+   if(y+h>L.vh-L.edge) h=Math.max(L.minH,L.vh-L.edge-y);
+  }
+  return fitBox({x:x,y:y,w:w,h:h});
+ }
+ function orbCenter(mod){
+  var o=mod.querySelector('.orb');
+  var s=scene.getBoundingClientRect();
+  var r=o.getBoundingClientRect();
+  return {x:r.left+r.width/2-s.left, y:r.top+r.height/2-s.top};
+ }
+ function raise(p){zTop+=1;p.style.zIndex=String(zTop);}
+ function anyOpen(){return mods.some(function(m){return m.panel.classList.contains('open');});}
+ function syncDim(){dim.classList.toggle('on', anyOpen());}
+
+ function openPanel(mod){
+  var p=mod.panel;
+  if(p.classList.contains('open')&&!p.classList.contains('closing')){closePanel(mod);return;}
+  var token=++p._tok;
+  var box=fitBox(mod.userBox?{x:mod.userBox.x,y:mod.userBox.y,w:mod.userBox.w,h:mod.userBox.h}:defaultBox(mod));
+  p._box=box;
+  layout(p,box);
+  var c=orbCenter(mod);
+  var dx=c.x-(box.x+box.w/2), dy=c.y-(box.y+box.h/2);
+  p.classList.remove('closing');
+  p.style.transition='none';
+  if(reduce){
+   p.style.transform='none';
+   p.style.opacity='1';
+  }else{
+   p.style.transform='translate('+dx+'px,'+dy+'px) scale(.14)';
+   p.style.opacity='0';
+  }
+  p.classList.add('open');
+  p.setAttribute('aria-hidden','false');
+  mod.classList.add('open');
+  mod.querySelector('.orb').setAttribute('aria-expanded','true');
+  raise(p);
+  syncDim();
+  if(reduce){p.style.transition='';return;}
+  void p.offsetWidth;
+  if(p._tok!==token) return;
+  p.style.transition='';
+  p.style.transform='translate(0px,0px) scale(1)';
+  p.style.opacity='1';
+ }
+ function closePanel(mod){
+  var p=mod.panel;
+  if(!p.classList.contains('open')||p.classList.contains('closing')) return;
+  if(drag&&drag.panel===p) drag=null;
+  p.classList.remove('dragging','resizing');
+  var token=++p._tok;
+  var box=p._box||readBox(p);
+  if(reduce){
+   finish();
+   return;
+  }
+  var c=orbCenter(mod);
+  var dx=c.x-(box.x+box.w/2), dy=c.y-(box.y+box.h/2);
+  p.classList.add('closing');
+  p.style.transition='';
+  p.style.transform='translate('+dx+'px,'+dy+'px) scale(.14)';
+  p.style.opacity='0';
+  p.addEventListener('transitionend', onEnd);
+  setTimeout(finish, 520);
+  function onEnd(ev){
+   if(ev.target!==p) return;
+   if(ev.propertyName!=='opacity'&&ev.propertyName!=='transform') return;
+   finish();
+  }
+  function finish(){
+   if(p._tok!==token) return;
+   p._tok=token+1;
+   p.removeEventListener('transitionend', onEnd);
+   p.classList.remove('open','closing');
+   p.style.transform='';
+   p.style.opacity='';
+   p.setAttribute('aria-hidden','true');
+   mod.classList.remove('open');
+   mod.querySelector('.orb').setAttribute('aria-expanded','false');
+   syncDim();
+  }
+ }
+ function closeAll(){mods.forEach(closePanel);}
+
+ function snap(p){
+  p.classList.remove('closing');
+  p.style.transition='none';
+  p.style.transform='none';
+  p.style.opacity='1';
+  if(p._box) layout(p,p._box);
+ }
+ function begin(panel,type,dir,e){
+  if(drag) return;
+  if(!panel.classList.contains('open')||panel.classList.contains('closing')) return;
+  snap(panel);
+  raise(panel);
+  drag={panel:panel,type:type,dir:dir,pid:e.pointerId,sx:e.clientX,sy:e.clientY,box:readBox(panel)};
+  panel._box=drag.box;
+  panel.classList.add(type==='move'?'dragging':'resizing');
+ }
+ function resized(b,dir,dx,dy){
+  var L=limits();
+  var x=b.x, y=b.y, x2=b.x+b.w, y2=b.y+b.h;
+  if(dir.indexOf('e')>=0) x2=b.x+b.w+dx;
+  if(dir.indexOf('w')>=0) x=b.x+dx;
+  if(dir.indexOf('s')>=0) y2=b.y+b.h+dy;
+  if(dir.indexOf('n')>=0) y=b.y+dy;
+  if(x2-x<L.minW){ if(dir.indexOf('w')>=0) x=x2-L.minW; else x2=x+L.minW; }
+  if(y2-y<L.minH){ if(dir.indexOf('n')>=0) y=y2-L.minH; else y2=y+L.minH; }
+  if(x2-x>L.maxW){ if(dir.indexOf('w')>=0) x=x2-L.maxW; else x2=x+L.maxW; }
+  if(y2-y>L.maxH){ if(dir.indexOf('n')>=0) y=y2-L.maxH; else y2=y+L.maxH; }
+  if(x<L.edge){ if(dir.indexOf('w')>=0) x=L.edge; }
+  if(y<L.edge){ if(dir.indexOf('n')>=0) y=L.edge; }
+  if(x2>L.vw-L.edge){ if(dir.indexOf('e')>=0) x2=L.vw-L.edge; }
+  if(y2>L.vh-L.edge){ if(dir.indexOf('s')>=0) y2=L.vh-L.edge; }
+  if(x2-x<L.minW){ if(dir.indexOf('w')>=0) x=x2-L.minW; else x2=Math.min(L.vw-L.edge,x+L.minW); }
+  if(y2-y<L.minH){ if(dir.indexOf('n')>=0) y=y2-L.minH; else y2=Math.min(L.vh-L.edge,y+L.minH); }
+  return {x:x,y:y,w:Math.max(L.minW,x2-x),h:Math.max(L.minH,y2-y)};
+ }
+ function onMove(e){
+  if(!drag||e.pointerId!==drag.pid) return;
+  var dx=e.clientX-drag.sx, dy=e.clientY-drag.sy;
+  var b=drag.type==='move'
+   ? fitBox({x:drag.box.x+dx,y:drag.box.y+dy,w:drag.box.w,h:drag.box.h})
+   : resized(drag.box,drag.dir,dx,dy);
+  layout(drag.panel,b);
+  drag.panel._box=b;
+ }
+ function onUp(e){
+  if(!drag||e.pointerId!==drag.pid) return;
+  var p=drag.panel;
+  if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)>3) p._mod.userBox=p._box;
+  p.classList.remove('dragging','resizing');
+  p.style.transition='';
+  drag=null;
+ }
+ document.addEventListener('pointermove', onMove);
+ document.addEventListener('pointerup', onUp);
+ document.addEventListener('pointercancel', onUp);
+
+ mods.forEach(function(m){
+  var p=m.panel;
+  m.querySelector('.orb').addEventListener('click', function(e){ e.stopPropagation(); openPanel(m); });
+  p.querySelector('.x').addEventListener('click', function(e){ e.stopPropagation(); closePanel(m); });
+  p.addEventListener('pointerdown', function(){ if(p.classList.contains('open')) raise(p); });
+  p.querySelector('.hd').addEventListener('pointerdown', function(e){
+   if(e.button!=null&&e.button!==0) return;
+   if(e.target.closest('.x')) return;
+   e.preventDefault();
+   try{ e.currentTarget.setPointerCapture(e.pointerId); }catch(err){}
+   begin(p,'move','',e);
+  });
+  [].slice.call(p.querySelectorAll('.rz')).forEach(function(h){
+   h.addEventListener('pointerdown', function(e){
+    if(e.button!=null&&e.button!==0) return;
+    e.preventDefault();
+    e.stopPropagation();
+    try{ h.setPointerCapture(e.pointerId); }catch(err){}
+    begin(p,'resize',h.dataset.d,e);
+   });
+  });
  });
  dim.addEventListener('click', closeAll);
- document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(); });
- var q=new URLSearchParams(location.search).get('open');
- if(q==='brief') openOne(document.getElementById('mH'));
- else if(q==='ops') openOne(document.getElementById('mV'));
+ document.addEventListener('keydown', function(e){
+  if(e.key!=='Escape') return;
+  var best=null, bz=-1;
+  mods.forEach(function(m){
+   var p=m.panel;
+   if(!p.classList.contains('open')||p.classList.contains('closing')) return;
+   var zi=parseInt(p.style.zIndex||'0',10);
+   if(zi>=bz){bz=zi;best=m;}
+  });
+  if(best) closePanel(best);
+ });
+ addEventListener('resize', function(){
+  mods.forEach(function(m){
+   var p=m.panel;
+   if(!p.classList.contains('open')) return;
+   var b=fitBox(p._box||readBox(p));
+   p._box=b;
+   if(m.userBox) m.userBox=b;
+   layout(p,b);
+  });
+ });
 
+ var q=new URLSearchParams(location.search).get('open');
+ if(q==='brief'||q==='both') openPanel(document.getElementById('mH'));
+ if(q==='ops'||q==='both') openPanel(document.getElementById('mV'));
 })();
 </script>
 </body>

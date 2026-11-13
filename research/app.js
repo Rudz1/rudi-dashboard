@@ -48,6 +48,8 @@
     "looks after", "works at", "was at", "attending", "mentioned", "topic for", "fact about",
   ];
   const LS_KEY = "people-map-blob";
+  const LS_MENU = "people-map-chrome-menu";
+  const LS_FILTERS = "people-map-chrome-filters";
   const IDLE_MS = 30 * 60 * 1000;
   const TZ = "Europe/London";
 
@@ -223,6 +225,7 @@
     $("app").classList.add("show");
     $("pw").value = "";
     $("err").textContent = "";
+    applyChrome();
   }
   function lock(msg) {
     graph = null;
@@ -1346,6 +1349,7 @@
   }
 
   function selectEntity(id) {
+    const wasEmpty = !selectedId;
     selectedId = id;
     applyGraphHighlights();
     if (id && cy && currentView === "graph" && cy.$id(id).length) {
@@ -1364,6 +1368,13 @@
       }
     }
     renderPanel(id);
+    const empty = !id;
+    if (empty !== wasEmpty) {
+      updatePanelChrome();
+      refitGraph();
+    } else {
+      updatePanelChrome();
+    }
     bumpIdle();
   }
 
@@ -1375,6 +1386,7 @@
     $("panel").style.display = name === "graph" ? "" : "none";
     if (name === "person") renderPersonProfile(selectedId && entityById(selectedId) && entityById(selectedId).type === "Person" ? selectedId : ($("person-select").value || null));
     if (name === "upcoming") renderUpcoming();
+    updatePanelChrome();
     if (name === "graph") {
       redrawGraph();
       setTimeout(() => { if (cy) { cy.resize(); if (currentLayout === "grouped") fitGrouped(); } }, 50);
@@ -1387,6 +1399,7 @@
     renderUpcoming();
     renderPanel(selectedId);
     if (currentView === "person") renderPersonProfile(selectedId);
+    updatePanelChrome();
   }
 
   /* ---------- editing ---------- */
@@ -1742,6 +1755,47 @@
     }
   }
 
+  /* ---------- mobile chrome (menu / filters) ---------- */
+  function chromeExpanded(key) {
+    return localStorage.getItem(key) !== "0";
+  }
+  function refitGraph() {
+    if (!cy) return;
+    cy.resize();
+    requestAnimationFrame(() => { if (cy) cy.resize(); });
+  }
+  function updatePanelChrome() {
+    const ws = $("workspace");
+    if (!ws) return;
+    const empty = currentView === "graph" && !selectedId;
+    ws.classList.toggle("panel-empty", empty);
+  }
+  function applyChrome() {
+    const menuOpen = chromeExpanded(LS_MENU);
+    const filtersOpen = chromeExpanded(LS_FILTERS);
+    const app = $("app");
+    if (app) {
+      app.classList.toggle("menu-collapsed", !menuOpen);
+      app.classList.toggle("filters-collapsed", !filtersOpen);
+    }
+    const menuBtn = $("btn-toggle-menu");
+    const filterBtn = $("btn-toggle-filters");
+    if (menuBtn) {
+      menuBtn.setAttribute("aria-expanded", menuOpen ? "true" : "false");
+      menuBtn.textContent = menuOpen ? "Menu ▴" : "Menu ▾";
+    }
+    if (filterBtn) {
+      filterBtn.setAttribute("aria-expanded", filtersOpen ? "true" : "false");
+      filterBtn.textContent = filtersOpen ? "Filters ▴" : "Filters ▾";
+    }
+    updatePanelChrome();
+    refitGraph();
+  }
+  function toggleChrome(key) {
+    localStorage.setItem(key, chromeExpanded(key) ? "0" : "1");
+    applyChrome();
+  }
+
   /* ---------- wiring ---------- */
   $("unlock-form").addEventListener("submit", (ev) => {
     ev.preventDefault();
@@ -1753,6 +1807,9 @@
   $("btn-lock").addEventListener("click", () => lock("Locked."));
   $("btn-add").addEventListener("click", () => openEditor("chooser"));
   $("btn-save").addEventListener("click", saveAll);
+  $("btn-toggle-menu").addEventListener("click", () => toggleChrome(LS_MENU));
+  $("btn-toggle-filters").addEventListener("click", () => toggleChrome(LS_FILTERS));
+  window.addEventListener("resize", () => { if ($("app").classList.contains("show")) refitGraph(); }, { passive: true });
   $("btn-saving").addEventListener("click", () => openSaveSettings("settings"));
   $("save-settings-form").addEventListener("submit", (ev) => { ev.preventDefault(); storeTokenFromForm(); });
   $("save-token-forget").addEventListener("click", forgetToken);
@@ -1791,6 +1848,11 @@
   window.__pmSelect = (id) => selectEntity(id);
   window.__pmCy = () => cy;
   window.__pmToggleArea = (k) => toggleArea(k);
+  window.__pmSetChrome = (menuOpen, filtersOpen) => {
+    localStorage.setItem(LS_MENU, menuOpen ? "1" : "0");
+    localStorage.setItem(LS_FILTERS, filtersOpen ? "1" : "0");
+    applyChrome();
+  };
   window.__pmOpenSaving = (mode) => openSaveSettings(mode || "settings");
   window.__pmOpenDraftOffer = () => offerLocalDraft(graph, graph);
 

@@ -865,14 +865,37 @@ setInterval(()=>{ if(RAW) render(); },30000);
     if(!s){ el.hidden=true; el.textContent=""; return; }
     el.hidden=false; el.textContent=s;
   }
+  function voiceLabel(v){ return String(v&&v.name||"")+" "+String(v&&v.voiceURI||""); }
+  function isFemaleVoice(v){ return /female|woman|\bgirl\b/i.test(voiceLabel(v)); }
+  function isMaleVoice(v){
+    if(isFemaleVoice(v)) return false;
+    const s=voiceLabel(v);
+    return /\bmale\b|\bman\b|\bboy\b/i.test(s)
+      || /daniel|george|ryan|arthur|brian|thomas|malcolm|oliver|rishi|david|james|fred|exynos/i.test(s)
+      || /en-GB-x-gbc|en-GB-x-gbd|en-GB-x-rbg/i.test(s);
+  }
   function pickVoice(){
     try{
       const vs=speechSynthesis.getVoices()||[];
-      return vs.find(v=>/en-GB/i.test(v.lang)&&/female|uk/i.test(v.name))
-        || vs.find(v=>/en-GB/i.test(v.lang))
-        || vs.find(v=>/^en/i.test(v.lang))
+      const en=vs.filter(v=>/^en(-|$)/i.test(v.lang||""));
+      const gb=en.filter(v=>/en-GB/i.test(v.lang));
+      return gb.find(isMaleVoice)
+        || en.find(isMaleVoice)
+        || gb.find(v=>!isFemaleVoice(v))
+        || en.find(v=>!isFemaleVoice(v))
+        || gb[0]
+        || en[0]
         || null;
     }catch(e){ return null; }
+  }
+  function voicesReady(){
+    try{ if((speechSynthesis.getVoices()||[]).length) return Promise.resolve(); }catch(e){}
+    return new Promise(res=>{
+      let done=false;
+      const finish=()=>{ if(done) return; done=true; try{ speechSynthesis.removeEventListener("voiceschanged",finish); }catch(e){} res(); };
+      try{ speechSynthesis.addEventListener("voiceschanged",finish); }catch(e){}
+      setTimeout(finish,700);
+    });
   }
   function speakify(s){
     return String(s||"")
@@ -992,8 +1015,8 @@ setInterval(()=>{ if(RAW) render(); },30000);
     if(wrap) wrap.classList.add("speaking");
     const b=document.getElementById("btnTalk");
     if(b){ b.textContent="Stop"; b.classList.remove("primary"); }
-    try{ speechSynthesis.getVoices(); }catch(e){}
-    spNext(q,0,SP.tok);
+    const tok=SP.tok;
+    voicesReady().then(()=>{ if(tok!==SP.tok||!SP.on) return; spNext(q,0,tok); });
   }
   document.getElementById("btnTalk").addEventListener("click",spStart);
   document.getElementById("orbWrap").addEventListener("click",spStart);

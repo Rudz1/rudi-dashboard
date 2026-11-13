@@ -6,18 +6,46 @@
     Person: { label: "Person", color: "#ff8fa3", prefix: "P" },
     Pet: { label: "Pet", color: "#ffa94d", prefix: "PET" },
     Place: { label: "Place / Address", color: "#6cc7ff", prefix: "PL" },
-    Interest: { label: "Interest / Likes", color: "#5eead4", prefix: "I" },
-    Event: { label: "Event / Date", color: "#f5c451", prefix: "E" },
+    Like: { label: "Likes", color: "#5eead4", prefix: "I" },
+    Dislike: { label: "Dislikes", color: "#ff6b6b", prefix: "D" },
+    KeyEvent: { label: "Key event", color: "#f5c451", prefix: "KE" },
+    Event: { label: "Event", color: "#d4e157", prefix: "E" },
     Conversation: { label: "Conversation", color: "#b9a4ff", prefix: "C" },
     Topic: { label: "Topic to raise", color: "#ff9d80", prefix: "T" },
     Fact: { label: "Fact / Note", color: "#7be0b0", prefix: "F" },
     Organisation: { label: "Organisation", color: "#f08cf0", prefix: "O" },
   };
   const TYPE_ORDER = Object.keys(TYPES);
+  /* Labelled areas for the Grouped layout. An entity lands in the area for its type,
+     unless properties.group names another area (People, Likes, Dislikes, Key events,
+     Events, Pets, Places, Organisations, Notes). */
+  const AREAS = [
+    { key: "people", label: "People", types: ["Person"], color: "#ff8fa3" },
+    { key: "likes", label: "Likes", types: ["Like"], color: "#5eead4" },
+    { key: "dislikes", label: "Dislikes", types: ["Dislike"], color: "#ff6b6b" },
+    { key: "keyevents", label: "Key events", types: ["KeyEvent"], color: "#f5c451", timeline: true },
+    { key: "events", label: "Events", types: ["Event"], color: "#d4e157", timeline: true },
+    { key: "pets", label: "Pets", types: ["Pet"], color: "#ffa94d" },
+    { key: "places", label: "Places", types: ["Place"], color: "#6cc7ff" },
+    { key: "orgs", label: "Organisations", types: ["Organisation"], color: "#f08cf0" },
+    { key: "notes", label: "Notes & topics", types: ["Conversation", "Topic", "Fact"], color: "#b9a4ff" },
+    { key: "other", label: "Other", types: [], color: "#b5c7d3" },
+  ];
+  const AREA_ALIASES = {
+    people: "people", person: "people", likes: "likes", like: "likes", interests: "likes", interest: "likes",
+    dislikes: "dislikes", dislike: "dislikes", "key events": "keyevents", "key event": "keyevents", keyevents: "keyevents",
+    events: "events", event: "events", pets: "pets", pet: "pets", places: "places", place: "places",
+    organisations: "orgs", organisation: "orgs", organizations: "orgs", orgs: "orgs",
+    notes: "notes", "notes & topics": "notes", topics: "notes", facts: "notes", other: "other",
+  };
+  let currentLayout = "grouped";
+  const collapsedAreas = new Set();
+  const touchedAreas = new Set(); // areas Rudi has folded/unfolded himself
+  const AUTO_FOLD = { notes: 12 }; // big Notes & topics area starts folded until tapped open
   const LINK_SUGGESTIONS = [
     "mum of", "dad of", "sister of", "brother of", "sibling of", "partner of",
     "friend of", "family of", "lives at", "owns", "loves", "likes",
-    "looks after", "works at", "attending", "mentioned", "topic for", "fact about",
+    "looks after", "works at", "was at", "attending", "mentioned", "topic for", "fact about",
   ];
   const LS_KEY = "people-map-blob";
   const IDLE_MS = 30 * 60 * 1000;
@@ -145,8 +173,10 @@
   function normalizeType(t) {
     const map = {
       "place/address": "Place", place: "Place", address: "Place",
-      "interest/likes": "Interest", interest: "Interest", like: "Interest", likes: "Interest",
-      "event/date": "Event", event: "Event", date: "Event",
+      "interest/likes": "Like", "interest / likes": "Like", interest: "Like", interests: "Like", like: "Like", likes: "Like",
+      dislike: "Dislike", dislikes: "Dislike",
+      "key event": "KeyEvent", "key events": "KeyEvent", "key-event": "KeyEvent", key_event: "KeyEvent", keyevent: "KeyEvent",
+      "event/date": "Event", "event / date": "Event", event: "Event", events: "Event", date: "Event",
       "topic-to-raise": "Topic", topic: "Topic",
       "fact/note": "Fact", fact: "Fact", note: "Fact",
       organization: "Organisation", organisation: "Organisation",
@@ -154,6 +184,15 @@
     };
     const key = String(t || "").trim().toLowerCase();
     return map[key] || t || "Fact";
+  }
+  /** Backward-compatible clean-up applied on load (older files used Interest / Event only). */
+  function normalizeEntity(e) {
+    e.type = normalizeType(e.type);
+    const p = e.properties || {};
+    const kind = String(p.kind || "").trim().toLowerCase();
+    if (e.type === "Like" && (kind === "dislike" || kind === "dislikes")) e.type = "Dislike";
+    if (e.type === "Event" && (kind === "key event" || kind === "key" || /^(yes|y|true|1)$/i.test(String(p.key || "").trim()))) e.type = "KeyEvent";
+    return e;
   }
 
   function nextId(type) {
@@ -192,7 +231,7 @@
       cy.destroy();
       cy = null;
     }
-    $("panel").innerHTML = "<h2>Details</h2><p class=\"empty\">Click a person, pet, place or like on the graph to see how they connect.</p>";
+    $("panel").innerHTML = "<h2>Details</h2><p class=\"empty\">Click a person, pet, place, like or event to see how they connect. Tap an area heading to fold it away.</p>";
     $("person-profile").innerHTML = "";
     $("upcoming-list").innerHTML = "";
     currentView = "graph";
@@ -257,7 +296,7 @@
         graph = published;
         usingLocalDraft = false;
       }
-      graph.entities.forEach((e) => { e.type = normalizeType(e.type); });
+      graph.entities.forEach(normalizeEntity);
       passphrase = pw;
       currentView = "graph";
       showApp();
@@ -277,12 +316,46 @@
   }
 
   /* ---------- graph view ---------- */
-  function graphElements() {
-    const visible = new Set(
+  function areaFor(e) {
+    const g = String((e.properties && e.properties.group) || "").trim().toLowerCase();
+    if (g && AREA_ALIASES[g]) return AREA_ALIASES[g];
+    const a = AREAS.find((x) => x.types.includes(e.type));
+    return a ? a.key : "other";
+  }
+  function eventSortKey(e) {
+    const d = String((e.properties && (e.properties.date || e.properties.birthday)) || "").trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : (/^\d{2}-\d{2}$/.test(d) ? "0000-" + d : "9999");
+  }
+  function shortDate(s) {
+    const str = String(s || "").trim();
+    let m = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    const mon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    if (m) return `${+m[3]} ${mon[+m[2] - 1]} ${m[1]}`;
+    m = str.match(/^(\d{2})-(\d{2})$/);
+    if (m) return `${+m[2]} ${mon[+m[1] - 1]}`;
+    m = str.match(/^(\d{4})-(\d{2})$/);
+    if (m) return `${mon[+m[2] - 1]} ${m[1]}`;
+    return str;
+  }
+  function focusId(visibleEntities) {
+    const pref = graph.focus || ((graph.entities || []).find((e) => /^(yes|y|true|1)$/i.test(String((e.properties || {}).focus || "").trim())) || {}).id;
+    if (pref && visibleEntities.some((e) => e.id === pref)) return pref;
+    const deg = new Map();
+    (graph.links || []).forEach((l) => { deg.set(l.from, (deg.get(l.from) || 0) + 1); deg.set(l.to, (deg.get(l.to) || 0) + 1); });
+    let best = null, bestScore = -1;
+    visibleEntities.forEach((e) => {
+      const sc = (deg.get(e.id) || 0) + (e.type === "Person" ? 1000 : 0);
+      if (sc > bestScore) { best = e.id; bestScore = sc; }
+    });
+    return best;
+  }
+  function graphElements(grouped) {
+    let visible = new Set(
       (graph.entities || [])
         .filter((e) => typeFilter.has(e.type) && matchesSearch(e))
         .map((e) => e.id)
     );
+    if (grouped) return groupedElements(visible);
     const nodes = (graph.entities || [])
       .filter((e) => visible.has(e.id))
       .map((e) => {
@@ -295,6 +368,7 @@
             type: e.type,
             color: typeInfo(e.type).color,
           },
+          classes: "ent",
         };
       });
     const edges = uniquePairLinks((graph.links || []).filter((l) => visible.has(l.from) && visible.has(l.to)))
@@ -307,6 +381,60 @@
           status: linkStatus(l),
           confidence: l.confidence || "",
           source_url: l.source_url || "",
+        },
+      }));
+    return { nodes, edges };
+  }
+  function groupedElements(visibleIn) {
+    const visEnts = (graph.entities || []).filter((e) => visibleIn.has(e.id));
+    const focus = focusId(visEnts);
+    const nodes = [];
+    const counts = {};
+    const shown = new Set();
+    visEnts.forEach((e) => { if (e.id !== focus) { const a = areaFor(e); counts[a] = (counts[a] || 0) + 1; } });
+    const folded = (k) => collapsedAreas.has(k) || (!touchedAreas.has(k) && AUTO_FOLD[k] != null && (counts[k] || 0) > AUTO_FOLD[k]);
+    visEnts.forEach((e) => {
+      const full = displayName(e);
+      const isFocus = e.id === focus;
+      const area = isFocus ? null : areaFor(e);
+      if (area && folded(area)) return;
+      shown.add(e.id);
+      const def = AREAS.find((a) => a.key === area);
+      const date = entityDate(e);
+      const tl = def && def.timeline;
+      const nm = String(full || "").replace(/\s+/g, " ").trim();
+      const tlName = nm.length > 26 ? nm.slice(0, 25) + "\u2026" : nm;
+      nodes.push({
+        data: {
+          id: e.id,
+          short: tl ? `${date ? shortDate(date) : "Undated"}  \u00b7  ${tlName}` : shortLabel(full),
+          full: tl && date ? `${shortDate(date)}  \u00b7  ${full}` : full,
+          type: e.type,
+          color: typeInfo(e.type).color,
+          area: area || "",
+          sortKey: tl ? eventSortKey(e) + "|" + nm.toLowerCase() : nm.toLowerCase(),
+          parent: area ? "area-" + area : undefined,
+        },
+        classes: "ent g-ent" + (tl ? " g-tl" : "") + (isFocus ? " g-focus" : ""),
+      });
+    });
+    AREAS.forEach((a) => {
+      if (!counts[a.key]) return;
+      const collapsed = folded(a.key);
+      nodes.push({ data: { id: "area-" + a.key, area: a.key, color: a.color }, classes: "grp" });
+      nodes.push({
+        data: {
+          id: "head-" + a.key, area: a.key, color: a.color, parent: "area-" + a.key,
+          head: `${collapsed ? "\u25b8" : "\u25be"}  ${a.label.toUpperCase()}  ${counts[a.key]}`,
+        },
+        classes: "grp-head",
+      });
+    });
+    const edges = uniquePairLinks((graph.links || []).filter((l) => shown.has(l.from) && shown.has(l.to)))
+      .map((l) => ({
+        data: {
+          id: l.id, source: l.from, target: l.to, label: l.label || "",
+          status: linkStatus(l), confidence: l.confidence || "", source_url: l.source_url || "",
         },
       }));
     return { nodes, edges };
@@ -327,7 +455,7 @@
     if (cy) return;
     cy = cytoscape({
       container: $("cy"),
-      elements: graphElements(),
+      elements: [],
       minZoom: 0.2,
       maxZoom: 3,
       wheelSensitivity: 0.3,
@@ -368,6 +496,74 @@
         {
           selector: "node[type = 'Event'], node[type = 'Conversation'], node[type = 'Topic'], node[type = 'Fact']",
           style: { "text-opacity": 0, width: 10, height: 10 },
+        },
+        {
+          selector: "node[type = 'Dislike']",
+          style: { shape: "ellipse" },
+        },
+        {
+          selector: "node[type = 'KeyEvent']",
+          style: { "text-opacity": 0, width: 12, height: 12, shape: "diamond" },
+        },
+        /* ----- Grouped layout: labelled areas ----- */
+        {
+          selector: "node.grp",
+          style: {
+            shape: "round-rectangle",
+            "corner-radius": 10,
+            "background-color": "data(color)",
+            "background-opacity": 0.045,
+            "border-width": 1,
+            "border-color": "data(color)",
+            "border-opacity": 0.32,
+            padding: 12,
+            label: "",
+            events: "no",
+            "z-index": 1,
+            "z-compound-depth": "bottom",
+          },
+        },
+        {
+          selector: "node.grp-head",
+          style: {
+            width: 1,
+            height: 1,
+            "background-opacity": 0,
+            "border-width": 0,
+            label: "data(head)",
+            color: "data(color)",
+            "font-size": 10,
+            "font-weight": 700,
+            "text-halign": "right",
+            "text-valign": "center",
+            "text-margin-x": 0,
+            "text-margin-y": 0,
+            "text-wrap": "none",
+            "text-background-opacity": 0,
+            "text-outline-width": 0,
+            "text-opacity": 0.92,
+            "text-events": "yes",
+            "z-index": 5,
+          },
+        },
+        {
+          selector: "node.g-ent",
+          style: { "text-opacity": 1 },
+        },
+        {
+          selector: "node.g-tl",
+          style: {
+            "text-halign": "right",
+            "text-valign": "center",
+            "text-margin-x": 7,
+            "text-margin-y": 0,
+            "text-max-width": 210,
+            "text-wrap": "ellipsis",
+          },
+        },
+        {
+          selector: "node.g-focus",
+          style: { width: 16, height: 16, "font-size": 11, "font-weight": 700, "text-max-width": 160, "border-width": 1.5, "border-color": "rgba(244,251,250,.7)" },
         },
         {
           selector: "node.hover, node.selected",
@@ -458,6 +654,22 @@
           },
         },
         {
+          selector: "edge.g-soft",
+          style: { opacity: 0.35 },
+        },
+        {
+          selector: "edge.g-hub",
+          style: { opacity: 0.08 },
+        },
+        {
+          selector: "edge.g-soft.emphasized, edge.g-soft.show-label",
+          style: { opacity: 1 },
+        },
+        {
+          selector: "node.g-tl.hover, node.g-tl.selected",
+          style: { "text-max-width": 320 },
+        },
+        {
           selector: "node.dim",
           style: { opacity: 0.16, "text-opacity": 0 },
         },
@@ -466,19 +678,24 @@
           style: { opacity: 0.07, "text-opacity": 0 },
         },
       ],
-      layout: layoutOpts("cose"),
+      layout: { name: "preset" },
     });
     cy.on("tap", "node", (ev) => {
-      selectEntity(ev.target.id());
+      const n = ev.target;
+      if (n.hasClass("grp-head")) { toggleArea(n.data("area")); return; }
+      if (n.hasClass("grp")) { selectEntity(null); return; }
+      selectEntity(n.id());
     });
     cy.on("tap", (ev) => {
       if (ev.target === cy) selectEntity(null);
     });
-    cy.on("mouseover", "node", (ev) => {
+    cy.on("mouseover", "node.grp-head", () => { $("cy").style.cursor = "pointer"; });
+    cy.on("mouseout", "node.grp-head", () => { $("cy").style.cursor = ""; });
+    cy.on("mouseover", "node.ent", (ev) => {
       ev.target.addClass("hover");
       ev.target.connectedEdges().addClass("emphasized");
     });
-    cy.on("mouseout", "node", (ev) => {
+    cy.on("mouseout", "node.ent", (ev) => {
       ev.target.removeClass("hover");
       if (!ev.target.hasClass("selected")) ev.target.connectedEdges().removeClass("emphasized");
     });
@@ -535,7 +752,7 @@
         n.addClass("selected");
         const neighbourhood = n.closedNeighborhood();
         n.connectedEdges().addClass("emphasized");
-        cy.elements().difference(neighbourhood).addClass("dim");
+        cy.elements().difference(neighbourhood).not(".grp, .grp-head").addClass("dim");
         cy.edges().forEach((edge) => {
           const src = edge.data("source"), tgt = edge.data("target");
           const matches = (graph.links || []).filter((l) => pairKey(l.from, l.to) === pairKey(src, tgt));
@@ -558,8 +775,8 @@
       : cy.nodes().max((n) => (n.data("type") === "Person" ? n.degree() + 80 : n.degree())).ele;
     const rings = [
       { types: ["Person"], minSep: compact ? 76 : 118, step: compact ? 78 : 150 },
-      { types: ["Pet", "Place", "Organisation", "Interest"], minSep: compact ? 62 : 96, step: compact ? 48 : 88 },
-      { types: ["Event", "Conversation", "Topic", "Fact"], minSep: compact ? 26 : 40, step: compact ? 42 : 72 },
+      { types: ["Pet", "Place", "Organisation", "Like", "Dislike"], minSep: compact ? 62 : 96, step: compact ? 48 : 88 },
+      { types: ["KeyEvent", "Event", "Conversation", "Topic", "Fact"], minSep: compact ? 26 : 40, step: compact ? 42 : 72 },
     ];
     cy.batch(() => {
       centerSel.position({ x: 0, y: 0 });
@@ -588,10 +805,18 @@
   }
   function redrawGraph(layoutName) {
     ensureCy();
+    if (layoutName) currentLayout = layoutName;
+    const name = currentLayout;
+    document.querySelectorAll("#filters [data-layout]").forEach((b) => b.classList.toggle("on", b.dataset.layout === name));
     cy.elements().remove();
-    cy.add(graphElements());
-    const name = layoutName || "concentric";
-    if (name === "concentric") {
+    cy.add(graphElements(name === "grouped"));
+    if (name === "grouped") {
+      if (cy.width() < 620) {
+        cy.edges().addClass("g-soft");
+        cy.nodes(".g-focus").connectedEdges().addClass("g-hub");
+      }
+      layoutGrouped();
+    } else if (name === "concentric") {
       layoutMap();
     } else {
       cy.layout(layoutOpts(name)).run();
@@ -601,9 +826,123 @@
     }
     applyGraphHighlights();
   }
+  function toggleArea(key) {
+    const head = cy && cy.$id("head-" + key);
+    const isFolded = head && head.length ? /^\u25b8/.test(head.data("head")) : collapsedAreas.has(key);
+    touchedAreas.add(key);
+    if (isFolded) collapsedAreas.delete(key);
+    else collapsedAreas.add(key);
+    const keepView = cy ? { zoom: cy.zoom(), pan: { ...cy.pan() } } : null;
+    redrawGraph();
+    if (keepView) { cy.zoom(keepView.zoom); cy.pan(keepView.pan); }
+  }
+  /* Grouped layout: focus person in the middle, every category in its own labelled area. */
+  function layoutGrouped() {
+    if (!cy || cy.nodes().empty()) return;
+    const compact = cy.width() < 620;
+    const CELL_W = 104, CELL_H = 46, HEAD_H = 24, TL_ROW = 24, TL_COL_W = 228;
+    const PAD = 12; // must match the .grp padding style
+    const GAP_X = compact ? 0 : 56 + 2 * PAD, GAP_Y = 18 + 2 * PAD;
+    const boxes = {};
+    cy.batch(() => {
+      // Build each area's content at a local origin (0,0 = top-left of the content box).
+      cy.nodes(".grp").forEach((g) => {
+        const key = g.data("area");
+        const def = AREAS.find((a) => a.key === key) || {};
+        const kids = g.children(".ent").toArray().sort((a, b) => String(a.data("sortKey")).localeCompare(String(b.data("sortKey"))));
+        const head = cy.$id("head-" + key);
+        let w, h;
+        if (!kids.length) {
+          w = 150; h = 4;
+        } else if (def.timeline) {
+          const maxRows = compact ? 999 : Math.max(9, Math.min(16, Math.ceil(kids.length / 2)));
+          const cols = Math.max(1, Math.ceil(kids.length / maxRows));
+          const rows = Math.ceil(kids.length / cols);
+          kids.forEach((n, i) => {
+            const c = Math.floor(i / rows), r = i % rows;
+            n.position({ x: 8 + c * TL_COL_W, y: HEAD_H + 8 + r * TL_ROW });
+          });
+          w = cols * TL_COL_W; h = HEAD_H + 8 + (rows - 1) * TL_ROW + 10;
+        } else {
+          const maxCols = compact ? 3 : (kids.length > 12 ? 4 : 3);
+          const cols = Math.min(maxCols, Math.max(1, kids.length <= 3 ? kids.length : Math.ceil(Math.sqrt(kids.length * 1.6))));
+          const rows = Math.ceil(kids.length / cols);
+          kids.forEach((n, i) => {
+            const c = i % cols, r = Math.floor(i / cols);
+            n.position({ x: CELL_W / 2 + c * CELL_W, y: HEAD_H + 8 + r * CELL_H });
+          });
+          w = Math.max(cols * CELL_W, 150); h = HEAD_H + 8 + (rows - 1) * CELL_H + 26;
+        }
+        head.position({ x: 0, y: 4 });
+        boxes[key] = { w, h, nodes: kids.concat([head]) };
+      });
+      const place = (key, x0, y0) => {
+        const b = boxes[key];
+        b.nodes.forEach((n) => n.position({ x: n.position("x") + x0, y: n.position("y") + y0 }));
+        b.x0 = x0; b.y0 = y0;
+      };
+      const focus = cy.nodes(".g-focus");
+      const has = (k) => !!boxes[k];
+      if (compact) {
+        // One column: focus on top, then every area stacked.
+        const order = ["people", "keyevents", "events", "likes", "dislikes", "pets", "places", "orgs", "notes", "other"].filter(has);
+        const W = Math.max(...order.map((k) => boxes[k].w), 150);
+        if (focus.length) focus.position({ x: 0, y: 0 });
+        let y = focus.length ? 44 + PAD : 0;
+        order.forEach((k) => { place(k, -W / 2, y); y += boxes[k].h + GAP_Y; });
+        return;
+      }
+      const left = ["likes", "dislikes", "pets"].filter(has);
+      const right = ["keyevents", "events", "notes"].filter(has);
+      const top = ["people"].filter(has);
+      const bottom = ["places", "orgs", "other"].filter(has);
+      const centreW = Math.max(160, ...top.concat(bottom).map((k) => boxes[k].w));
+      if (focus.length) focus.position({ x: 0, y: 0 });
+      let y = -36 - PAD;
+      top.slice().reverse().forEach((k) => { y -= boxes[k].h; place(k, -boxes[k].w / 2, y); y -= GAP_Y; });
+      y = 40 + PAD;
+      bottom.forEach((k) => { place(k, -boxes[k].w / 2, y); y += boxes[k].h + GAP_Y; });
+      const stack = (keys, side) => {
+        if (!keys.length) return;
+        const total = keys.reduce((s, k) => s + boxes[k].h, 0) + GAP_Y * (keys.length - 1);
+        const colW = Math.max(...keys.map((k) => boxes[k].w));
+        let yy = -total / 2;
+        keys.forEach((k) => {
+          const x0 = side < 0 ? -centreW / 2 - GAP_X - colW + (colW - boxes[k].w) : centreW / 2 + GAP_X;
+          place(k, x0, yy);
+          yy += boxes[k].h + GAP_Y;
+        });
+      };
+      stack(left, -1);
+      stack(right, 1);
+    });
+    fitGrouped();
+  }
+  function fitGrouped() {
+    if (!cy || cy.nodes().empty()) return;
+    const compact = cy.width() < 620;
+    const bb = cy.elements().boundingBox({ includeLabels: true });
+    const m = compact ? 14 : 28;
+    const zx = (cy.width() - 2 * m) / Math.max(bb.w, 1);
+    const zy = (cy.height() - 2 * m) / Math.max(bb.h, 1);
+    if (compact) {
+      const z = Math.max(0.62, Math.min(1.05, zx));
+      cy.zoom(z);
+      cy.pan({ x: cy.width() / 2 - (bb.x1 + bb.w / 2) * z, y: m - bb.y1 * z });
+      return;
+    }
+    const z = Math.max(0.6, Math.min(1.1, zx, zy));
+    cy.zoom(z);
+    // Centre the whole map where it fits; otherwise centre on the focus person in that direction.
+    const f = cy.nodes(".g-focus");
+    const fp = f.length ? f.position() : { x: bb.x1 + bb.w / 2, y: bb.y1 + bb.h / 2 };
+    const cx = bb.w * z <= cy.width() - 2 * m ? bb.x1 + bb.w / 2 : fp.x;
+    const cyy = bb.h * z <= cy.height() - 2 * m ? bb.y1 + bb.h / 2 : fp.y;
+    cy.pan({ x: cy.width() / 2 - cx * z, y: cy.height() / 2 - cyy * z });
+  }
   function separateNameLabels() {
     if (!cy) return;
-    const keep = new Set(["Person", "Pet", "Place", "Interest", "Organisation"]);
+    const keep = new Set(["Person", "Pet", "Place", "Like", "Dislike", "Organisation"]);
     const nodes = cy.nodes().filter((n) => keep.has(n.data("type")));
     const labW = 90, labH = 14, gap = 8;
     for (let iter = 0; iter < 80; iter++) {
@@ -643,6 +982,7 @@
     }).join("") +
       `<span class="research-legend"><em>?</em> dashed = research (unconfirmed)</span>` +
       `<div class="layout-btns">
+        <button type="button" class="textbtn" data-layout="grouped" title="Labelled areas: people, likes, dislikes, key events, events…">Grouped</button>
         <button type="button" class="textbtn" data-layout="concentric">Map</button>
         <button type="button" class="textbtn" data-layout="cose">Force</button>
         <button type="button" class="textbtn" data-layout="breadthfirst">Tree</button>
@@ -659,6 +999,7 @@
       });
     });
     el.querySelectorAll("[data-layout]").forEach((btn) => {
+      btn.classList.toggle("on", btn.dataset.layout === currentLayout);
       btn.addEventListener("click", () => redrawGraph(btn.dataset.layout));
     });
   }
@@ -690,12 +1031,12 @@
   function timelineFor(personId) {
     const items = [];
     neighbours(personId).forEach(({ entity, link }) => {
-      if (["Event", "Conversation", "Fact"].includes(entity.type) || link.label === "timeline") {
+      if (["KeyEvent", "Event", "Conversation", "Fact"].includes(entity.type) || link.label === "timeline") {
         const date = entityDate(entity) || link.date || "";
         items.push({
           date,
           title: displayName(entity),
-          details: entity.notes || (entity.properties && entity.properties.summary) || "",
+          details: [entity.type === "KeyEvent" ? "Key event" : "", entity.properties && entity.properties.location, entity.notes || (entity.properties && (entity.properties.description || entity.properties.summary))].filter(Boolean).join(" \u00b7 "),
           id: entity.id,
           type: entity.type,
         });
@@ -737,7 +1078,7 @@
   function renderPanel(id) {
     const el = $("panel");
     if (!id) {
-      el.innerHTML = "<h2>Details</h2><p class=\"empty\">Click a person, pet, place or like on the graph to see how they connect.</p>";
+      el.innerHTML = "<h2>Details</h2><p class=\"empty\">Click a person, pet, place, like or event to see how they connect. Tap an area heading to fold it away.</p>";
       return;
     }
     const e = entityById(id);
@@ -764,12 +1105,17 @@
         </div>` : "";
       return `<li class="${research ? "research-item" : ""}"><button type="button" data-open="${esc(entity.id)}"><strong>${esc(displayName(entity))}</strong><small style="display:block;color:var(--dim)">${line}</small></button>${extra}</li>`;
     }).join("");
+    const isEvent = e.type === "Event" || e.type === "KeyEvent";
+    const there = isEvent ? neighbours(id, "Person").concat(neighbours(id, "Pet")) : [];
+    const thereHtml = isEvent ? `<div class="sec-label">Who was there</div><div>${there.map(({ entity, link }) =>
+      `<button type="button" class="person-chip${linkStatus(link) === "research" ? " research" : ""}" data-open="${esc(entity.id)}">${esc(displayName(entity))}</button>`).join("") || "<span class='empty'>Nobody linked yet. Add a link such as “was at”.</span>"}</div>` : "";
     el.innerHTML = `
       <div class="type-pill" style="color:${ti.color}">${esc(ti.label)}</div>
       <div class="name">${esc(displayName(e))}</div>
       <div class="meta">${esc(e.id)}${e.sources ? " · " + esc(e.sources) : ""}${e.updated ? " · updated " + esc(e.updated) : ""}</div>
       ${e.notes ? `<p style="font-size:.9rem;margin-bottom:.6rem">${esc(e.notes)}</p>` : ""}
       ${kv}
+      ${thereHtml}
       <div class="actions">
         <button type="button" class="textbtn gold" data-edit="${esc(e.id)}">Edit</button>
         <button type="button" class="textbtn gold" data-add-link="${esc(e.id)}">Add link</button>
@@ -832,7 +1178,8 @@
     const peopleLinks = neighbours(e.id, "Person");
     const pets = neighbours(e.id, "Pet");
     const places = neighbours(e.id, "Place");
-    const likes = neighbours(e.id, "Interest");
+    const likes = neighbours(e.id, "Like");
+    const dislikes = neighbours(e.id, "Dislike");
     const orgs = neighbours(e.id, "Organisation");
 
     const factHtml = facts.props.map((f) => `<div class="kv"><div class="k">${esc(f.properties.category.replace(/_/g, " "))}</div><div class="v">${esc(f.display)}</div></div>`).join("") +
@@ -883,7 +1230,8 @@
           <div class="sec-label">People</div>${chips(peopleLinks)}
           <div class="sec-label">Pets</div>${chips(pets)}
           <div class="sec-label">Places</div>${chips(places)}
-          <div class="sec-label">Likes / interests</div>${chips(likes)}
+          <div class="sec-label">Likes</div>${chips(likes)}
+          <div class="sec-label">Dislikes</div>${chips(dislikes)}
           <div class="sec-label">Organisations</div>${chips(orgs)}
         </div>
       </div>
@@ -909,7 +1257,7 @@
       if ((e.type === "Person" || e.type === "Pet") && props.birthday) {
         candidates.push({ date: props.birthday, recurring: props.recurring || "annual", kind: "Birthday", title: displayName(e) });
       }
-      if (e.type === "Event" && (props.date || props.birthday)) {
+      if ((e.type === "Event" || e.type === "KeyEvent") && (props.date || props.birthday)) {
         const kind = /birthday/i.test(String(props.kind || displayName(e))) ? "Birthday" : "Event";
         candidates.push({ date: props.date || props.birthday, recurring: props.recurring, kind, title: displayName(e) });
       }
@@ -956,6 +1304,21 @@
   function selectEntity(id) {
     selectedId = id;
     applyGraphHighlights();
+    if (id && cy && currentView === "graph" && cy.$id(id).length) {
+      // Bring an off-screen selection into view (mainly for phones).
+      const n = cy.$id(id);
+      const hood = n.closedNeighborhood().nodes();
+      const rb = hood.renderedBoundingBox({ includeLabels: true });
+      const m = 16;
+      const inView = rb.x1 >= m && rb.y1 >= m && rb.x2 <= cy.width() - m && rb.y2 <= cy.height() - m;
+      if (!inView) {
+        const bb = hood.boundingBox({ includeLabels: true });
+        const zFit = Math.min((cy.width() - 2 * m) / Math.max(bb.w, 1), (cy.height() - 2 * m) / Math.max(bb.h, 1));
+        const z = Math.max(0.55, Math.min(cy.zoom(), zFit));
+        const target = z >= zFit - 1e-6 ? { x: bb.x1 + bb.w / 2, y: bb.y1 + bb.h / 2 } : n.position();
+        cy.animate({ zoom: z, pan: { x: cy.width() / 2 - target.x * z, y: cy.height() / 2 - target.y * z }, duration: 220 });
+      }
+    }
     renderPanel(id);
     bumpIdle();
   }
@@ -970,7 +1333,7 @@
     if (name === "upcoming") renderUpcoming();
     if (name === "graph") {
       redrawGraph();
-      setTimeout(() => { if (cy) cy.resize(); }, 50);
+      setTimeout(() => { if (cy) { cy.resize(); if (currentLayout === "grouped") fitGrouped(); } }, 50);
     }
   }
 
@@ -1099,6 +1462,9 @@
       ["city", "City", props.city || "", "text"],
       ["kind", "Kind (dog, home, workplace…)", props.kind || "", "text"],
       ["date", "Date (YYYY-MM-DD)", props.date || "", "text"],
+      ["location", "Location (events)", props.location || "", "text"],
+      ["description", "Description (events)", props.description || "", "textarea"],
+      ["group", "Area override (blank = by type)", props.group || "", "text"],
       ["recurring", "Recurring (annual / blank)", props.recurring || "", "text"],
       ["status", "Status (to raise / raised)", props.status || "", "text"],
       ["category", "Category", props.category || "", "text"],
@@ -1125,11 +1491,13 @@
       if (!name) { toast("A name is required."); return; }
       const t = $("f-type").value;
       const newProps = {};
-      ["birthday","relationship","nickname","likes","dislikes","important_names","how_we_met","address","city","kind","date","recurring","status","category","website","summary"].forEach((k) => {
+      ["birthday","relationship","nickname","likes","dislikes","important_names","how_we_met","address","city","kind","date","location","description","group","recurring","status","category","website","summary"].forEach((k) => {
         const v = $("f-" + k).value.trim();
         if (v) newProps[k] = v;
       });
       if (existing) {
+        const editable = new Set(["birthday","relationship","nickname","likes","dislikes","important_names","how_we_met","address","city","kind","date","location","description","group","recurring","status","category","website","summary"]);
+        Object.keys(existing.properties || {}).forEach((k) => { if (!editable.has(k)) newProps[k] = existing.properties[k]; });
         existing.type = t;
         existing.value = name;
         existing.display = name;
@@ -1215,7 +1583,7 @@
     if (!passphrase || !publishedBlob) return;
     try {
       graph = await tryDecrypt(publishedBlob, passphrase);
-      graph.entities.forEach((e) => { e.type = normalizeType(e.type); });
+      graph.entities.forEach(normalizeEntity);
       localStorage.removeItem(LS_KEY);
       usingLocalDraft = false;
       dirty = false;
@@ -1233,6 +1601,8 @@
   });
 
   window.__pmSelect = (id) => selectEntity(id);
+  window.__pmCy = () => cy;
+  window.__pmToggleArea = (k) => toggleArea(k);
 
   // Fetch the blob early so the lock screen can fail clearly, but do not decrypt.
   fetch("data.enc.json", { cache: "no-store" })

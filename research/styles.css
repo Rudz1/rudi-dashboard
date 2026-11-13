@@ -133,7 +133,7 @@ button{cursor:pointer}
 @media (max-width:800px){
   body{overflow:auto}
   #app{height:auto;min-height:100dvh}
-  .workspace{grid-template-columns:1fr;grid-template-rows:minmax(22rem,50dvh) auto;height:auto;flex:1}
+  .workspace{grid-template-columns:1fr;grid-template-rows:minmax(22rem,60dvh) auto;height:auto;flex:1}
   .workspace.no-panel{grid-template-rows:1fr}
   .panel{border-left:0;border-top:1px solid var(--line);max-height:45dvh}
   .brand{margin-right:0}
@@ -141,3 +141,6 @@ button{cursor:pointer}
   #cy{min-height:22rem}
   .page{padding:.7rem .7rem 5rem}
 }
+
+/* v2: active layout button */
+.layout-btns .textbtn.on{background:rgba(245,196,81,.16);border-color:rgba(245,196,81,.55);color:var(--gold)}

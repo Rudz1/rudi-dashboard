@@ -53,6 +53,7 @@
 
   let publishedBlob = null;
   let passphrase = null;
+  let githubToken = null;
   let graph = null;
   let cy = null;
   let currentView = "graph";
@@ -118,11 +119,13 @@
     clearTimeout(idleTimer);
     idleTimer = setTimeout(() => lock("Locked after 30 minutes without use."), IDLE_MS);
   }
-  function toast(msg) {
+  let toastTimer = null;
+  function toast(msg, ms) {
     const el = $("toast");
     el.textContent = msg;
     el.classList.add("on");
-    setTimeout(() => el.classList.remove("on"), 2800);
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("on"), ms || 2800);
   }
   function londonNow() {
     const parts = new Intl.DateTimeFormat("en-GB", {
@@ -224,6 +227,7 @@
   function lock(msg) {
     graph = null;
     passphrase = null;
+    githubToken = null;
     selectedId = null;
     dirty = false;
     usingLocalDraft = false;
@@ -247,29 +251,79 @@
     return PeopleCrypto.decrypt(blob, pw);
   }
 
+  async function loadPublishedFromPages() {
+    const res = await fetch("data.enc.json?t=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) throw new Error("Could not load the encrypted data file.");
+    return res.json();
+  }
+
+  async function loadTokenFromDevice(pw) {
+    githubToken = null;
+    const raw = localStorage.getItem(ResearchSave.CONFIG.tokenLsKey);
+    if (!raw) return null;
+    try {
+      const blob = JSON.parse(raw);
+      githubToken = await ResearchSave.unwrapToken(blob, pw, PeopleCrypto.decrypt);
+      return githubToken;
+    } catch (e) {
+      githubToken = null;
+      return null;
+    }
+  }
+
+  async function loadFreshestPublished(pw) {
+    let pagesBlob = publishedBlob;
+    try {
+      pagesBlob = await loadPublishedFromPages();
+      publishedBlob = pagesBlob;
+    } catch (e) {
+      if (!publishedBlob) throw e;
+    }
+    if (githubToken) {
+      try {
+        const remote = await ResearchSave.getRemoteFile(githubToken);
+        publishedBlob = remote.blob;
+      } catch (e) {
+        // Fall back to the Pages copy if GitHub cannot be reached.
+      }
+    }
+    return publishedBlob;
+  }
+
+  function applyUnlockedGraph(next, isLocal) {
+    graph = next;
+    usingLocalDraft = !!isLocal;
+    graph.entities.forEach(normalizeEntity);
+    currentView = "graph";
+    showApp();
+    $("local-banner").hidden = !usingLocalDraft;
+    const isExample = /EXAMPLE/i.test(graph.title || "") || /EXAMPLE/i.test(graph.disclaimer || "");
+    $("example-banner").style.display = isExample ? "block" : "none";
+    renderAll();
+    setView("graph");
+    bumpIdle();
+    updateSavingButton();
+  }
+
   async function unlock(pw) {
     const btn = $("unlock-btn");
     const err = $("err");
     btn.disabled = true;
     err.textContent = "Checking…";
     try {
-      if (!publishedBlob) {
-        const res = await fetch("data.enc.json", { cache: "no-store" });
-        if (!res.ok) throw new Error("Could not load the encrypted data file.");
-        publishedBlob = await res.json();
-      }
       let used = null;
       let localOk = false;
       const localRaw = localStorage.getItem(LS_KEY);
       if (localRaw) {
         try {
-          const localBlob = JSON.parse(localRaw);
-          used = await tryDecrypt(localBlob, pw);
+          used = await tryDecrypt(JSON.parse(localRaw), pw);
           localOk = true;
         } catch (e) {
           localOk = false;
         }
       }
+      await loadTokenFromDevice(pw);
+      await loadFreshestPublished(pw);
       let published;
       try {
         published = await tryDecrypt(publishedBlob, pw);
@@ -279,34 +333,24 @@
           throw e;
         }
       }
-      if (localOk && published) {
-        const lu = Date.parse(used.updated || 0) || 0;
-        const pu = Date.parse(published.updated || 0) || 0;
-        if (lu > pu) {
-          graph = used;
-          usingLocalDraft = true;
-        } else {
-          graph = published;
-          usingLocalDraft = false;
-        }
-      } else if (localOk) {
-        graph = used;
-        usingLocalDraft = true;
-      } else {
-        graph = published;
-        usingLocalDraft = false;
-      }
-      graph.entities.forEach(normalizeEntity);
       passphrase = pw;
-      currentView = "graph";
-      showApp();
-      $("local-banner").hidden = !usingLocalDraft;
-      const isExample = /EXAMPLE/i.test(graph.title || "") || /EXAMPLE/i.test(graph.disclaimer || "");
-      $("example-banner").style.display = isExample ? "block" : "none";
-      renderAll();
-      setView("graph");
-      bumpIdle();
+      if (localOk && published) {
+        const lu = ResearchSave.graphTime(used);
+        const pu = ResearchSave.graphTime(published);
+        if (lu > pu) {
+          applyUnlockedGraph(published, false);
+          offerLocalDraft(used, published);
+          return;
+        }
+        applyUnlockedGraph(published, false);
+      } else if (localOk) {
+        applyUnlockedGraph(used, true);
+      } else {
+        applyUnlockedGraph(published, false);
+      }
     } catch (e) {
+      passphrase = null;
+      githubToken = null;
       err.textContent = (e && e.name === "OperationError")
         ? "Wrong passphrase — try again."
         : (e.message || "Could not unlock.");
@@ -1542,22 +1586,157 @@
     toast("Deleted. Click Save to encrypt a new copy.");
   }
 
+  function downloadEncryptedText(text) {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+    a.download = "research.enc.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  async function encryptCurrent() {
+    const blob = await PeopleCrypto.encrypt(graph, passphrase);
+    const text = JSON.stringify(blob);
+    localStorage.setItem(LS_KEY, text);
+    return { blob, text };
+  }
+
   async function saveAll() {
     if (!passphrase || !graph) return;
+    let blob, text;
     try {
-      const blob = await PeopleCrypto.encrypt(graph, passphrase);
-      const text = JSON.stringify(blob);
-      localStorage.setItem(LS_KEY, text);
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([text], { type: "application/json" }));
-      a.download = "research.enc.json";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      dirty = false;
+      ({ blob, text } = await encryptCurrent());
+    } catch (e) {
+      toast(e.message || "Could not encrypt.");
+      return;
+    }
+    dirty = false;
+    if (!githubToken) {
       usingLocalDraft = true;
       $("local-banner").hidden = false;
-      toast("Encrypted copy downloaded, and a local draft kept in this browser. Nothing was stored as plaintext.");
+      openSaveSettings("connect");
+      toast("Encrypted draft kept in this browser. Connect saving to put it online, or download a copy.");
+      return;
+    }
+    try {
+      await ResearchSave.putRemoteFile(githubToken, text);
+      publishedBlob = blob;
+      usingLocalDraft = false;
+      $("local-banner").hidden = true;
+      toast("Saved online. Live in about a minute.", 4500);
+    } catch (e) {
+      usingLocalDraft = true;
+      $("local-banner").hidden = false;
+      openSaveSettings("failed", e.message || "Could not save online.");
+      toast(e.message || "Could not save online.");
+    }
+  }
+
+  function updateSavingButton() {
+    const btn = $("btn-saving");
+    if (!btn) return;
+    if (githubToken) {
+      btn.textContent = "Saving on";
+      btn.classList.add("on-save");
+    } else {
+      btn.textContent = "Saving";
+      btn.classList.remove("on-save");
+    }
+  }
+
+  function openSaveSettings(mode, errorMsg) {
+    const modal = $("save-settings");
+    const status = $("save-settings-status");
+    const field = $("save-token-field");
+    const forget = $("save-token-forget");
+    const storeBtn = $("save-token-store");
+    const input = $("save-token-input");
+    input.value = "";
+    modal.hidden = false;
+    modal.classList.add("on");
+    if (githubToken) {
+      field.hidden = true;
+      storeBtn.hidden = true;
+      forget.hidden = false;
+      status.hidden = false;
+      status.className = "note ok";
+      status.textContent = "Saving is connected on this device. The token is stored here only, encrypted with your passphrase.";
+    } else {
+      field.hidden = false;
+      storeBtn.hidden = false;
+      forget.hidden = true;
+      if (mode === "failed") {
+        status.hidden = false;
+        status.className = "note warn";
+        status.textContent = errorMsg || "Could not save online. You can connect a token and try again, or download an encrypted copy.";
+      } else if (mode === "connect") {
+        status.hidden = false;
+        status.className = "note";
+        status.textContent = "An encrypted draft is kept in this browser. Connect a token to save it online, or download a copy.";
+      } else {
+        status.hidden = true;
+        status.textContent = "";
+        status.className = "note";
+      }
+    }
+    updateSavingButton();
+  }
+
+  function closeSaveSettings() {
+    $("save-settings").classList.remove("on");
+    $("save-settings").hidden = true;
+    $("save-token-input").value = "";
+  }
+
+  async function storeTokenFromForm() {
+    if (!passphrase) { toast("Unlock the board first."); return; }
+    const raw = $("save-token-input").value;
+    try {
+      const wrapped = await ResearchSave.wrapToken(raw, passphrase, PeopleCrypto.encrypt);
+      localStorage.setItem(ResearchSave.CONFIG.tokenLsKey, JSON.stringify(wrapped));
+      githubToken = raw.trim();
+      $("save-token-input").value = "";
+      openSaveSettings("connected");
+      toast("Token saved on this device only, encrypted with your passphrase.");
+    } catch (e) {
+      toast(e.message || "Could not store the token.");
+    }
+  }
+
+  function forgetToken() {
+    localStorage.removeItem(ResearchSave.CONFIG.tokenLsKey);
+    githubToken = null;
+    openSaveSettings("connect");
+    toast("Token forgotten on this device.");
+  }
+
+  let pendingLocalDraft = null;
+  function offerLocalDraft(localGraph, onlineGraph) {
+    pendingLocalDraft = { localGraph, onlineGraph };
+    const modal = $("draft-offer");
+    modal.hidden = false;
+    modal.classList.add("on");
+  }
+  function closeDraftOffer() {
+    $("draft-offer").classList.remove("on");
+    $("draft-offer").hidden = true;
+    pendingLocalDraft = null;
+  }
+  function useOfferedDraft(useLocal) {
+    const pending = pendingLocalDraft;
+    closeDraftOffer();
+    if (!pending) return;
+    applyUnlockedGraph(useLocal ? pending.localGraph : pending.onlineGraph, !!useLocal);
+    toast(useLocal ? "Using the local draft from this browser." : "Using the online copy.");
+  }
+
+  async function downloadEncryptedCopy() {
+    if (!passphrase || !graph) { toast("Unlock the board first."); return; }
+    try {
+      const { text } = await encryptCurrent();
+      downloadEncryptedText(text);
+      toast("Encrypted copy downloaded. Nothing was stored as plaintext.");
     } catch (e) {
       toast(e.message || "Could not encrypt.");
     }
@@ -1574,6 +1753,15 @@
   $("btn-lock").addEventListener("click", () => lock("Locked."));
   $("btn-add").addEventListener("click", () => openEditor("chooser"));
   $("btn-save").addEventListener("click", saveAll);
+  $("btn-saving").addEventListener("click", () => openSaveSettings("settings"));
+  $("save-settings-form").addEventListener("submit", (ev) => { ev.preventDefault(); storeTokenFromForm(); });
+  $("save-token-forget").addEventListener("click", forgetToken);
+  $("save-download").addEventListener("click", downloadEncryptedCopy);
+  $("save-settings-close").addEventListener("click", closeSaveSettings);
+  $("save-settings").addEventListener("click", (ev) => { if (ev.target === $("save-settings")) closeSaveSettings(); });
+  $("draft-use-local").addEventListener("click", () => useOfferedDraft(true));
+  $("draft-use-online").addEventListener("click", () => useOfferedDraft(false));
+  $("draft-offer").addEventListener("click", (ev) => { if (ev.target === $("draft-offer")) useOfferedDraft(false); });
   $("search").addEventListener("input", (ev) => {
     searchTerm = ev.target.value.trim();
     redrawGraph();
@@ -1603,9 +1791,11 @@
   window.__pmSelect = (id) => selectEntity(id);
   window.__pmCy = () => cy;
   window.__pmToggleArea = (k) => toggleArea(k);
+  window.__pmOpenSaving = (mode) => openSaveSettings(mode || "settings");
+  window.__pmOpenDraftOffer = () => offerLocalDraft(graph, graph);
 
   // Fetch the blob early so the lock screen can fail clearly, but do not decrypt.
-  fetch("data.enc.json", { cache: "no-store" })
+  fetch("data.enc.json?t=" + Date.now(), { cache: "no-store" })
     .then((r) => { if (!r.ok) throw new Error("missing"); return r.json(); })
     .then((b) => { publishedBlob = b; })
     .catch(() => { $("err").textContent = "Encrypted data file is missing. Serve this folder over http and keep data.enc.json next to index.html."; });

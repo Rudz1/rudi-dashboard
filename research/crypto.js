@@ -33,7 +33,7 @@ const PeopleCrypto = (() => {
   }
 
   async function decrypt(blob, passphrase) {
-    if (!(window.crypto && crypto.subtle)) {
+    if (!(globalThis.crypto && globalThis.crypto.subtle)) {
       throw new Error("This browser cannot decrypt here (needs https or localhost).");
     }
     if (!blob || !blob.ct || !blob.salt || !blob.iv) {
@@ -50,7 +50,7 @@ const PeopleCrypto = (() => {
   }
 
   async function encrypt(graph, passphrase) {
-    if (!(window.crypto && crypto.subtle)) {
+    if (!(globalThis.crypto && globalThis.crypto.subtle)) {
       throw new Error("This browser cannot encrypt here (needs https or localhost).");
     }
     const salt = crypto.getRandomValues(new Uint8Array(16));

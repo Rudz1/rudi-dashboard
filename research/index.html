@@ -34,6 +34,7 @@
     <div class="search"><input id="search" type="search" placeholder="Search people, places, likes…" aria-label="Search"></div>
     <button type="button" class="textbtn gold" id="btn-add">Add</button>
     <button type="button" class="textbtn gold" id="btn-save">Save</button>
+    <button type="button" class="textbtn" id="btn-saving">Saving</button>
     <button type="button" class="textbtn" id="btn-lock">Lock</button>
   </header>
 
@@ -74,10 +75,41 @@
     <form id="modal-form"></form>
   </div>
 </div>
+<div class="modal" id="save-settings" hidden>
+  <div class="box" role="dialog" aria-modal="true" aria-labelledby="save-settings-title">
+    <h2 id="save-settings-title">Connect saving</h2>
+    <p class="note" id="save-settings-note">To save from this page, create a fine-grained GitHub token that can only write to the rudi-dashboard repo, then paste it here. It is stored on this device only, encrypted with your passphrase, and never uploaded as a website file.</p>
+    <p class="note" id="save-settings-status" hidden></p>
+    <p class="note"><a id="save-token-link" href="https://github.com/settings/personal-access-tokens/new?name=Research+save&amp;description=Save+the+encrypted+research+file+to+the+rudi-dashboard+repo+only&amp;target_name=Rudz1&amp;expires_in=366&amp;contents=write" target="_blank" rel="noopener noreferrer">Open GitHub to create a token</a></p>
+    <form id="save-settings-form" autocomplete="off">
+      <div class="field" id="save-token-field">
+        <label for="save-token-input">Token</label>
+        <input id="save-token-input" type="password" autocomplete="off" spellcheck="false" placeholder="Paste the token, then save it on this device">
+      </div>
+      <div class="actions">
+        <button type="submit" class="textbtn gold" id="save-token-store">Save token on this device</button>
+        <button type="button" class="textbtn" id="save-token-forget" hidden>Forget token on this device</button>
+        <button type="button" class="textbtn" id="save-download">Download encrypted copy</button>
+        <button type="button" class="textbtn" id="save-settings-close">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal" id="draft-offer" hidden>
+  <div class="box" role="dialog" aria-modal="true" aria-labelledby="draft-offer-title">
+    <h2 id="draft-offer-title">Local draft found</h2>
+    <p class="note">This browser has a newer draft than the online file. Would you like to use the local draft?</p>
+    <div class="actions">
+      <button type="button" class="textbtn gold" id="draft-use-local">Use local draft</button>
+      <button type="button" class="textbtn" id="draft-use-online">Use online copy</button>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast" role="status"></div>
 
 <script src="vendor/cytoscape.min.js"></script>
 <script src="crypto.js"></script>
+<script src="save-online.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

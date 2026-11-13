@@ -127,7 +127,7 @@ button{cursor:pointer}
 .field input,.field select,.field textarea{background:var(--bg);border:1px solid var(--line);border-radius:.5rem;padding:.45rem .6rem}
 .field textarea{min-height:4.5rem;resize:vertical}
 .modal .actions{justify-content:flex-end}
-.toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid var(--gold);color:var(--text);padding:.5rem .9rem;border-radius:.6rem;font-size:.85rem;font-weight:700;z-index:30;display:none}
+.toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid var(--gold);color:var(--text);padding:.5rem .9rem;border-radius:.6rem;font-size:.85rem;font-weight:700;z-index:30;display:none;max-width:min(32rem,92vw);text-align:center}
 .toast.on{display:block}
 
 @media (max-width:800px){
@@ -144,3 +144,11 @@ button{cursor:pointer}
 
 /* v2: active layout button */
 .layout-btns .textbtn.on{background:rgba(245,196,81,.16);border-color:rgba(245,196,81,.55);color:var(--gold)}
+
+/* save-online: small additions only */
+[hidden]{display:none !important}
+.modal .note{color:var(--dim);font-size:.88rem;line-height:1.45;margin:0 0 .7rem}
+.modal .note a{color:var(--gold)}
+.modal .note.warn{color:var(--warn)}
+.modal .note.ok{color:var(--ok)}
+.textbtn.on-save{border-color:rgba(123,224,176,.45);color:var(--ok)}

@@ -87,12 +87,19 @@ h1{font-size:1.5rem;font-weight:800;letter-spacing:.06em;color:var(--gold)}
 .fx small{display:block;color:var(--dim);font-size:.68rem;margin-top:.15rem}
 .later .dl{border-bottom:.18rem solid #ff7a59}
 .td-sub{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#ff9d80;margin:.2rem 0 .1rem;column-span:all}
+
+.fin-note{font-size:9px;color:var(--dim,#8a8a8a);line-height:1.35;margin:4px 0 6px}
+.fin-link{display:inline-flex;align-items:center;margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#f5c451;text-decoration:none;border:1px solid rgba(245,196,81,.35);border-radius:999px;padding:5px 10px;background:rgba(245,196,81,.08)}
+.fin-ov{position:fixed;inset:0;z-index:12000;display:none}
+.fin-ov.show{display:flex;flex-direction:column;background:#0c1416}
+.fin-ov-x{appearance:none;position:absolute;top:10px;right:12px;z-index:2;background:rgba(255,255,255,.08);border:1px solid rgba(92,225,197,.4);color:#f4eef3;border-radius:999px;width:36px;height:36px;cursor:pointer}
+.fin-ov-frame{flex:1;width:100%;height:100%;border:0;background:#0c1416}
 </style>
 </head>
 <body>
 <div id="gate" style="display:flex"><h1>RUDI &middot; AT A GLANCE</h1><form id="f" autocomplete="off" style="display:flex;flex-direction:column;align-items:center;gap:1rem"><input id="pw" type="password" readonly inputmode="none" autocomplete="off" placeholder="Enter code" aria-label="Passcode" tabindex="-1"><div id="pad"><button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button><button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button><button type="button" data-k="del" class="alt">&#9003;</button><button type="button" data-k="0">0</button><button type="submit" id="signin" class="go">&#10003;</button></div></form><div class="err" id="err"></div></div>
 <div id="app" style="display:none;visibility:hidden;flex-direction:column;flex:1;min-height:0">
-<header class="top"><button class="lock" id="fs">Full screen</button><button class="lock" id="lock" style="margin-left:.5rem">Lock</button><a class="lock" id="nav-command" href="command.html" style="margin-left:.5rem;text-decoration:none;font-family:inherit;line-height:normal">Command</a><a class="lock" id="nav-plan" href="https://cursor.com/canvas/store-6fa5dffc-2aee-43fc-a62f-e21d378e236c/7f150bda-b3fc-46dd-91ec-0dee3498cbf1" target="_blank" rel="noopener" style="margin-left:.5rem;text-decoration:none;font-family:inherit;line-height:normal">Photography plan</a></header>
+<header class="top"><button class="lock" id="fs">Full screen</button><button class="lock" id="lock" style="margin-left:.5rem">Lock</button><a class="lock" id="nav-bubble" href="https://rudz1.github.io/rudi-dashboard/bubbles.html" style="margin-left:.5rem;text-decoration:none;font-family:inherit;line-height:normal">Bubble</a><a class="lock" id="nav-cyber" href="cyber.html" style="margin-left:.5rem;text-decoration:none;font-family:inherit;line-height:normal">Cyber</a><a class="lock" id="nav-plan" href="https://cursor.com/canvas/store-6fa5dffc-2aee-43fc-a62f-e21d378e236c/7f150bda-b3fc-46dd-91ec-0dee3498cbf1" target="_blank" rel="noopener" style="margin-left:.5rem;text-decoration:none;font-family:inherit;line-height:normal">Photography plan</a></header>
 <section class="strip" id="strip"></section>
 <div class="legend" id="legend"></div>
 <div class="later" id="later"></div>
@@ -135,7 +142,55 @@ function isWedRow(r){const c=[1,2,3,4,5].map(i=>vclean(g(r,i)));return c.every((
 function isWed(it){return vclean(it.status)==="M"||vclean(it.status)===VD[0];}
 function vdate(n){const m=String(n).match(/\((\d{1,2})\s+([A-Za-z]{3})[a-z]*\s+(\d{2,4})\)\s*$/);if(!m)return null;const mo=["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"].indexOf(m[2].toLowerCase());if(mo<0)return null;let y=+m[3];if(y<100)y+=2000;return new Date(y,mo,+m[1]);}
 function vidPost(t){const rows=(RAW["Video & Projects"]||[]).slice(4).filter(r=>g(r,0).trim()&&isWedRow(r));if(!rows.length)return "";const today=new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate());let h='';rows.forEach(r=>{const nm=g(r,0).trim();const d=vdate(nm);const base=nm.replace(/\s*\([^)]*\)\s*$/,"");const dn=[1,2,3,4,5].map(i=>vclean(g(r,i))===VD[i-1]);const late=d&&d<today&&dn.some(x=>!x);h+='<div class="vrow"><div class="vn">'+esc(base)+(d?'<small class="'+(late?"late":"")+'">'+fmtD(d)+""+'</small>':"")+'</div><div class="vcs">'+dn.map((x,i)=>'<span class="vc'+(x?" on":"")+'" title="'+["Movie","Ceremony","Speeches","First dance","Trailer"][i]+'">'+VL[i]+'</span>').join("")+'</div></div>';});return h;}
-function finPost(t){const rows=(RAW.Finances||[]).slice(3);const today=new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate());const mo=["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];const days=[];rows.forEach(r=>{const m=g(r,0).trim().match(/^[A-Za-z]{3}\s+(\d{1,2})\s+([A-Za-z]{3})$/);if(!m)return;const mi=mo.indexOf(m[2].toLowerCase());if(mi<0)return;let d=new Date(today.getFullYear(),mi,+m[1]);if(d<new Date(today.getFullYear(),today.getMonth()-6,1))d=new Date(today.getFullYear()+1,mi,+m[1]);if(d<today)return;const out=g(r,1).split("\n");days.push({d,day:g(r,0).trim(),amt:out[0].trim(),lab:(out[1]||"").trim(),left:g(r,2).trim()});});if(!days.length)return "";const nx=days;let h='';nx.forEach(x=>{const neg=/^-|\u2212/.test(x.left);h+='<div class="vrow"><div class="vn">'+esc(x.day)+(x.amt?'<small>'+esc(x.amt)+(x.lab?" \u00b7 "+esc(x.lab.length>24?x.lab.slice(0,22)+"\u2026":x.lab):"")+'</small>':'')+'</div><div class="vcs"><b'+(neg?' style="color:#ff6b6b"':'')+'>'+esc(x.left)+'</b></div></div>';});return h;}
+function parseFinDateIdx(s, yearHint){
+  const raw=String(s||"").trim();
+  const iso=raw.match(/^(\d{4})-(\d\d)-(\d\d)/);
+  if(iso) return new Date(+iso[1],+iso[2]-1,+iso[3]);
+  const mon=raw.match(/^(?:[A-Za-z]{3}\s+)?(\d{1,2})\s+([A-Za-z]{3})(?:\s+(\d{4}))?$/);
+  if(!mon) return null;
+  const mo=["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"].indexOf(mon[2].toLowerCase());
+  if(mo<0) return null;
+  const y=mon[3]?+mon[3]:(yearHint||new Date().getFullYear());
+  return new Date(y,mo,+mon[1]);
+}
+function isoDayIdx(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function finPost(t){
+  const start=new Date(2026,10,1), end=new Date(2026,11,31);
+  const today=new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate());
+  const rows=(RAW.Finances||[]).slice(3);
+  const by={};
+  let seenItem=false;
+  rows.forEach(r=>{
+    const a=g(r,0).trim();
+    if(!a) return;
+    if(/^Item$/i.test(a) && /^Status$/i.test(g(r,1).trim())){ seenItem=true; return; }
+    if(seenItem) return;
+    if(/lizzie/i.test(a+" "+g(r,1)+" "+g(r,2))) return;
+    const d=parseFinDateIdx(a,2026); if(!d) return;
+    if(d<start||d>end) return;
+    const leftRaw=g(r,2).trim();
+    const n=parseFloat(String(leftRaw).replace(/[^\d.-]/g,""));
+    by[isoDayIdx(d)]={d,left:isNaN(n)?null:n,leftRaw,planned:/\bplanned\b/i.test(g(r,1)+" "+g(r,2)),has:!!g(r,1).trim()};
+  });
+  const from=today<start?start:today;
+  const days=[];
+  let run=null, runTxt="";
+  for(let cur=new Date(start); cur<=end; cur=new Date(cur.getFullYear(),cur.getMonth(),cur.getDate()+1)){
+    const iso=isoDayIdx(cur);
+    const row=by[iso];
+    if(row && row.left!=null){ run=row.left; runTxt=row.leftRaw||money(row.left); }
+    if(cur<from) continue;
+    days.push({d:new Date(cur), day:fmtD(cur), leftTxt:runTxt||"", planned:!!(row&&row.planned)});
+  }
+  if(!days.length) return "";
+  let h='<p class="fin-note">End-of-day running total from the confirmed bank balance. Days with no movement stay on the list. Later days are a forecast.</p>';
+  h+='<a class="fin-link" id="btnFullFin" href="full-board/index.html">Full finances</a>';
+  days.forEach(x=>{
+    const neg=/^-|\u2212/.test(x.leftTxt);
+    h+='<div class="vrow"><div class="vn">'+esc(x.day)+(x.planned?'<small>planned</small>':'')+'</div><div class="vcs"><b'+(neg?' style="color:#ff6b6b"':'')+'>'+esc(x.leftTxt||"—")+'</b></div></div>';
+  });
+  return h;
+}
 const STALE_DAYS=7;
 const USAGE_FALLBACK={pct:44.6, asof:"2026-11-13 09:33"};
 function lnow(){ return new Date(new Date().toLocaleString("en-US",{timeZone:"Europe/London"})); }
@@ -306,6 +361,33 @@ setInterval(()=>{ if(RAW) render(); },30000);
  };
  document.addEventListener("fullscreenchange",upd);
  document.addEventListener("webkitfullscreenchange",upd);
+})();
+</script>
+<div class="fin-ov" id="finOv" hidden aria-hidden="true"><button type="button" class="fin-ov-x" id="finOvClose" aria-label="Close finances">×</button><iframe class="fin-ov-frame" id="finOvFrame" title="Full finances" src="about:blank"></iframe></div>
+<script>
+(function(){
+  const ov=document.getElementById("finOv");
+  const frame=document.getElementById("finOvFrame");
+  function openFin(){
+    if(!ov) return;
+    if(frame && !frame.getAttribute("data-loaded")){ frame.src="full-board/index.html"; frame.setAttribute("data-loaded","1"); }
+    ov.hidden=false; ov.classList.add("show"); ov.setAttribute("aria-hidden","false");
+    document.body.style.overflow="hidden";
+  }
+  function closeFin(){
+    if(!ov) return;
+    ov.classList.remove("show"); ov.hidden=true; ov.setAttribute("aria-hidden","true");
+    document.body.style.overflow="";
+  }
+  document.addEventListener("click",e=>{
+    const b=e.target.closest && e.target.closest("#btnFullFin");
+    if(!b) return;
+    e.preventDefault();
+    openFin();
+  });
+  const x=document.getElementById("finOvClose");
+  if(x) x.addEventListener("click",closeFin);
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeFin(); });
 })();
 </script>
 </body>

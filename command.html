@@ -170,7 +170,6 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
   .td small{display:block;margin-top:0}
   .vrow{font-size:11.5px;padding-top:2.5px;padding-bottom:2.5px}
   .pleg{margin-top:3px}
-  .col.right .sec:last-child{margin-top:auto}
   .col.right .ln{padding-top:3px;padding-bottom:3px}
   .col.right .ln .v small{display:inline;margin:0 0 0 .35em}
   .col.right .ln .v small:before{content:"· ";}
@@ -242,7 +241,28 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
 .soon{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center}
 .soon .lab{font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:#ffb3d4}
 .usage-meta .stale{color:#ffb3d4}
-@media (min-width:900px){.col.left,.col.right{overflow-y:auto;scrollbar-width:thin}}
+@media (min-width:900px){
+  .col.left,.col.right{overflow:hidden;min-height:0}
+  #secUsage,#secVideo{flex:0 0 auto;overflow:visible}
+  #secFin{display:flex;flex-direction:column;flex:1 1 210px;min-height:210px;overflow:hidden}
+  #secSched{display:flex;flex-direction:column;flex:1 1 140px;min-height:140px;overflow:hidden}
+  #secTodo{display:flex;flex-direction:column;flex:1 1 160px;min-height:160px;overflow:hidden}
+  #secSocial{display:flex;flex-direction:column;flex:1 1 140px;min-height:140px;overflow:hidden}
+  #secInvest{display:flex;flex-direction:column;flex:0 1 auto;min-height:0;overflow:hidden;padding-top:6px;padding-bottom:5px}
+  #secFin .sec-scroll,#secTodo .sec-scroll,#secSocial .sec-scroll,#secSched .sec-scroll{max-height:none;flex:1 1 auto;min-height:80px}
+  #secInvest .sec-scroll{max-height:none;flex:1 1 auto;min-height:0}
+  #secFin .hero-fig,#secFin>h2,#secFin>.food,#secSched>h2,#secTodo>h2,#secSocial>h2,#secInvest>h2{flex:0 0 auto}
+  #secFin>.food{margin-top:3px;padding-top:3px}
+  #secSched .ln{padding-top:1.5px;padding-bottom:1.5px}
+  #secSched .ln .v small{display:inline;margin:0 0 0 .35em}
+  #secSched .ln .v small:before{content:"· ";}
+  #secSched .later{font-size:9px;line-height:1.25;margin-top:2px;padding-top:2px}
+  #secVideo .vrow{padding-top:1.5px;padding-bottom:1.5px;font-size:11px}
+  #secVideo h2,#secInvest h2{margin-bottom:3px}
+  #secOps{display:flex;flex-direction:column;overflow:hidden;max-height:min(30vh,220px)}
+  #secOps>h2,#secOps>.ops-keys{flex:0 0 auto}
+  #secOps .sec-scroll{max-height:none;flex:1 1 auto;min-height:0}
+}
 
 /* section scroll (finances days + socials actions) */
 .sec-scroll{position:relative;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;
@@ -254,10 +274,39 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
 .sec-scroll::-webkit-scrollbar-thumb{background:rgba(92,225,197,.35);border-radius:6px}
 #secFin .sec-scroll .ln:first-of-type,#secSocial .sec-scroll .ln:first-of-type{border-top:1px solid rgba(255,255,255,.06);padding-top:5px}
 .sec-scroll .ln.is-today .k{color:var(--mint)}
+.fin-mo{position:sticky;top:0;z-index:2;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:800;color:var(--gold);padding:5px 0 3px;background:#0e0f11;
+  border-bottom:1px solid rgba(255,255,255,.06)}
+#secTodo .sec-scroll{overscroll-behavior:contain}
+/* condensed Photo Ops */
+.ops-keys{display:flex;flex-wrap:wrap;gap:2px 16px;margin:0 0 5px}
+.ops-key{font-size:11px;line-height:1.25}
+.ops-key .lab{display:block;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.ops-key b{font-weight:800;color:#ffd7a8}
+.ops-key em{font-style:normal;font-weight:500;color:var(--muted)}
+.ops-list{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:640px){.ops-list{grid-template-columns:1fr 1fr;column-gap:18px}}
+.ops-row{display:grid;grid-template-columns:1fr auto auto;gap:0 8px;align-items:baseline;
+  padding:2px 0;border-top:1px solid rgba(255,255,255,.06);font-size:11px;line-height:1.25}
+.ops-row .n{min-width:0}
+.ops-row .d{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:10px}
+.ops-row .a{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;color:#ffe7a8;font-size:10.5px}
+.ops-sum{font-size:10px;color:var(--muted);margin:4px 0 0}
+.ops-extra{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:10px;color:var(--muted);margin-top:4px;line-height:1.3}
+.ops-extra b{color:#ddd0ff;font-weight:700}
+.bar .soon{margin-top:4px;gap:4px}
 @media (min-width:900px){
-  #secFin,#secSocial{display:flex;flex-direction:column;min-height:0;flex:1 1 auto;overflow:hidden}
-  #secFin .sec-scroll,#secSocial .sec-scroll{max-height:none;flex:1 1 auto;min-height:0}
+  .bar{padding:2px 12px 3px}
+  .ops-list{grid-template-columns:1fr 1fr 1fr;column-gap:16px}
+  .ops-keys{margin:0 0 2px;gap:0 16px;align-items:baseline}
+  .ops-key{font-size:10.5px;line-height:1.2}
+  .ops-key .lab{display:inline;margin-right:5px}
+  .ops-row{padding:1px 0}
+  .ops-sum,.ops-extra{display:inline;margin:0 12px 0 0;line-height:1.25}
+  .bar .soon{margin-top:2px}
+  .bar h2{margin-bottom:2px}
 }
+
 
 /* full-finances overlay — FLIP from the button */
 .fin-ov{position:fixed;inset:0;z-index:12000;display:flex;align-items:stretch;justify-content:stretch;
@@ -538,16 +587,22 @@ function outDays(){
 }
 function isoDay(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function finDaysHTML(days, today){
-  const start=new Date(2026,10,1), end=new Date(2026,11,31);
   const hasNov=days.some(x=>x.d.getFullYear()===2026&&x.d.getMonth()===10);
   const hasDec=days.some(x=>x.d.getFullYear()===2026&&x.d.getMonth()===11);
   let h='<div class="sec-scroll" id="finDays">';
   if(!days.length) h+='<div class="ln"><div class="k gold"></div><div class="v">No outgoings are listed for 1 Nov to 31 Dec.</div><div class="r"></div></div>';
   else{
     if(!hasNov) h+='<p class="later">November outgoings are not on the sheet yet.</p>';
+    let lastMo=null;
     days.forEach(x=>{
+      const mo=x.d.getFullYear()+"-"+String(x.d.getMonth()+1).padStart(2,"0");
+      if(mo!==lastMo){
+        lastMo=mo;
+        const label=x.d.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+        h+='<div class="fin-mo" data-month="'+mo+'">'+esc(label)+'</div>';
+      }
       const isT=isoDay(x.d)===isoDay(today);
-      h+='<div class="ln'+(isT?" is-today":"")+'" data-iso="'+isoDay(x.d)+'"><div class="k gold">'+esc(x.day)+'</div><div class="v">'+esc(x.lab||x.amt)+(x.lab&&x.amt?'':'')+'</div><div class="r">'+esc(x.amt||"")+'</div></div>';
+      h+='<div class="ln'+(isT?" is-today":"")+'" data-iso="'+isoDay(x.d)+'"><div class="k gold">'+esc(x.day)+'</div><div class="v">'+esc(x.lab||x.amt)+'</div><div class="r">'+esc(x.amt||"")+'</div></div>';
     });
     if(!hasDec) h+='<p class="later">December outgoings are not on the sheet yet.</p>';
   }
@@ -563,7 +618,9 @@ function scrollFinToToday(root){
   const target=rows.find(r=>r.getAttribute("data-iso")>=today)||rows[0];
   if(!target) return;
   const top=target.getBoundingClientRect().top-box.getBoundingClientRect().top+box.scrollTop;
-  box.scrollTop=Math.max(0, Math.round(top));
+  const hdr=box.querySelector(".fin-mo");
+  const gap=hdr?hdr.getBoundingClientRect().height:0;
+  box.scrollTop=Math.max(0, Math.round(top-gap));
 }
 
 function renderFin(){
@@ -600,6 +657,7 @@ function renderSched(){
   const week=upcoming.filter(e=>e.p.d<end);
   const later=upcoming.filter(e=>e.p.d>=end).slice(0,5);
   let h='<h2 class="teal"><span><i class="dot" style="background:var(--teal);color:var(--teal)"></i>Schedule</span></h2>';
+  h+='<div class="sec-scroll" id="schedScroll">';
   week.slice(0,8).forEach(e=>{
     const same=dayKey(e.p.d)===dayKey(start);
     const label=e.p.d.toLocaleDateString("en-GB",{weekday:"short"})+(e.p.t?(" "+(e.p.d.getHours()===19&&e.p.d.getMinutes()===0?"7pm":hm(e.p.d).replace(/^0/,"").replace(/:00$/, e.p.d.getHours()>=12?"":"").trim()||hm(e.p.d))):"");
@@ -626,6 +684,7 @@ function renderSched(){
   if(later.length){
     h+='<p class="later">Later · '+later.map(e=>'<b>'+esc(fmtD(e.p.d))+'</b> '+esc(e.i.item)).join(" · ")+'</p>';
   }
+  h+='</div>';
   el.innerHTML=h;
   return {ev, upcoming:week, later, off:offUntil(ev, now)};
 }
@@ -640,9 +699,8 @@ function tdList(){
   if(isLiz(text+" "+(i.detail||""))) return;
   const dm=String(i.date||"").trim().match(/^(\d{4}-\d\d-\d\d)/), dk=dm?dm[1]:"";
   const um=String(i.updated||"").trim().match(/^(\d{4}-\d\d-\d\d)/), uk=um?um[1]:"";
-  if(dk&&dk>tk) return;
   const id=tdHash(text.toLowerCase()+"|"+dk), L=loc[id];
-  let on=/^done/i.test(i.status.trim()), day=on?(uk||dk||tk):"";
+  let on=/^done\b/i.test(String(i.status||"").trim()), day=on?(uk||dk||tk):"";
   if(L&&L.d>=(uk||"")){ on=!!L.v; day=L.v?L.d:""; }
   if(on&&day<tk) return;
   let over=""; if(!on&&dk&&dk<tk){const p=pd(dk); over=p?fmtD(p.d):dk;}
@@ -658,7 +716,7 @@ function renderTodo(){
   const el=document.getElementById("secTodo"); if(!el) return;
   const L=tdList(), left=L.filter(x=>!x.on).length;
   let h='<h2 class="pink"><span><i class="dot" style="background:var(--pink);color:var(--pink)"></i>To do</span><span class="asof" id="tdLeft">'+(L.length?(left?left+" left":"all done"):"")+'</span></h2>';
-  h+='<div id="tdList">';
+  h+='<div class="sec-scroll" id="tdScroll"><div id="tdList">';
   const IB=L.filter(x=>isInbox(x.text)), RS=L.filter(x=>!isInbox(x.text));
   const row=x=>{
     const label=prettyTodo(x.text);
@@ -670,7 +728,7 @@ function renderTodo(){
   if(IB.length){ h+='<div class="td-sub">Inbox actions · emails to reply to</div>'; IB.forEach(row); if(RS.length) h+='<div class="td-sub rest">To do</div>'; }
   RS.forEach(row);
   if(!L.length) h+='<div class="ln"><div class="k pink"></div><div class="v">Nothing open</div><div class="r"></div></div>';
-  h+='</div>';
+  h+='</div></div>';
   el.innerHTML=h;
 }
 async function tdPush(item,date,v){
@@ -777,38 +835,50 @@ function renderVideo(){
   window.__vidDone = doneAll;
   el.innerHTML=h;
 }
+function opsPay(detail){
+  const m=String(detail||"").match(/(?:GBP|\u00a3)\s*([\d,]+(?:\.\d+)?)\s*to bank approx\s*(\d{4}-\d\d-\d\d)/i);
+  return m?{amt:m[1],p:pd(m[2])}:null;
+}
 function renderOps(){
   const el=document.getElementById("secOps"); if(!el) return;
   const t=T["Photo Ops"]||{items:[],meta:{}};
   const now=londonNow();
   const today=startOfDay(now);
-  const ws=t.items.map(i=>({i,p:pd(i.date)})).filter(x=>x.p&&/wedding/i.test(x.i.item)&&x.p.d>=now).sort((a,b)=>a.p.d-b.p.d);
-  const pays=t.items.map(i=>{const m=String(i.detail).match(/(?:GBP|\u00a3)\s*([\d,]+(?:\.\d+)?)\s*to bank approx\s*(\d{4}-\d\d-\d\d)/i);return m?{i,amt:m[1],p:pd(m[2])}:null;}).filter(x=>x&&x.p&&x.p.d>=today).sort((a,b)=>a.p.d-b.p.d);
-  const nm=x=>x.i.item.replace(/\s*-\s*wedding.*$/i,"");
+  const nm=x=>(x.i||x).item.replace(/\s*-\s*wedding.*$/i,"");
+  const booked=t.items.map(i=>({i,p:pd(i.date),pay:opsPay(i.detail)})).filter(x=>x.p&&/wedding/i.test(x.i.item)&&x.p.d>=now).sort((a,b)=>a.p.d-b.p.d);
+  const pays=booked.filter(x=>x.pay&&x.pay.p&&x.pay.p.d>=today).map(x=>({i:x.i,amt:x.pay.amt,p:x.pay.p})).sort((a,b)=>a.p.d-b.p.d);
   const upd=asofTxt(t.meta.updated||"");
-  let h='<h2 class="orange"><span><i class="dot" style="background:var(--orange);color:var(--orange)"></i>Photo Ops</span><span class="asof">next booked'+(upd?(" · sheet "+esc(upd)):"")+'</span></h2><div class="shoots">';
-  if(pays[0]) h+='<span class="chip pay">Next payment <b>\u00a3'+esc(pays[0].amt)+'</b> · '+esc(fmtD(pays[0].p.d).replace(/^[A-Za-z]{3}\s+/,""))+' · '+esc(nm(pays[0]))+'</span>';
-  if(ws[0]) h+='<span class="chip">Next shoot <b>'+esc(nm(ws[0]))+'</b> · '+esc(fmtD(ws[0].p.d))+'</span>';
-  ws.slice(1,8).forEach(x=>{ h+='<span class="chip">'+esc(nm(x))+' · '+esc(fmtD(x.p.d).replace(/^[A-Za-z]{3}\s+/,""))+'</span>'; });
-  // expected Mar-Aug of next relevant year if we can sum
+  let h='<h2 class="orange"><span><i class="dot" style="background:var(--orange);color:var(--orange)"></i>Photo Ops</span><span class="asof">next booked'+(upd?(" · sheet "+esc(upd)):"")+'</span></h2>';
+  h+='<div class="ops-keys">';
+  if(pays[0]) h+='<div class="ops-key"><span class="lab">Next payment</span><b>\u00a3'+esc(pays[0].amt)+'</b> <em>'+esc(fmtD(pays[0].p.d))+' \u00b7 '+esc(nm(pays[0]))+'</em></div>';
+  if(booked[0]) h+='<div class="ops-key"><span class="lab">Next shoot</span><b>'+esc(nm(booked[0]))+'</b> <em>'+esc(fmtD(booked[0].p.d))+'</em></div>';
+  h+='</div>';
+  h+='<div class="sec-scroll" id="opsScroll">';
+  if(booked.length){
+    h+='<div class="ops-list">';
+    booked.forEach(x=>{
+      h+='<div class="ops-row"><span class="n">'+esc(nm(x))+'</span><span class="d">'+esc(fmtD(x.p.d).replace(/^[A-Za-z]{3}\s+/,""))+'</span><span class="a">'+(x.pay?("\u00a3"+esc(x.pay.amt)):"")+'</span></div>';
+    });
+    h+='</div>';
+  }
   const startM=new Date(2027,2,1), endM=new Date(2027,7,31);
   const sum=pays.filter(x=>x.p.d>=startM&&x.p.d<=endM).reduce((a,x)=>a+parseFloat(String(x.amt).replace(/,/g,"")||0),0);
-  // also include payments already in range even if we filtered past? only future was kept. For Mar-Aug 2027 all are future as of Nov 2026.
-  if(sum>0) h+='<span class="chip mute">\u00a3'+Math.round(sum).toLocaleString("en-GB")+' expected Mar–Aug · not yet received</span>';
+  if(sum>0) h+='<p class="ops-sum">\u00a3'+Math.round(sum).toLocaleString("en-GB")+' expected Mar–Aug \u00b7 not yet received</p>';
+  const extras=[];
   const books=(T["Books & Etsy"]||{items:[]}).items.filter(i=>!isPH(i));
-  const tk=tdToday();
   books.forEach(i=>{
     if(/books?\s*[5-8]|Christmas activity/i.test(i.item)) return;
     const p=pd(i.date);
     if(p&&p.d<today && /upload/i.test(i.status+" "+i.item)) return;
     const when=p?fmtD(p.d):"";
-    h+='<span class="chip later">'+esc(i.item.replace(/^KDP\s+/i,""))+(when?(" · "+when):"")+'</span>';
+    extras.push(esc(i.item.replace(/^KDP\s+/i,""))+(when?(" \u00b7 "+when):""));
   });
   (window.__vidDone||[]).forEach(v=>{
-    h+='<span class="chip mute">'+esc(v.base)+(v.d?(" · "+fmtD(v.d).replace(/^[A-Za-z]{3}\s+/,"")):"")+' · all done</span>';
+    extras.push(esc(v.base)+(v.d?(" \u00b7 "+fmtD(v.d).replace(/^[A-Za-z]{3}\s+/,"")):"")+" \u00b7 all done");
   });
-  h+='</div>';
+  if(extras.length) h+='<div class="ops-extra">'+extras.map(x=>"<span>"+x+"</span>").join("")+"</div>";
   h+=soonHTML();
+  h+='</div>';
   el.innerHTML=h;
 }
 function refreshBrief(){
@@ -891,11 +961,13 @@ function renderInvest(){
   const el=document.getElementById("secInvest"); if(!el) return;
   const it=finItem(/^investing/i);
   let h='<h2 class="lav"><span><i class="dot" style="background:var(--lav);color:var(--lav)"></i>Investing</span>'+(it&&it.updated?'<span class="asof">'+esc("as of "+asofTxt(it.updated))+'</span>':'')+'</h2>';
+  h+='<div class="sec-scroll" id="invScroll">';
   if(!it||/no data/i.test(it.status||"")){
     h+='<div class="ln"><div class="k lav">Trading 212</div><div class="v">No data yet<small>No portfolio figures on file yet. Nothing is estimated.</small></div><div class="r"></div></div>';
   } else {
     h+='<div class="ln"><div class="k lav">Trading 212</div><div class="v">'+esc(it.status)+(it.detail?'<small>'+esc(it.detail.slice(0,120))+'</small>':'')+'</div><div class="r">'+esc(it.date?asofTxt(it.date):"")+'</div></div>';
   }
+  h+='</div>';
   el.innerHTML=h;
 }
 function comingUp(){

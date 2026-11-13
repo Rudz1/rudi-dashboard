@@ -1,0 +1,4335 @@
+{
+  "title": "Money · Rudi",
+  "owner": "Household · Rudi",
+  "address": "16 River View NE61 5TY",
+  "asOf": "12 Nov 2026, 14:33",
+  "houseDDsStart": "1 Oct 2026",
+  "cashBalance": 1430.0,
+  "nextBigDD": "1 Oct 2026",
+  "houseDDs": [
+    {
+      "name": "NatWest mortgage",
+      "amount": 292.12,
+      "day": 1,
+      "firstPayment": 322.12,
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: D/D NATWEST BANK initial £322.12 on 1 Oct 2026; ongoing £292.12 posted 2 Nov (1 Nov was Sunday). Monthly on the 1st (weekend → Monday)."
+    },
+    {
+      "name": "Scottish Widows life insurance",
+      "amount": 30.76,
+      "day": 2,
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: D/D SCOTTISH WIDOWS initial £35.76 on 2 Oct 2026; £5 refunded 14 Oct; ongoing £30.76 on 2 Nov. Model uses £30.76 from Dec (11 Nov audit). Monthly on the 2nd (weekend → Monday)."
+    },
+    {
+      "name": "Gas + electricity",
+      "amount": 110,
+      "day": 1,
+      "status": "confirmed",
+      "approx": false,
+      "note": "£110/mo on the 1st from 1 Dec — confirmed Rudi 11 Nov 16:52. EDF acct A-F4C213EA, Standard Variable, Direct Debit set up 3 Nov. 12 Sep–1 Nov bill £205.82 paid 3 Nov."
+    },
+    {
+      "name": "EE Device payment",
+      "amount": 99.38,
+      "day": 1,
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: D/D EE DEVICE PAYMENT £99.38 on 3 Aug, 1 Sep, 1 Oct, 2 Nov (1 Nov Sunday). Monthly on the 1st (weekend → Monday)."
+    },
+    {
+      "name": "EE Limited phone contract (varies)",
+      "amount": 81.73,
+      "day": 2,
+      "status": "confirmed — amount varies",
+      "approx": true,
+      "note": "Statement: D/D EE LIMITED £95.70 (3 Aug, initial), £123.20 (1 Sep), £81.73 (2 Oct), £129.92 (2 Nov, one-off higher — Rudi). Amount varies; model uses Oct £81.73 from Dec. Monthly on the 2nd (weekend → Monday)."
+    },
+    {
+      "name": "EE LTD broadband",
+      "amount": 45.99,
+      "day": 28,
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: D/D EE LTD £45.99 on 28 Sep (initial) and 26 Oct. Model day 28th (weekend → Monday)."
+    },
+    {
+      "name": "Gym (VG Trading)",
+      "amount": 48,
+      "day": 1,
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: D/D VG TRADING NO 1 LT £48 on 3 Aug, 1 Sep, 1 Oct, 2 Nov (1 Nov Sunday). Monthly on the 1st (weekend → Monday)."
+    },
+    {
+      "name": "Spotify",
+      "amount": 12.99,
+      "day": 29,
+      "startDate": "2026-10-29",
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: SPOTIFY £12.99 charged 29 Sep posted 30 Sep; charged 29 Oct posted 30 Oct. Monthly on the 29th (weekend → Monday)."
+    },
+    {
+      "name": "Lightroom (Adobe)",
+      "amount": 11.99,
+      "day": 26,
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: ADOBE SAGGART £11.99 charged 26 Jul / 26 Aug / 26 Sep / 26 Oct (posted 27 Jul / 27 Aug / 28 Sep / 27 Oct). Monthly on the 26th (weekend → Monday)."
+    },
+    {
+      "name": "WhisperFlow (Google Play)",
+      "amount": 15,
+      "day": 25,
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: GOOGLE *GOOGLE / PLAY AP £15.00 charged 25 Oct, posted 26 Oct (also 25 Sep / posted 28 Sep). Monthly on the 25th."
+    },
+    {
+      "name": "ChatGPT",
+      "amount": 20,
+      "day": 10,
+      "startDate": "2026-10-10",
+      "status": "cancelled",
+      "approx": false,
+      "note": "Cancelled, per Rudi 28 Oct 2026 and confirmed again 11 Nov 16:52 — nothing counted from 10 Nov onward. Past 10 Oct 2026 payment kept as a record (inside the confirmed balance).",
+      "cancelled": true
+    },
+    {
+      "name": "Google Home Premium",
+      "amount": 8,
+      "day": 19,
+      "startDate": "2026-10-19",
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: GOOGLE *NEST £8.00 charged 19 Oct, posted 20 Oct. Monthly on the 19th (weekend → Monday)."
+    },
+    {
+      "name": "Amazon Prime (Google Play)",
+      "amount": 8.99,
+      "day": 28,
+      "startDate": "2026-10-28",
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: GOOGLE *GOOGLE / PLAY AP £8.99 charged 28 Oct, posted 29 Oct — this is the Prime membership (Amazon email 30 Oct: Music benefit included with Prime now active). The Amazon TrueLayer £8.99 posted 27 Oct (FP 26/10, AMAZON.CO.UK YF6XUVZAM) is a shopping order: Quickeep iPhone charger, order 203-9166262-2842743, 8.99 GBP, 26 Oct 20:37. Not a second membership. Forecast keeps one £8.99 on the 28th."
+    },
+    {
+      "name": "TV Licence (…6465)",
+      "amount": 36,
+      "day": null,
+      "schedule": "Varies — £36 on 2 Nov, 1 Dec, 1 Jan, 1 Feb, 1 Mar; then £15/month from 1 Apr 2027 (1sts, weekend → Monday)",
+      "startDate": "2026-11-02",
+      "status": "confirmed — first £36 taken 2 Nov",
+      "approx": false,
+      "varies": true,
+      "note": "Annual £180 colour licence (…6465, valid to 30/09/2027), 16 River View. Five DDs of £36: 2 Nov (1 Nov Sunday), 1 Dec 2026, 1 Jan (Friday — 11 Nov audit corrected this from 4 Jan), 1 Feb, 1 Mar 2027. From 1 Apr 2027 next licence £15/month on the 1st (weekend → Monday: 1 Apr, 3 May, 1 Jun, 1 Jul, 2 Aug, 1 Sep, 1 Oct, 1 Nov, 1 Dec 2027, 3 Jan, 1 Feb, 1 Mar 2028) — provisional, may change. Set up 15 Oct 2026; first taken 2 Nov."
+    },
+    {
+      "name": "Prodigi (PRODIGI.COM)",
+      "amount": 17.22,
+      "day": 28,
+      "startDate": "2026-11-28",
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement: PRODIGI.COM £17.22 charged 27 Oct, posted 28 Oct. Monthly on the 28th from 28 Nov (weekend → Monday)."
+    },
+    {
+      "name": "Grok Bot / Cursor (AI)",
+      "amount": 56.67,
+      "day": 7,
+      "startDate": "2026-12-07",
+      "status": "confirmed",
+      "approx": false,
+      "note": "Statement/pending: CURSOR, AI POWERED £56.67 charged 7 Oct (posted 8 Oct) and 7 Nov (pending, already inside the £741). Monthly on the 7th from 7 Dec (weekend → Monday)."
+    },
+    {
+      "name": "VitalityLife (kept in just in case – may have stopped)",
+      "amount": 15.99,
+      "day": 2,
+      "startDate": "2026-12-02",
+      "status": "kept in just in case — may have stopped",
+      "approx": false,
+      "note": "Collected £15.99 on 12 Oct and 2 Nov. Rudi 11 Nov 16:52: thinks it has finished, but keep it in the forecast just in case. Monthly on the 2nd from 2 Dec (weekend → Monday)."
+    },
+    {
+      "name": "Northumberland County Council tax (16 River View)",
+      "amount": 145,
+      "day": 28,
+      "schedule": "Personal Direct Debit £145 on the 28th, starting 28 Nov 2026 (weekend → following Monday). First payment Mon 30 Nov 2026. Also move 28 Feb 2027 Sun → Mon 1 Mar, 28 Mar 2027 Sun → Mon 29 Mar, 28 Aug 2027 Sat → Mon 30 Aug. Weekday 28ths stay.",
+      "startDate": "2026-11-28",
+      "status": "Personal DD — first payment Mon 30 Nov 2026",
+      "approx": false,
+      "varies": false,
+      "personal": true,
+      "note": "Rudi 12 Nov 2026 after a call with the council: personal DD of £145 on the 28th from 28 Nov 2026, replacing the three barcode/1st-of-month instalments (removed) and the earlier 1st-of-month / 10-instalment application (not a payment; not in the forecast). Keep £145 through 31 Aug 2027. April 2027+ is still £145 as a slightly cautious stand-in pending the new bill — Rudi said 2027/28 monthly bills should be slightly lower, but there is no confirmed figure, so a lower amount has not been invented. Old-house Newcastle council tax £171 stays off."
+    }
+  ],
+  "calendarItems": [
+    {
+      "name": "Diesel",
+      "amount": 200,
+      "schedule": "£200/month from 1 Nov 2026",
+      "day": 1,
+      "note": "October: £150 pot spent 3 Oct + extra £50 fill 13 Oct = £50 over. Pot rises to £200 from 1 Nov (Rudi 13 Oct)."
+    },
+    {
+      "name": "Food",
+      "amount": 50,
+      "schedule": "Every Sunday",
+      "recurrence": "weekly"
+    },
+    {
+      "name": "Transfer from joint £760 — Oct received early; Nov+ planned on the 25th",
+      "amount": 760,
+      "day": 25,
+      "schedule": "25th every month",
+      "kind": "reminder",
+      "note": "£760 from joint on the 25th of every month — October's was received early (23 Oct); 25 Nov onwards is planned (confirm when landed). With it: £1,280.82 end of Nov (without it £520.82). Sage salary not booked."
+    }
+  ],
+  "credit": [
+    {
+      "name": "Novuna …8168 (£139.84/mo)",
+      "leftToPay": 0,
+      "monthly": 139,
+      "monthlyLabel": "ENDED — letter received 15 Oct 2026",
+      "approx": false,
+      "ended": true,
+      "note": "Finished (Rudi 15 Oct). No more payments."
+    },
+    {
+      "name": "Novuna …5957 (£192.08/mo)",
+      "leftToPay": 0,
+      "monthly": 192,
+      "monthlyLabel": "ENDED Oct 2026 — Novuna email 5 Oct",
+      "approx": false,
+      "ended": true,
+      "note": "Final payment made; collection stopped automatically."
+    },
+    {
+      "name": "MotoNovo …3770 car finance (£331/mo)",
+      "leftToPay": 0,
+      "monthly": 331,
+      "monthlyLabel": "ENDED (Rudi 15 Oct 2026)",
+      "approx": false,
+      "ended": true,
+      "note": "Finished. Was never on the dash or in the calendar."
+    },
+    {
+      "name": "Novuna …5884 (£167/mo)",
+      "leftToPay": 0,
+      "monthly": 167,
+      "monthlyLabel": "ENDED — Novuna email 22 Oct 2026 (agreement …5884, WEX Photo Video)",
+      "approx": false,
+      "ended": true,
+      "note": "Final payment £167.59 (~21 Oct), already inside the balance. No more payments. Was never in the Money Calendar or the DD total."
+    }
+  ],
+  "kpis": {
+    "houseDDsMonth": 1035.83,
+    "firstOfMonthCashOut": 749.5,
+    "creditLeft": 0,
+    "cashBalance": 1430.0,
+    "firstOctNote": "Statement to 6 Oct: NatWest £322.12, VG Trading £48, EE Device £99.38 on 1 Oct; Scottish Widows £35.76, EE Limited £81.73 on 2 Oct; EE LTD broadband £45.99 on 28 Sep. All inside the £1,581.82. Gas/electric still not seen.",
+    "foodBudget": 50,
+    "foodSpent": 68.63,
+    "foodLeft": 0,
+    "foodUntil": "Sat 14 Nov 2026",
+    "dieselBudget": 200,
+    "dieselSpent": 303.01,
+    "dieselLeft": 0,
+    "dieselUntil": "next pot £200 on 1 Dec 2026",
+    "foodNote": "Actual food £68.63 vs £50 pot (£18.63 over). Next £50 Sun 15 Nov.",
+    "houseDDsMonthApr2027": 1014.83,
+    "houseDDsNote": "£1,035.83/month incl. TV Licence £36 (varies: £36 Nov 2026–Mar 2027, then £15 → £1,014.83/month from Apr 2027), Northumberland council tax personal DD £145 on the 28th (weekend → Monday; first payment Mon 30 Nov 2026), Grok Bot / Cursor £56.67 from 7 Dec, Prodigi £17.22, Scottish Widows £30.76, VitalityLife £15.99 kept in just in case from 2 Dec, EDF £110 confirmed. ChatGPT £20 cancelled — not counted. Old-house Newcastle council tax £171 stays off. April 2027 onwards council tax is still £145 as a slightly cautious stand-in pending the new bill — the real 2027/28 monthly amount may be slightly lower; a lower figure has not been invented.",
+    "dieselLabel": "Diesel · Nov pot",
+    "dieselNote": "Nov diesel £303.01: £100 + Costco PFS £101.67 + Tesco Pay at Pump £101.34. Fresh £200 on 1 Dec."
+  },
+  "notes": [
+    "Northumberland County Council tax for 16 River View is a PERSONAL Direct Debit of £145 on the 28th, starting 28 Nov 2026 (Rudi, after a call with the council, 12 Nov 2026). Weekend 28ths move to the following Monday: first payment Mon 30 Nov 2026 (28 Nov is a Saturday). Also 28 Feb 2027 Sun → Mon 1 Mar, 28 Mar 2027 Sun → Mon 29 Mar, 28 Aug 2027 Sat → Mon 30 Aug; weekday 28ths stay. This replaces the three barcode/1st-of-month instalments (£316.31 / £317 / £317 on 1 Dec, 1 Jan, 1 Feb), which have been removed. The earlier 1st-of-month / 10-instalment Direct Debit application is not a payment and is not in the forecast. £145 is kept through 31 Aug 2027. April 2027 onwards is still £145 as a slightly cautious stand-in — Rudi said next year's monthly bills should be slightly lower (charge spread over a whole year), but there is no confirmed 2027/28 figure, so a lower amount has not been invented. Old-house Newcastle council tax £171 stays OFF the personal forecast.",
+    "Bank £1,430 CONFIRMED by Rudi 14:33 Thu 12 Nov 2026. Previous confirmed £690 at 16:55 Wed 11 Nov; Rudi moved his own money into this account (not new income — no separate income event). No scheduled items fell on 11–12 Nov (next is food £50 on Sun 15 Nov; ChatGPT cancelled, not counted), so the net +£740 is already inside this £1,430 — do not add or subtract it again. The earlier £51 unitemised 9–11 Nov and residual −£74.80 are already inside the path to £690/£1,430.",
+    "Bank £741 CONFIRMED by Rudi 07:57 Mon 9 Nov 2026. NatWest PDF close £1,006 (6 Nov) minus pending 7–8 Nov £183.20 minus RingGo £7 = £815.80; residual −£74.80 unexplained. Earlier −£132.18 closed by itemised 3–6 Nov statement lines (including Tesco diesel £101.34 actual). Boyd's £17.90 is haircut; Costco £21.58+£3.49 includes a gift £22 and food £3.07, not extra. Grok Bot / Cursor £56.67 monthly on the 7th from 7 Dec. Etsy listing £9.46: unconfirmed approx every 4 months, estimate 2 Mar 2027. Next food £50 Sun 15 Nov; week 8–14 Nov food exceeded pot. Sage pass-through; £760 on the 25th planned.",
+    "Rudi 6 Nov 2026 ~10:03: bank £1,006 confirmed. £132.18 below prior estimate £1,138.18 (gap not itemised). Food £50 still due Sun 8 Nov.",
+    "Rudi 5 Nov 2026 ~23:00: spent £100 diesel again. Nov pot already used (£100 29 Oct + Costco £101.67); this is beyond the pot. Estimate now £1,138.18.",
+    "Rudi 3 Nov 2026 08:27: paid EDF £205.82 (A-F4C213EA, bill 122946546, 12 Sep–1 Nov; elec £89.28, gas £116.54; move-in 12 Sep). Old Occupier bill £84.38 (A-DC239A42) not counted.",
+    "Rudi 3 Nov 2026 09:48: EDF Direct Debit set up for the 1st of every month (A-F4C213EA), first 1 Dec 2026; amount to confirm, £110 assumed. Weekend 1sts move to Monday.",
+    "Rudi 2 Nov 2026 10:19: bank £1,444 after the 2 Nov DDs. Scottish Widows £30 (was £35.76), EE device £99 (was £99.38), mortgage £292 (was £292.12), EE Limited £129 this month only (extra charges, normal per Rudi; usual from Dec), VitalityLife £15.99 also out.",
+    "Rudi 1 Nov 2026 16:43: no £50 food on Sun 1 Nov (Mum bought enough for this week). Later weekly £50 pots stay.",
+    "Rule (Rudi 1 Nov 2026): DDs falling on a Saturday or Sunday come out the following Monday — applied to every future date. 1 Nov DDs (£549.50) move to Mon 2 Nov, so £702.99 leaves on 2 Nov.",
+    "Rudi 31 Oct 2026 10:16: bank £1,113 (everything since 29 Oct inside: Spotify, Costco PFS £101.67 fuel, Post Office £2, Google £8.99, Revolut +£73, Prodigi £17.22 28 Oct). Nov diesel pot fully used (£1.67 over). New DD: Prodigi £17.22 on the 28th from 28 Nov — DD total £823.17/month. Mum transferred £993 on 31 Oct (replaces the planned £500). Rudi CONFIRMED £2,106 at 16:34 Sun 1 Nov; NatWest PDF (to 30 Oct) reconciled — Costco was £101.67; Revolut +£73 is his own savings, not income; Sage in + ~£1,760 to joint is pass-through; no 1 Nov DDs taken yet. Watch: VitalityLife £15.99 still collected 12 Oct (not in forecast); two £8.99 Prime-like charges (Amazon 27 Oct + Google Play 29 Oct).",
+    "Rudi 28 Oct 2026: removed the £50 food pot on Sun 22 Nov (that week only — other weekly £50 pots stay) and cancelled ChatGPT £20/month (10 Nov onward removed).",
+    "Bank £2,106 CONFIRMED by Rudi 16:34 Sun 1 Nov 2026 — includes Mum £993 (31 Oct). No 1 Nov DDs taken yet; rule (Rudi 1 Nov): Sat/Sun DDs come out the following Monday, so the 1 Nov DDs are due Mon 2 Nov (£702.99 total on 2 Nov). Sage pay now lands in the personal account and ~£1,760 goes straight on to joint A/C …9525 — pass-through, not income; £760 back on the 25th is the planned personal income. Revolut +£73 = Rudi's own savings coming back, not income. The £1,113 at 10:16 31 Oct Snapshot — replaces £1,146 (09:19 29 Oct). Inside it since then: Spotify £12.99 (30 Oct), Costco PFS £101.67 (30 Oct, fuel — Nov diesel pot), Post Office £2.00, Google £8.99, Revolut from Mr Laimona +£73.00; Prodigi £17.22 (28 Oct) also inside. £21.65 higher than expected from the itemised statement (£1,091.35) — unexplained, not itemised. Sage salary is in the joint account — never personal income.",
+    "Unexplained difference +£21.65 (not itemised): forecast for end 30 Oct was £1,133.01; less the statement items since (Costco PFS £101.67, Post Office £2.00, Google £8.99, plus Revolut +£73.00) that gives £1,091.35, but the bank is £1,113.00 at 10:16 Sat 31 Oct. Everything up to 10:16 31 Oct is inside the £1,113 (Spotify 30 Oct, Costco PFS fuel 30 Oct, Post Office, Google £8.99, Revolut +£73, Prodigi £17.22 28 Oct) — nothing subtracted again.",
+    "Sage salary lands in the JOINT account and is never personal income. Oct £760 already received (23 Oct); 25 Nov 2026 onward £760 stays planned.",
+    "EDF Energy first bill (ref 120702873, 13 Oct 2026, acct A-DC239A42): £84.38 — SUPERSEDED, not counted (replaced by bill 122946546 £205.82 on new account A-F4C213EA, paid 3 Nov). Elec £27.06 (11–30 Sep) + £14.83 (1–11 Oct); gas £24.50 (11–30 Sep) + £17.99 (1–10 Oct). Gas & electric supplier = EDF; DD now set up on the 1st (A-F4C213EA, from 1 Dec), £110/mo, amount to confirm.",
+    "Novuna …5884 (WEX Photo Video) ENDED — Novuna email 22 Oct 2026; final payment ~21 Oct already inside the balance. All Novuna/MotoNovo credit now finished.",
+    "Work bonus (Rudi 20 Oct 15:40): ~£1,400 at least on Tue 22 Dec 2026, fully his, personal — booked as planned income; confirm when landed.",
+    "Monthly transfer (Rudi 20 Oct 14:31): £760 from the joint account on the 25th of every month until the old house sells — Oct one LANDED early (inside £1,579, 23 Oct); 25 Nov 2026 to 25 Aug 2027 booked as planned; the ~£1,400 work bonus is booked separately on 22 Dec.",
+    "Food 19 Oct: Lidl Ashington £48.55 (card 1341) for the 18–24 Oct week — already inside the £844; £1.45 left, not booked as further spend.",
+    "Finance ended (Rudi 15 Oct 2026): Novuna …8168 (£139.84/mo, letter received), Novuna …5957 (£192.08, email 5 Oct) and MotoNovo …3770 (£331/mo) have all finished — no further payments. Novuna …5884 (£167) is still running and kept. Credit left £2,181 → £169. None of these were in the calendar or the DD total, so no projection changed. EE device £99.38 covers two EE loans: £40 part ends ~Feb 2028, £59 part ~May 2028 (derived from the Jul 2026 credit report, unconfirmed).",
+    "TV Licence set up by direct debit 15 Oct 2026 (…6465, £180/yr): £36 on 2 Nov, 1 Dec, 4 Jan, 1 Feb, 1 Mar; from 1 Apr 2027 £15/month (provisional). DD total £805.95/month now (ChatGPT £20 cancelled, Rudi 28 Oct), £784.95 from Apr 2027.",
+    "Diesel (Rudi 13 Oct 12:54): extra £50 fill today (after the 09:12 snapshot) — October fuel £50 over budget (£150 pot spent 3 Oct; York ~90-mile round trip). Monthly pot £200 from 1 Nov.",
+    "Bank £1,235 at 09:12 Tue 13 Oct 2026 (Rudi). Snapshot — everything up to then is inside it (ChatGPT £20 on 10 Oct, Lidl £48.06 on 10 Oct). Previous: £1,581.82 (statement, end of 6 Oct).",
+    "Gap of £271.77 (expected £1,506.77 vs £1,235) is fully explained: £293.11 of bank lines not in the expected calc, less £15 (Lidl lower on card) and £6.99 (food budget not a bank line) = £271.12, plus £0.65 rounding. Ashington £119.17 was posted 6 Oct and is inside £1,581.82 — not counted again. VitalityLife £15.99 still collected 12 Oct; Cursor £56.67 taken 7 Oct — both flagged.",
+    "Food: week 4–10 Oct ended £3.03 over (£40 cash + Lidl £3.01 + pizza £18 on 9 Oct, possibly from the food cash). Week 11–17 Oct: Lidl Ashington £48.06 on Sat 10 Oct counted to it — £1.94 left. £50 every Sunday from 18 Oct.",
+    "Statement check 7 Oct (NatWest Personal ...6924, 7 Jul–6 Oct): every direct debit on the list is coming through at the expected amount. Not seen yet: gas/electric (no supplier at all), Google Home Premium and Amazon Prime (trials), LV= £7.78 refund. Old-house bills are not on this account.",
+    "Statement vs old projection: the old calendar expected the bank at £1,753 after 4 Oct; the statement shows £1,581.82 at end of 6 Oct — £171.18 lower. £64.28 of that is spending after the 4 Oct snapshot (SP Dog Friendly Co £50.99, Amazon £13.29, both 6 Oct). The other ~£106.90 is earlier card spends that hadn't come off the £1,753 yet. Best fit: ASDA Petrol £99.00 (29 Sep, posted 5 Oct) + McDonald's £7.97 (4 Oct) = £106.97 (7p rounding — £1,753 was whole pounds).",
+    "Sage salary: £1,760.89 landed in this account on 25 Sep and £1,760 + £75 went to the joint account (SEDYTE G & L ...9525) the same day; £225 ('Diesel food rudi') + £50 came back. £1,200 came in from the joint account on 30 Sep. All already inside the balance — no future salary or Gin transfer is booked.",
+    "DD list refreshed 2 Oct 2026 from the NatWest statement 2 Sep–1 Oct, Gmail and Rudi. Monthly total £789.95 (gas+electric £110 still an estimate; EE Limited phone varies).",
+    "ChatGPT £20 on the 10th: CANCELLED, per Rudi 28 Oct 2026 — the 10 Nov payment and all later ones are removed from the forecast; past 10 Oct payment kept as record.",
+    "Diesel: October £150 pot fully spent (Rudi 3 Oct 2026) — then extra £50 fill 13 Oct (£50 over); next pot the new £200 pot on 1 Nov. The last £50 was already on the calendar on 3 Oct, so the balance projection is unchanged.",
+    "Three EE payments: EE Device £99.38 handset (1st), EE Limited phone contract £81.73 this month (2nd, varies), EE LTD broadband £45.99 (28th).",
+    "Life insurance is only Scottish Widows. VitalityLife is not on this list. LV= home insurance left off (being cancelled — see flag).",
+    "Spotify £12.99 is a card payment around the 29th (next 29 Oct), not the 1st.",
+    "Google Play £29.49 on 29 Sep was a one-off purchase — nothing booked.",
+    "Money calendar runs 6 Oct 2026 → 31 Aug 2027 to cover the last wedding payment due within 12 months (Billy & Megan, 19 Aug 2027).",
+    "Projection has no Sage salary or Gin transfer in it — those go to the joint account. Personal balance dips below £0 from 1 Dec 2026 unless a transfer lands.",
+    "Amazon Prime £8.99 starts 28 Oct unless cancelled — reminder 21 Oct.",
+    "Sarah & Aaron photography remaining written off 14 Sep 2026 — leave it, do not count as income.",
+    "Old Barclays mortgage is not on this new-house calendar.",
+    "Sage payday is the 25th into the joint account. Personal pot only gets what is transferred after speaking to Gin. November remaining can go negative without that transfer.",
+    "Amazon Prime (Google Play) trial from 28 Sep 2026; £8.99/month from 28 Oct unless cancelled."
+  ],
+  "sheetUrl": "https://docs.google.com/spreadsheets/d/1QO7uZ-jryBn0gzIGc8qDSW4Ztkvw15kV_buqUq2MGp8/edit",
+  "photography": {
+    "trackedSeparately": false,
+    "writeOffs": [
+      "Sarah & Aaron — written off 14 Sep 2026, do not treat remaining £550 as income"
+    ],
+    "pamAndNath": {
+      "weddingDate": "2026-10-12",
+      "planningRule": "30 days before wedding, then +5 days to hit the bank",
+      "expectedDate": "2026-09-17",
+      "businessRemaining": 2187.5,
+      "personalSharePct": 50,
+      "personalGross": 1093.75,
+      "solicitorReserve": 494,
+      "calendarAmount": 599.75,
+      "status": "received",
+      "dueDate": "2026-09-12",
+      "bankHitDate": "2026-09-17",
+      "receivedDate": "2026-09-17"
+    },
+    "note": "Now counted toward the new-house money (Rudi asked 2 Oct 2026). Your 50% of each job's remaining balance, due 30 days before the wedding, +5 days to hit the bank. Pam & Nath £599.75 and Sage Share & Save were received 17 Sep — not counted again. Sarah & Aaron written off. Jobs on £0 remaining left off.",
+    "countsTowardHouse": true,
+    "source": "Photography Organiser · Main Weddings · read 2 Oct 2026",
+    "payments": [
+      {
+        "couple": "Katy & Jack",
+        "weddingDate": "2027-03-26",
+        "dueDate": "2027-02-24",
+        "bankDate": "2027-03-01",
+        "grossRemaining": 1750,
+        "yourShare": 875.0,
+        "solicitorNet": 0.0,
+        "toBank": 875.0,
+        "note": "",
+        "status": "expected",
+        "cumulative": 875.0
+      },
+      {
+        "couple": "Ame & Ben",
+        "weddingDate": "2027-05-31",
+        "dueDate": "2027-05-01",
+        "bankDate": "2027-05-06",
+        "grossRemaining": 2750,
+        "yourShare": 1375.0,
+        "solicitorNet": 0.0,
+        "toBank": 1375.0,
+        "note": "Organiser: package £3,250 but total £3,000 (no discount listed) — remaining taken as shown",
+        "status": "expected",
+        "cumulative": 2250.0
+      },
+      {
+        "couple": "Kristy & Leon",
+        "weddingDate": "2027-06-03",
+        "dueDate": "2027-05-04",
+        "bankDate": "2027-05-09",
+        "grossRemaining": 2250,
+        "yourShare": 1125.0,
+        "solicitorNet": 0.0,
+        "toBank": 1125.0,
+        "note": "",
+        "status": "expected",
+        "cumulative": 3375.0
+      },
+      {
+        "couple": "David & Chloe",
+        "weddingDate": "2027-06-05",
+        "dueDate": "2027-05-06",
+        "bankDate": "2027-05-11",
+        "grossRemaining": 1200,
+        "yourShare": 600.0,
+        "solicitorNet": 0.0,
+        "toBank": 600.0,
+        "note": "Organiser: package £2,000 − £300 discount = £1,700 but total shows £1,450 — remaining taken as shown (£1,200)",
+        "status": "expected",
+        "cumulative": 3975.0
+      },
+      {
+        "couple": "Megan & Barron",
+        "weddingDate": "2027-06-19",
+        "dueDate": "2027-05-20",
+        "bankDate": "2027-05-25",
+        "grossRemaining": 1550,
+        "yourShare": 775.0,
+        "solicitorNet": 0.0,
+        "toBank": 775.0,
+        "note": "",
+        "status": "expected",
+        "cumulative": 4750.0
+      },
+      {
+        "couple": "Monique & Charles",
+        "weddingDate": "2027-07-29",
+        "dueDate": "2027-06-29",
+        "bankDate": "2027-07-04",
+        "grossRemaining": 4000,
+        "yourShare": 2000.0,
+        "solicitorNet": 0.0,
+        "toBank": 2000.0,
+        "note": "",
+        "status": "expected",
+        "cumulative": 6750.0
+      },
+      {
+        "couple": "Poppy & Ben",
+        "weddingDate": "2027-08-03",
+        "dueDate": "2027-07-04",
+        "bankDate": "2027-07-09",
+        "grossRemaining": 3000,
+        "yourShare": 1500.0,
+        "solicitorNet": 0.0,
+        "toBank": 1500.0,
+        "note": "",
+        "status": "expected",
+        "cumulative": 8250.0
+      },
+      {
+        "couple": "Sophie & Jason",
+        "weddingDate": "2027-08-29",
+        "dueDate": "2027-07-30",
+        "bankDate": "2027-08-04",
+        "grossRemaining": 2262.5,
+        "yourShare": 1131.25,
+        "solicitorNet": 0.0,
+        "toBank": 1131.25,
+        "note": "Organiser: package £2,762.50 but total £2,512.50 (no discount listed) — remaining taken as shown",
+        "status": "expected",
+        "cumulative": 9381.25
+      },
+      {
+        "couple": "Charlotte & Harry",
+        "weddingDate": "2027-09-03",
+        "dueDate": "2027-08-04",
+        "bankDate": "2027-08-09",
+        "grossRemaining": 3000,
+        "yourShare": 1500.0,
+        "solicitorNet": 0.0,
+        "toBank": 1500.0,
+        "note": "",
+        "status": "expected",
+        "cumulative": 10881.25
+      },
+      {
+        "couple": "Billy & Megan",
+        "weddingDate": "2027-09-13",
+        "dueDate": "2027-08-14",
+        "bankDate": "2027-08-19",
+        "grossRemaining": 1250,
+        "yourShare": 625.0,
+        "solicitorNet": 0.0,
+        "toBank": 625.0,
+        "note": "",
+        "status": "expected",
+        "cumulative": 11506.25
+      }
+    ],
+    "flagged": [
+      {
+        "couple": "Emmy & Pantelis (Italy, TBC date)",
+        "wedding": "2027-04-15 (TBC)",
+        "remaining": 4000,
+        "wouldBe": "2027-03-21",
+        "yourShare": 2000,
+        "reason": "Wedding date marked TBC in organiser, £0 paid, no deposit — left OFF the running total until date/booking confirmed"
+      }
+    ],
+    "beyondWindow": [
+      {
+        "couple": "Shannon & Ben",
+        "weddingDate": "2028-02-05",
+        "bankDate": "2028-01-11",
+        "grossRemaining": 2675,
+        "yourShare": 1337.5
+      },
+      {
+        "couple": "Courtney & Ben",
+        "weddingDate": "2028-04-14",
+        "bankDate": "2028-03-20",
+        "grossRemaining": 1750,
+        "yourShare": 875.0
+      },
+      {
+        "couple": "Isobel & Alfie",
+        "weddingDate": "2028-05-27",
+        "bankDate": "2028-05-02",
+        "grossRemaining": 1750,
+        "yourShare": 875.0
+      },
+      {
+        "couple": "Samantha & Jimmy",
+        "weddingDate": "2028-06-21",
+        "bankDate": "2028-05-27",
+        "grossRemaining": 1750,
+        "yourShare": 875.0
+      },
+      {
+        "couple": "Jess & Sean",
+        "weddingDate": "2028-07-28",
+        "bankDate": "2028-07-03",
+        "grossRemaining": 3000,
+        "yourShare": 1500.0
+      },
+      {
+        "couple": "Beth & James",
+        "weddingDate": "2028-08-17",
+        "bankDate": "2028-07-23",
+        "grossRemaining": 3000,
+        "yourShare": 1500.0
+      }
+    ],
+    "totalExpected": 11506.25,
+    "solicitorReserveUsed": 494
+  },
+  "calendarStart": "2026-11-12",
+  "confirmedBalance": 1430.0,
+  "confirmedBalanceDate": "2026-11-12",
+  "incomeEvents": [
+    {
+      "date": "2026-09-17",
+      "name": "Pam & Nath — Rudi 50%",
+      "amount": 599.75,
+      "status": "received",
+      "note": "Received 17 Sep 2026. Already inside the £1,802 bank figure. Solicitor £494 was taken off before this credit."
+    },
+    {
+      "date": "2026-09-17",
+      "name": "Sage Share & Save",
+      "amount": 1225,
+      "status": "received",
+      "note": "Received 17 Sep 2026 with the photo payment. Already inside the £1,802 bank figure. Not listed again on 18 Sep."
+    },
+    {
+      "date": "2026-10-23",
+      "name": "Transfer from joint — October £760 (RECEIVED early)",
+      "amount": 760,
+      "status": "received",
+      "note": "Rudi 23 Oct: October's £760 from joint landed early; already inside the balance (06:39 23 Oct). Not in the forward forecast."
+    },
+    {
+      "date": "2026-11-25",
+      "name": "Transfer from joint (planned, monthly until old house sells)",
+      "amount": 760,
+      "status": "planned",
+      "recurrence": "monthly on the 25th, 25 Oct 2026 – 25 Aug 2027 (calendar end)",
+      "note": "Rudi 20 Oct: £760 from joint on the 25th of every month until the old house sells. Oct one = £587 spare + £75 EE + £100 diesel. Planned, confirm each when landed. Sage salary not booked; the ~£1,400 Dec bonus is booked separately on 22 Dec."
+    },
+    {
+      "date": "2026-12-22",
+      "name": "Work bonus (planned, ~£1,400 at least)",
+      "amount": 1400,
+      "status": "planned",
+      "note": "Rudi 20 Oct 15:40: work bonus about £1,400 at least, fully his, into personal. Planned — confirm when landed."
+    }
+  ],
+  "pots": {
+    "food": {
+      "budget": 50,
+      "spent": 68.63,
+      "left": 0,
+      "week": "Sun 25 Oct – Sat 31 Oct 2026",
+      "resets": "Sun 1 Nov 2026 (£50)",
+      "note": "Week 8–14 Nov food £68.63 (Farmfoods 26.99 + Lidl 26.57 + Costco food 3.07 + Curry 12). Next £50 on 15 Nov."
+    },
+    "diesel": {
+      "budget": 200,
+      "spent": 303.01,
+      "left": 0,
+      "resets": "1 Dec 2026 (£200)",
+      "next": "£200 on 1 Dec 2026",
+      "note": "Nov diesel actual £303.01; pot £200 over by £103.01. Fresh £200 on 1 Dec."
+    }
+  },
+  "oneOffOut": [
+    {
+      "date": "2026-11-05",
+      "name": "Diesel £100 (beyond Nov pot)",
+      "amount": 100,
+      "note": "Rudi 5 Nov ~23:00; Nov pot already used by Costco"
+    },
+    {
+      "date": "2026-09-21",
+      "name": "Diesel fill",
+      "amount": 100,
+      "note": "User 21 Sep 2026 — previous message missed"
+    },
+    {
+      "date": "2026-10-21",
+      "name": "Prime trial — cancel by 28 Oct?",
+      "amount": 0,
+      "note": "No charge if cancelled before 28 Oct 2026"
+    },
+    {
+      "date": "2026-10-29",
+      "name": "Diesel fill (counts toward Nov pot)",
+      "amount": 100,
+      "note": "Rudi 29 Oct 2026 — Nov budget starts after payday on the 25th; 1 Nov pot reduced to £100"
+    },
+    {
+      "date": "2026-10-30",
+      "name": "Costco PFS (fuel — Nov diesel pot)",
+      "amount": 101.67,
+      "note": "NatWest PDF: £101.67 (card 29 Oct, posted 30 Oct). Inside the balance; pot £0 left, £1.67 over"
+    }
+  ],
+  "novemberPlan": {
+    "checkpoint": "2026-10-31",
+    "balanceMorning25Oct": 741.0,
+    "balanceAfter25Oct": 741.0,
+    "projectedEndNov": 1280.82,
+    "raiseFor500": 0,
+    "raiseFor600": 0,
+    "calculated": "2026-10-31 10:20",
+    "note": "Fresh calc 1 Nov 2026 16:34 from Rudi-confirmed £2,106 (incl. Mum £993 31 Oct; no 1 Nov DDs taken yet): everything to 31 Oct 10:16 is inside it (Spotify 30 Oct, Costco PFS £101.67 fuel 30 Oct, Post Office £2, Google £8.99, Revolut +£73 (own savings transfer back, not income), Prodigi £17.22 28 Oct); Nov diesel pot fully used (£1.67 over), next £200 on 1 Dec; Prodigi £17.22 monthly on the 28th from 28 Nov; food £50 every Sunday except Sun 1 Nov 2026 (Mum bought the food, Rudi 1 Nov 16:43) and Sun 22 Nov 2026 (removed, Rudi 28 Oct); ChatGPT £20/month cancelled (Rudi 28 Oct) and no longer counted; Oct diesel over budget, pot £200 from 1 Nov; current DD list. Includes the PLANNED £760 transfer from joint on the 25th of EVERY month (Rudi 20 Oct: until the old house sells; not yet landed). No Sage salary booked. Top-up = EXTRA amount still needed beyond that £760 to finish 30 Nov at +£500 / +£600.",
+    "plannedTransfer": 760,
+    "projectedEndNovWithoutTransfer": 520.82
+  },
+  "oct1Actual": [
+    {
+      "name": "NatWest mortgage",
+      "amount": 322.12,
+      "date": "2026-10-01"
+    },
+    {
+      "name": "Gym (VG Trading)",
+      "amount": 48,
+      "date": "2026-10-01"
+    },
+    {
+      "name": "EE device payments",
+      "amount": 99.38,
+      "date": "2026-10-01"
+    },
+    {
+      "name": "EE Limited",
+      "amount": 45.99,
+      "date": "2026-09-28"
+    }
+  ],
+  "bankNote": "Bank £1,430 CONFIRMED by Rudi 14:33 Thu 12 Nov 2026. Previous confirmed £690 at 16:55 Wed 11 Nov; Rudi moved his own money into this account (not new income — no separate income event). No scheduled items fell on 11–12 Nov (next is food £50 on Sun 15 Nov; ChatGPT cancelled, not counted), so the net +£740 is already inside this £1,430 — do not add or subtract it again. The earlier £51 unitemised 9–11 Nov and residual −£74.80 are already inside the path to £690/£1,430.",
+  "calendarEnd": "2027-08-31",
+  "moneyCalendar": {
+    "start": "2026-11-12",
+    "end": "2027-08-31",
+    "openingDate": "2026-11-12",
+    "openingBalance": 1430.0,
+    "rule": "Bank £1,430 CONFIRMED by Rudi 14:33 Thu 12 Nov 2026. Previous confirmed £690 at 16:55 Wed 11 Nov; Rudi moved his own money into this account (not new income — no separate income event). No scheduled items fell on 11–12 Nov (next is food £50 on Sun 15 Nov; ChatGPT cancelled, not counted), so the net +£740 is already inside this £1,430 — do not add or subtract it again. The earlier £51 unitemised 9–11 Nov and residual −£74.80 are already inside the path to £690/£1,430.",
+    "rows": [
+      {
+        "date": "2026-11-15",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 1380.0,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-19",
+        "whatFor": "Google Home Premium [trial ends 19 Oct]",
+        "moneyIn": 0,
+        "moneyOut": 8,
+        "running": 1372.0,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Google Home Premium",
+            "amount": 8,
+            "dir": "out",
+            "flag": "trial ends 19 Oct",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-25",
+        "whatFor": "WhisperFlow (Google Play) £15.00 + Transfer from joint (planned, monthly until old house sells) £760.00 [planned, confirm when landed]",
+        "moneyIn": 760,
+        "moneyOut": 15,
+        "running": 2117.0,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "WhisperFlow (Google Play)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Transfer from joint (planned, monthly until old house sells)",
+            "amount": 760,
+            "dir": "in",
+            "flag": "planned, confirm when landed",
+            "kind": "transfer"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-26",
+        "whatFor": "Lightroom (Adobe)",
+        "moneyIn": 0,
+        "moneyOut": 11.99,
+        "running": 2105.01,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Lightroom (Adobe)",
+            "amount": 11.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-29",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 2055.01,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-30",
+        "whatFor": "EE LTD broadband £45.99 + Amazon Prime (Google Play) £8.99 [cancel by 28 Oct or it starts] + Prodigi (PRODIGI.COM) £17.22 [new — added Rudi 31 Oct; 28 Oct charge already left] + Northumberland County Council tax (16 River View) £145.00 [personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented] + Spotify £12.99",
+        "moneyIn": 0,
+        "moneyOut": 230.19,
+        "running": 1824.82,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "EE LTD broadband",
+            "amount": 45.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Amazon Prime (Google Play)",
+            "amount": 8.99,
+            "dir": "out",
+            "flag": "cancel by 28 Oct or it starts",
+            "kind": "dd"
+          },
+          {
+            "name": "Prodigi (PRODIGI.COM)",
+            "amount": 17.22,
+            "dir": "out",
+            "flag": "new — added Rudi 31 Oct; 28 Oct charge already left",
+            "kind": "dd"
+          },
+          {
+            "name": "Northumberland County Council tax (16 River View)",
+            "amount": 145,
+            "dir": "out",
+            "flag": "personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented",
+            "kind": "dd"
+          },
+          {
+            "name": "Spotify",
+            "amount": 12.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-01",
+        "whatFor": "NatWest mortgage £292.12 + EDF gas + electric (DD) £110.00 [EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52] + EE Device payment £99.38 + Gym (VG Trading) £48.00 + Diesel pot £200.00 + TV Licence (…6465) £36.00",
+        "moneyIn": 0,
+        "moneyOut": 785.5,
+        "running": 1039.32,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "NatWest mortgage",
+            "amount": 292.12,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EDF gas + electric (DD)",
+            "amount": 110,
+            "dir": "out",
+            "flag": "EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Device payment",
+            "amount": 99.38,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Gym (VG Trading)",
+            "amount": 48,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Diesel pot",
+            "amount": 200,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "TV Licence (…6465)",
+            "amount": 36,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-02",
+        "whatFor": "Scottish Widows life insurance £30.76 [Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit] + EE Limited phone contract £81.73 [amount varies — £81.73 = Oct bill] + VitalityLife (kept in just in case – may have stopped) £15.99 [Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case]",
+        "moneyIn": 0,
+        "moneyOut": 128.48,
+        "running": 910.84,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Scottish Widows life insurance",
+            "amount": 30.76,
+            "dir": "out",
+            "flag": "Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Limited phone contract",
+            "amount": 81.73,
+            "dir": "out",
+            "flag": "amount varies — £81.73 = Oct bill",
+            "kind": "dd"
+          },
+          {
+            "name": "VitalityLife (kept in just in case – may have stopped)",
+            "amount": 15.99,
+            "dir": "out",
+            "flag": "Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-06",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 860.84,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-07",
+        "whatFor": "Grok Bot / Cursor (AI) [monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday]",
+        "moneyIn": 0,
+        "moneyOut": 56.67,
+        "running": 804.17,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Grok Bot / Cursor (AI)",
+            "amount": 56.67,
+            "dir": "out",
+            "flag": "monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-13",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 754.17,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-20",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 704.17,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-21",
+        "whatFor": "Google Home Premium",
+        "moneyIn": 0,
+        "moneyOut": 8,
+        "running": 696.17,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Google Home Premium",
+            "amount": 8,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-22",
+        "whatFor": "Work bonus (planned, ~£1,400 at least) [planned, confirm when landed — Rudi 20 Oct: fully his, personal]",
+        "moneyIn": 1400,
+        "moneyOut": 0,
+        "running": 2096.17,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Work bonus (planned, ~£1,400 at least)",
+            "amount": 1400,
+            "dir": "in",
+            "flag": "planned, confirm when landed — Rudi 20 Oct: fully his, personal",
+            "kind": "bonus"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-25",
+        "whatFor": "WhisperFlow (Google Play) £15.00 + Transfer from joint (planned, monthly until old house sells) £760.00 [planned, confirm when landed]",
+        "moneyIn": 760,
+        "moneyOut": 15,
+        "running": 2841.17,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "WhisperFlow (Google Play)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Transfer from joint (planned, monthly until old house sells)",
+            "amount": 760,
+            "dir": "in",
+            "flag": "planned, confirm when landed",
+            "kind": "transfer"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-27",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 2791.17,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-28",
+        "whatFor": "Lightroom (Adobe) £11.99 + EE LTD broadband £45.99 + Amazon Prime (Google Play) £8.99 + Prodigi (PRODIGI.COM) £17.22 [new — added Rudi 31 Oct; 28 Oct charge already left] + Northumberland County Council tax (16 River View) £145.00 [personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented]",
+        "moneyIn": 0,
+        "moneyOut": 229.19,
+        "running": 2561.98,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Lightroom (Adobe)",
+            "amount": 11.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EE LTD broadband",
+            "amount": 45.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Amazon Prime (Google Play)",
+            "amount": 8.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Prodigi (PRODIGI.COM)",
+            "amount": 17.22,
+            "dir": "out",
+            "flag": "new — added Rudi 31 Oct; 28 Oct charge already left",
+            "kind": "dd"
+          },
+          {
+            "name": "Northumberland County Council tax (16 River View)",
+            "amount": 145,
+            "dir": "out",
+            "flag": "personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-29",
+        "whatFor": "Spotify",
+        "moneyIn": 0,
+        "moneyOut": 12.99,
+        "running": 2548.99,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Spotify",
+            "amount": 12.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-01",
+        "whatFor": "NatWest mortgage £292.12 + EDF gas + electric (DD) £110.00 [EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52] + EE Device payment £99.38 + Gym (VG Trading) £48.00 + Diesel pot £200.00 + TV Licence (…6465) £36.00",
+        "moneyIn": 0,
+        "moneyOut": 785.5,
+        "running": 1763.49,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "NatWest mortgage",
+            "amount": 292.12,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EDF gas + electric (DD)",
+            "amount": 110,
+            "dir": "out",
+            "flag": "EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Device payment",
+            "amount": 99.38,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Gym (VG Trading)",
+            "amount": 48,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Diesel pot",
+            "amount": 200,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "TV Licence (…6465)",
+            "amount": 36,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-03",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 1713.49,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-04",
+        "whatFor": "Scottish Widows life insurance £30.76 [Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit] + EE Limited phone contract £81.73 [amount varies — £81.73 = Oct bill] + VitalityLife (kept in just in case – may have stopped) £15.99 [Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case]",
+        "moneyIn": 0,
+        "moneyOut": 128.48,
+        "running": 1585.01,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Scottish Widows life insurance",
+            "amount": 30.76,
+            "dir": "out",
+            "flag": "Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Limited phone contract",
+            "amount": 81.73,
+            "dir": "out",
+            "flag": "amount varies — £81.73 = Oct bill",
+            "kind": "dd"
+          },
+          {
+            "name": "VitalityLife (kept in just in case – may have stopped)",
+            "amount": 15.99,
+            "dir": "out",
+            "flag": "Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-07",
+        "whatFor": "Grok Bot / Cursor (AI) [monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday]",
+        "moneyIn": 0,
+        "moneyOut": 56.67,
+        "running": 1528.34,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Grok Bot / Cursor (AI)",
+            "amount": 56.67,
+            "dir": "out",
+            "flag": "monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-10",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 1478.34,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-17",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 1428.34,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-19",
+        "whatFor": "Google Home Premium",
+        "moneyIn": 0,
+        "moneyOut": 8,
+        "running": 1420.34,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Google Home Premium",
+            "amount": 8,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-24",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 1370.34,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-25",
+        "whatFor": "WhisperFlow (Google Play) £15.00 + Transfer from joint (planned, monthly until old house sells) £760.00 [planned, confirm when landed]",
+        "moneyIn": 760,
+        "moneyOut": 15,
+        "running": 2115.34,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "WhisperFlow (Google Play)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Transfer from joint (planned, monthly until old house sells)",
+            "amount": 760,
+            "dir": "in",
+            "flag": "planned, confirm when landed",
+            "kind": "transfer"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-26",
+        "whatFor": "Lightroom (Adobe)",
+        "moneyIn": 0,
+        "moneyOut": 11.99,
+        "running": 2103.35,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Lightroom (Adobe)",
+            "amount": 11.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-28",
+        "whatFor": "EE LTD broadband £45.99 + Amazon Prime (Google Play) £8.99 + Prodigi (PRODIGI.COM) £17.22 [new — added Rudi 31 Oct; 28 Oct charge already left] + Northumberland County Council tax (16 River View) £145.00 [personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented]",
+        "moneyIn": 0,
+        "moneyOut": 217.2,
+        "running": 1886.15,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "EE LTD broadband",
+            "amount": 45.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Amazon Prime (Google Play)",
+            "amount": 8.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Prodigi (PRODIGI.COM)",
+            "amount": 17.22,
+            "dir": "out",
+            "flag": "new — added Rudi 31 Oct; 28 Oct charge already left",
+            "kind": "dd"
+          },
+          {
+            "name": "Northumberland County Council tax (16 River View)",
+            "amount": 145,
+            "dir": "out",
+            "flag": "personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-29",
+        "whatFor": "Spotify",
+        "moneyIn": 0,
+        "moneyOut": 12.99,
+        "running": 1873.16,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Spotify",
+            "amount": 12.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-01-31",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 1823.16,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-02-01",
+        "whatFor": "NatWest mortgage £292.12 + EDF gas + electric (DD) £110.00 [EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52] + EE Device payment £99.38 + Gym (VG Trading) £48.00 + Diesel pot £200.00 + TV Licence (…6465) £36.00",
+        "moneyIn": 0,
+        "moneyOut": 785.5,
+        "running": 1037.66,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "NatWest mortgage",
+            "amount": 292.12,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EDF gas + electric (DD)",
+            "amount": 110,
+            "dir": "out",
+            "flag": "EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Device payment",
+            "amount": 99.38,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Gym (VG Trading)",
+            "amount": 48,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Diesel pot",
+            "amount": 200,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "TV Licence (…6465)",
+            "amount": 36,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-02-02",
+        "whatFor": "Scottish Widows life insurance £30.76 [Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit] + EE Limited phone contract £81.73 [amount varies — £81.73 = Oct bill] + VitalityLife (kept in just in case – may have stopped) £15.99 [Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case]",
+        "moneyIn": 0,
+        "moneyOut": 128.48,
+        "running": 909.18,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Scottish Widows life insurance",
+            "amount": 30.76,
+            "dir": "out",
+            "flag": "Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Limited phone contract",
+            "amount": 81.73,
+            "dir": "out",
+            "flag": "amount varies — £81.73 = Oct bill",
+            "kind": "dd"
+          },
+          {
+            "name": "VitalityLife (kept in just in case – may have stopped)",
+            "amount": 15.99,
+            "dir": "out",
+            "flag": "Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-02-07",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 859.18,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-02-08",
+        "whatFor": "Grok Bot / Cursor (AI) [monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday]",
+        "moneyIn": 0,
+        "moneyOut": 56.67,
+        "running": 802.51,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Grok Bot / Cursor (AI)",
+            "amount": 56.67,
+            "dir": "out",
+            "flag": "monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-02-14",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 752.51,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-02-19",
+        "whatFor": "Google Home Premium",
+        "moneyIn": 0,
+        "moneyOut": 8,
+        "running": 744.51,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Google Home Premium",
+            "amount": 8,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-02-21",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 694.51,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-02-25",
+        "whatFor": "WhisperFlow (Google Play) £15.00 + Transfer from joint (planned, monthly until old house sells) £760.00 [planned, confirm when landed]",
+        "moneyIn": 760,
+        "moneyOut": 15,
+        "running": 1439.51,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "WhisperFlow (Google Play)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Transfer from joint (planned, monthly until old house sells)",
+            "amount": 760,
+            "dir": "in",
+            "flag": "planned, confirm when landed",
+            "kind": "transfer"
+          }
+        ]
+      },
+      {
+        "date": "2027-02-26",
+        "whatFor": "Lightroom (Adobe)",
+        "moneyIn": 0,
+        "moneyOut": 11.99,
+        "running": 1427.52,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Lightroom (Adobe)",
+            "amount": 11.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-02-28",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 1377.52,
+        "photoCumulative": 0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-01",
+        "whatFor": "EE LTD broadband £45.99 + Amazon Prime (Google Play) £8.99 + Prodigi (PRODIGI.COM) £17.22 [new — added Rudi 31 Oct; 28 Oct charge already left] + Northumberland County Council tax (16 River View) £145.00 [personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented] + NatWest mortgage £292.12 + EDF gas + electric (DD) £110.00 [EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52] + EE Device payment £99.38 + Gym (VG Trading) £48.00 + Diesel pot £200.00 + TV Licence (…6465) £36.00 + Photography — Katy & Jack (your 50%) £875.00",
+        "moneyIn": 875.0,
+        "moneyOut": 1002.7,
+        "running": 1249.82,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "EE LTD broadband",
+            "amount": 45.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Amazon Prime (Google Play)",
+            "amount": 8.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Prodigi (PRODIGI.COM)",
+            "amount": 17.22,
+            "dir": "out",
+            "flag": "new — added Rudi 31 Oct; 28 Oct charge already left",
+            "kind": "dd"
+          },
+          {
+            "name": "Northumberland County Council tax (16 River View)",
+            "amount": 145,
+            "dir": "out",
+            "flag": "personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented",
+            "kind": "dd"
+          },
+          {
+            "name": "NatWest mortgage",
+            "amount": 292.12,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EDF gas + electric (DD)",
+            "amount": 110,
+            "dir": "out",
+            "flag": "EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Device payment",
+            "amount": 99.38,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Gym (VG Trading)",
+            "amount": 48,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Diesel pot",
+            "amount": 200,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "TV Licence (…6465)",
+            "amount": 36,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Photography — Katy & Jack (your 50%)",
+            "amount": 875.0,
+            "dir": "in",
+            "flag": "",
+            "kind": "photo",
+            "wedding": "2027-03-26"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-02",
+        "whatFor": "Scottish Widows life insurance £30.76 [Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit] + EE Limited phone contract £81.73 [amount varies — £81.73 = Oct bill] + VitalityLife (kept in just in case – may have stopped) £15.99 [Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case] + Etsy listing charge (estimate) £9.46 [unconfirmed, approx every 4 months — last £9.46 on 2 Nov 2026; Rudi 9 Nov]",
+        "moneyIn": 0,
+        "moneyOut": 137.94,
+        "running": 1111.88,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Scottish Widows life insurance",
+            "amount": 30.76,
+            "dir": "out",
+            "flag": "Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Limited phone contract",
+            "amount": 81.73,
+            "dir": "out",
+            "flag": "amount varies — £81.73 = Oct bill",
+            "kind": "dd"
+          },
+          {
+            "name": "VitalityLife (kept in just in case – may have stopped)",
+            "amount": 15.99,
+            "dir": "out",
+            "flag": "Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case",
+            "kind": "dd"
+          },
+          {
+            "name": "Etsy listing charge (estimate)",
+            "amount": 9.46,
+            "dir": "out",
+            "flag": "unconfirmed, approx every 4 months — last £9.46 on 2 Nov 2026; Rudi 9 Nov",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-07",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 1061.88,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-08",
+        "whatFor": "Grok Bot / Cursor (AI) [monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday]",
+        "moneyIn": 0,
+        "moneyOut": 56.67,
+        "running": 1005.21,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Grok Bot / Cursor (AI)",
+            "amount": 56.67,
+            "dir": "out",
+            "flag": "monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-14",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 955.21,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-19",
+        "whatFor": "Google Home Premium",
+        "moneyIn": 0,
+        "moneyOut": 8,
+        "running": 947.21,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Google Home Premium",
+            "amount": 8,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-21",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 897.21,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-25",
+        "whatFor": "WhisperFlow (Google Play) £15.00 + Transfer from joint (planned, monthly until old house sells) £760.00 [planned, confirm when landed]",
+        "moneyIn": 760,
+        "moneyOut": 15,
+        "running": 1642.21,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "WhisperFlow (Google Play)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Transfer from joint (planned, monthly until old house sells)",
+            "amount": 760,
+            "dir": "in",
+            "flag": "planned, confirm when landed",
+            "kind": "transfer"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-26",
+        "whatFor": "Lightroom (Adobe)",
+        "moneyIn": 0,
+        "moneyOut": 11.99,
+        "running": 1630.22,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Lightroom (Adobe)",
+            "amount": 11.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-28",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 1580.22,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-03-29",
+        "whatFor": "EE LTD broadband £45.99 + Amazon Prime (Google Play) £8.99 + Prodigi (PRODIGI.COM) £17.22 [new — added Rudi 31 Oct; 28 Oct charge already left] + Northumberland County Council tax (16 River View) £145.00 [personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented] + Spotify £12.99",
+        "moneyIn": 0,
+        "moneyOut": 230.19,
+        "running": 1350.03,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "EE LTD broadband",
+            "amount": 45.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Amazon Prime (Google Play)",
+            "amount": 8.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Prodigi (PRODIGI.COM)",
+            "amount": 17.22,
+            "dir": "out",
+            "flag": "new — added Rudi 31 Oct; 28 Oct charge already left",
+            "kind": "dd"
+          },
+          {
+            "name": "Northumberland County Council tax (16 River View)",
+            "amount": 145,
+            "dir": "out",
+            "flag": "personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented",
+            "kind": "dd"
+          },
+          {
+            "name": "Spotify",
+            "amount": 12.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-01",
+        "whatFor": "NatWest mortgage £292.12 + EDF gas + electric (DD) £110.00 [EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52] + EE Device payment £99.38 + Gym (VG Trading) £48.00 + Diesel pot £200.00 + TV Licence (…6465) £15.00 [next licence — provisional, may change]",
+        "moneyIn": 0,
+        "moneyOut": 764.5,
+        "running": 585.53,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "NatWest mortgage",
+            "amount": 292.12,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EDF gas + electric (DD)",
+            "amount": 110,
+            "dir": "out",
+            "flag": "EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Device payment",
+            "amount": 99.38,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Gym (VG Trading)",
+            "amount": 48,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Diesel pot",
+            "amount": 200,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "TV Licence (…6465)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "next licence — provisional, may change",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-02",
+        "whatFor": "Scottish Widows life insurance £30.76 [Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit] + EE Limited phone contract £81.73 [amount varies — £81.73 = Oct bill] + VitalityLife (kept in just in case – may have stopped) £15.99 [Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case]",
+        "moneyIn": 0,
+        "moneyOut": 128.48,
+        "running": 457.05,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Scottish Widows life insurance",
+            "amount": 30.76,
+            "dir": "out",
+            "flag": "Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Limited phone contract",
+            "amount": 81.73,
+            "dir": "out",
+            "flag": "amount varies — £81.73 = Oct bill",
+            "kind": "dd"
+          },
+          {
+            "name": "VitalityLife (kept in just in case – may have stopped)",
+            "amount": 15.99,
+            "dir": "out",
+            "flag": "Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-04",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 407.05,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-07",
+        "whatFor": "Grok Bot / Cursor (AI) [monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday]",
+        "moneyIn": 0,
+        "moneyOut": 56.67,
+        "running": 350.38,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Grok Bot / Cursor (AI)",
+            "amount": 56.67,
+            "dir": "out",
+            "flag": "monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-11",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 300.38,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-18",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 250.38,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-19",
+        "whatFor": "Google Home Premium",
+        "moneyIn": 0,
+        "moneyOut": 8,
+        "running": 242.38,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Google Home Premium",
+            "amount": 8,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-25",
+        "whatFor": "Food (weekly £50) £50.00 + Transfer from joint (planned, monthly until old house sells) £760.00 [planned, confirm when landed]",
+        "moneyIn": 760,
+        "moneyOut": 50,
+        "running": 952.38,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "Transfer from joint (planned, monthly until old house sells)",
+            "amount": 760,
+            "dir": "in",
+            "flag": "planned, confirm when landed",
+            "kind": "transfer"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-26",
+        "whatFor": "WhisperFlow (Google Play) £15.00 + Lightroom (Adobe) £11.99",
+        "moneyIn": 0,
+        "moneyOut": 26.99,
+        "running": 925.39,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "WhisperFlow (Google Play)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Lightroom (Adobe)",
+            "amount": 11.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-28",
+        "whatFor": "EE LTD broadband £45.99 + Amazon Prime (Google Play) £8.99 + Prodigi (PRODIGI.COM) £17.22 [new — added Rudi 31 Oct; 28 Oct charge already left] + Northumberland County Council tax (16 River View) £145.00 [personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented]",
+        "moneyIn": 0,
+        "moneyOut": 217.2,
+        "running": 708.19,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "EE LTD broadband",
+            "amount": 45.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Amazon Prime (Google Play)",
+            "amount": 8.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Prodigi (PRODIGI.COM)",
+            "amount": 17.22,
+            "dir": "out",
+            "flag": "new — added Rudi 31 Oct; 28 Oct charge already left",
+            "kind": "dd"
+          },
+          {
+            "name": "Northumberland County Council tax (16 River View)",
+            "amount": 145,
+            "dir": "out",
+            "flag": "personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-04-29",
+        "whatFor": "Spotify",
+        "moneyIn": 0,
+        "moneyOut": 12.99,
+        "running": 695.2,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Spotify",
+            "amount": 12.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-01",
+        "whatFor": "Diesel pot",
+        "moneyIn": 0,
+        "moneyOut": 200,
+        "running": 495.2,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Diesel pot",
+            "amount": 200,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-02",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 445.2,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-03",
+        "whatFor": "NatWest mortgage £292.12 + EDF gas + electric (DD) £110.00 [EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52] + EE Device payment £99.38 + Gym (VG Trading) £48.00 + Scottish Widows life insurance £30.76 [Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit] + EE Limited phone contract £81.73 [amount varies — £81.73 = Oct bill] + VitalityLife (kept in just in case – may have stopped) £15.99 [Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case] + TV Licence (…6465) £15.00",
+        "moneyIn": 0,
+        "moneyOut": 692.98,
+        "running": -247.78,
+        "photoCumulative": 875.0,
+        "items": [
+          {
+            "name": "NatWest mortgage",
+            "amount": 292.12,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EDF gas + electric (DD)",
+            "amount": 110,
+            "dir": "out",
+            "flag": "EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Device payment",
+            "amount": 99.38,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Gym (VG Trading)",
+            "amount": 48,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Scottish Widows life insurance",
+            "amount": 30.76,
+            "dir": "out",
+            "flag": "Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Limited phone contract",
+            "amount": 81.73,
+            "dir": "out",
+            "flag": "amount varies — £81.73 = Oct bill",
+            "kind": "dd"
+          },
+          {
+            "name": "VitalityLife (kept in just in case – may have stopped)",
+            "amount": 15.99,
+            "dir": "out",
+            "flag": "Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case",
+            "kind": "dd"
+          },
+          {
+            "name": "TV Licence (…6465)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-06",
+        "whatFor": "Photography — Ame & Ben (your 50%)",
+        "moneyIn": 1375.0,
+        "moneyOut": 0,
+        "running": 1127.22,
+        "photoCumulative": 2250.0,
+        "items": [
+          {
+            "name": "Photography — Ame & Ben (your 50%)",
+            "amount": 1375.0,
+            "dir": "in",
+            "flag": "",
+            "kind": "photo",
+            "wedding": "2027-05-31"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-07",
+        "whatFor": "Grok Bot / Cursor (AI) [monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday]",
+        "moneyIn": 0,
+        "moneyOut": 56.67,
+        "running": 1070.55,
+        "photoCumulative": 2250.0,
+        "items": [
+          {
+            "name": "Grok Bot / Cursor (AI)",
+            "amount": 56.67,
+            "dir": "out",
+            "flag": "monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-09",
+        "whatFor": "Food (weekly £50) £50.00 + Photography — Kristy & Leon (your 50%) £1,125.00",
+        "moneyIn": 1125.0,
+        "moneyOut": 50,
+        "running": 2145.55,
+        "photoCumulative": 3375.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "Photography — Kristy & Leon (your 50%)",
+            "amount": 1125.0,
+            "dir": "in",
+            "flag": "",
+            "kind": "photo",
+            "wedding": "2027-06-03"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-11",
+        "whatFor": "Photography — David & Chloe (your 50%)",
+        "moneyIn": 600.0,
+        "moneyOut": 0,
+        "running": 2745.55,
+        "photoCumulative": 3975.0,
+        "items": [
+          {
+            "name": "Photography — David & Chloe (your 50%)",
+            "amount": 600.0,
+            "dir": "in",
+            "flag": "",
+            "kind": "photo",
+            "wedding": "2027-06-05"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-16",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 2695.55,
+        "photoCumulative": 3975.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-19",
+        "whatFor": "Google Home Premium",
+        "moneyIn": 0,
+        "moneyOut": 8,
+        "running": 2687.55,
+        "photoCumulative": 3975.0,
+        "items": [
+          {
+            "name": "Google Home Premium",
+            "amount": 8,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-23",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 2637.55,
+        "photoCumulative": 3975.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-25",
+        "whatFor": "WhisperFlow (Google Play) £15.00 + Transfer from joint (planned, monthly until old house sells) £760.00 [planned, confirm when landed] + Photography — Megan & Barron (your 50%) £775.00",
+        "moneyIn": 1535.0,
+        "moneyOut": 15,
+        "running": 4157.55,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "WhisperFlow (Google Play)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Transfer from joint (planned, monthly until old house sells)",
+            "amount": 760,
+            "dir": "in",
+            "flag": "planned, confirm when landed",
+            "kind": "transfer"
+          },
+          {
+            "name": "Photography — Megan & Barron (your 50%)",
+            "amount": 775.0,
+            "dir": "in",
+            "flag": "",
+            "kind": "photo",
+            "wedding": "2027-06-19"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-26",
+        "whatFor": "Lightroom (Adobe)",
+        "moneyIn": 0,
+        "moneyOut": 11.99,
+        "running": 4145.56,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Lightroom (Adobe)",
+            "amount": 11.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-28",
+        "whatFor": "EE LTD broadband £45.99 + Amazon Prime (Google Play) £8.99 + Prodigi (PRODIGI.COM) £17.22 [new — added Rudi 31 Oct; 28 Oct charge already left] + Northumberland County Council tax (16 River View) £145.00 [personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented]",
+        "moneyIn": 0,
+        "moneyOut": 217.2,
+        "running": 3928.36,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "EE LTD broadband",
+            "amount": 45.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Amazon Prime (Google Play)",
+            "amount": 8.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Prodigi (PRODIGI.COM)",
+            "amount": 17.22,
+            "dir": "out",
+            "flag": "new — added Rudi 31 Oct; 28 Oct charge already left",
+            "kind": "dd"
+          },
+          {
+            "name": "Northumberland County Council tax (16 River View)",
+            "amount": 145,
+            "dir": "out",
+            "flag": "personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-30",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 3878.36,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-05-31",
+        "whatFor": "Spotify",
+        "moneyIn": 0,
+        "moneyOut": 12.99,
+        "running": 3865.37,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Spotify",
+            "amount": 12.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-01",
+        "whatFor": "NatWest mortgage £292.12 + EDF gas + electric (DD) £110.00 [EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52] + EE Device payment £99.38 + Gym (VG Trading) £48.00 + Diesel pot £200.00 + TV Licence (…6465) £15.00",
+        "moneyIn": 0,
+        "moneyOut": 764.5,
+        "running": 3100.87,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "NatWest mortgage",
+            "amount": 292.12,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EDF gas + electric (DD)",
+            "amount": 110,
+            "dir": "out",
+            "flag": "EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Device payment",
+            "amount": 99.38,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Gym (VG Trading)",
+            "amount": 48,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Diesel pot",
+            "amount": 200,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "TV Licence (…6465)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-02",
+        "whatFor": "Scottish Widows life insurance £30.76 [Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit] + EE Limited phone contract £81.73 [amount varies — £81.73 = Oct bill] + VitalityLife (kept in just in case – may have stopped) £15.99 [Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case]",
+        "moneyIn": 0,
+        "moneyOut": 128.48,
+        "running": 2972.39,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Scottish Widows life insurance",
+            "amount": 30.76,
+            "dir": "out",
+            "flag": "Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Limited phone contract",
+            "amount": 81.73,
+            "dir": "out",
+            "flag": "amount varies — £81.73 = Oct bill",
+            "kind": "dd"
+          },
+          {
+            "name": "VitalityLife (kept in just in case – may have stopped)",
+            "amount": 15.99,
+            "dir": "out",
+            "flag": "Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-06",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 2922.39,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-07",
+        "whatFor": "Grok Bot / Cursor (AI) [monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday]",
+        "moneyIn": 0,
+        "moneyOut": 56.67,
+        "running": 2865.72,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Grok Bot / Cursor (AI)",
+            "amount": 56.67,
+            "dir": "out",
+            "flag": "monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-13",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 2815.72,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-20",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 2765.72,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-21",
+        "whatFor": "Google Home Premium",
+        "moneyIn": 0,
+        "moneyOut": 8,
+        "running": 2757.72,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Google Home Premium",
+            "amount": 8,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-25",
+        "whatFor": "WhisperFlow (Google Play) £15.00 + Transfer from joint (planned, monthly until old house sells) £760.00 [planned, confirm when landed]",
+        "moneyIn": 760,
+        "moneyOut": 15,
+        "running": 3502.72,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "WhisperFlow (Google Play)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Transfer from joint (planned, monthly until old house sells)",
+            "amount": 760,
+            "dir": "in",
+            "flag": "planned, confirm when landed",
+            "kind": "transfer"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-27",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 3452.72,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-28",
+        "whatFor": "Lightroom (Adobe) £11.99 + EE LTD broadband £45.99 + Amazon Prime (Google Play) £8.99 + Prodigi (PRODIGI.COM) £17.22 [new — added Rudi 31 Oct; 28 Oct charge already left] + Northumberland County Council tax (16 River View) £145.00 [personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented]",
+        "moneyIn": 0,
+        "moneyOut": 229.19,
+        "running": 3223.53,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Lightroom (Adobe)",
+            "amount": 11.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EE LTD broadband",
+            "amount": 45.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Amazon Prime (Google Play)",
+            "amount": 8.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Prodigi (PRODIGI.COM)",
+            "amount": 17.22,
+            "dir": "out",
+            "flag": "new — added Rudi 31 Oct; 28 Oct charge already left",
+            "kind": "dd"
+          },
+          {
+            "name": "Northumberland County Council tax (16 River View)",
+            "amount": 145,
+            "dir": "out",
+            "flag": "personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-06-29",
+        "whatFor": "Spotify",
+        "moneyIn": 0,
+        "moneyOut": 12.99,
+        "running": 3210.54,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Spotify",
+            "amount": 12.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-01",
+        "whatFor": "NatWest mortgage £292.12 + EDF gas + electric (DD) £110.00 [EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52] + EE Device payment £99.38 + Gym (VG Trading) £48.00 + Diesel pot £200.00 + TV Licence (…6465) £15.00",
+        "moneyIn": 0,
+        "moneyOut": 764.5,
+        "running": 2446.04,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "NatWest mortgage",
+            "amount": 292.12,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EDF gas + electric (DD)",
+            "amount": 110,
+            "dir": "out",
+            "flag": "EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Device payment",
+            "amount": 99.38,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Gym (VG Trading)",
+            "amount": 48,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Diesel pot",
+            "amount": 200,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "TV Licence (…6465)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-02",
+        "whatFor": "Scottish Widows life insurance £30.76 [Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit] + EE Limited phone contract £81.73 [amount varies — £81.73 = Oct bill] + VitalityLife (kept in just in case – may have stopped) £15.99 [Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case]",
+        "moneyIn": 0,
+        "moneyOut": 128.48,
+        "running": 2317.56,
+        "photoCumulative": 4750.0,
+        "items": [
+          {
+            "name": "Scottish Widows life insurance",
+            "amount": 30.76,
+            "dir": "out",
+            "flag": "Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Limited phone contract",
+            "amount": 81.73,
+            "dir": "out",
+            "flag": "amount varies — £81.73 = Oct bill",
+            "kind": "dd"
+          },
+          {
+            "name": "VitalityLife (kept in just in case – may have stopped)",
+            "amount": 15.99,
+            "dir": "out",
+            "flag": "Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-04",
+        "whatFor": "Food (weekly £50) £50.00 + Photography — Monique & Charles (your 50%) £2,000.00",
+        "moneyIn": 2000.0,
+        "moneyOut": 50,
+        "running": 4267.56,
+        "photoCumulative": 6750.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "Photography — Monique & Charles (your 50%)",
+            "amount": 2000.0,
+            "dir": "in",
+            "flag": "",
+            "kind": "photo",
+            "wedding": "2027-07-29"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-07",
+        "whatFor": "Grok Bot / Cursor (AI) [monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday]",
+        "moneyIn": 0,
+        "moneyOut": 56.67,
+        "running": 4210.89,
+        "photoCumulative": 6750.0,
+        "items": [
+          {
+            "name": "Grok Bot / Cursor (AI)",
+            "amount": 56.67,
+            "dir": "out",
+            "flag": "monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-09",
+        "whatFor": "Photography — Poppy & Ben (your 50%)",
+        "moneyIn": 1500.0,
+        "moneyOut": 0,
+        "running": 5710.89,
+        "photoCumulative": 8250.0,
+        "items": [
+          {
+            "name": "Photography — Poppy & Ben (your 50%)",
+            "amount": 1500.0,
+            "dir": "in",
+            "flag": "",
+            "kind": "photo",
+            "wedding": "2027-08-03"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-11",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 5660.89,
+        "photoCumulative": 8250.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-18",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 5610.89,
+        "photoCumulative": 8250.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-19",
+        "whatFor": "Google Home Premium",
+        "moneyIn": 0,
+        "moneyOut": 8,
+        "running": 5602.89,
+        "photoCumulative": 8250.0,
+        "items": [
+          {
+            "name": "Google Home Premium",
+            "amount": 8,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-25",
+        "whatFor": "Food (weekly £50) £50.00 + Transfer from joint (planned, monthly until old house sells) £760.00 [planned, confirm when landed]",
+        "moneyIn": 760,
+        "moneyOut": 50,
+        "running": 6312.89,
+        "photoCumulative": 8250.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "Transfer from joint (planned, monthly until old house sells)",
+            "amount": 760,
+            "dir": "in",
+            "flag": "planned, confirm when landed",
+            "kind": "transfer"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-26",
+        "whatFor": "WhisperFlow (Google Play) £15.00 + Lightroom (Adobe) £11.99",
+        "moneyIn": 0,
+        "moneyOut": 26.99,
+        "running": 6285.9,
+        "photoCumulative": 8250.0,
+        "items": [
+          {
+            "name": "WhisperFlow (Google Play)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Lightroom (Adobe)",
+            "amount": 11.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-28",
+        "whatFor": "EE LTD broadband £45.99 + Amazon Prime (Google Play) £8.99 + Prodigi (PRODIGI.COM) £17.22 [new — added Rudi 31 Oct; 28 Oct charge already left] + Northumberland County Council tax (16 River View) £145.00 [personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented]",
+        "moneyIn": 0,
+        "moneyOut": 217.2,
+        "running": 6068.7,
+        "photoCumulative": 8250.0,
+        "items": [
+          {
+            "name": "EE LTD broadband",
+            "amount": 45.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Amazon Prime (Google Play)",
+            "amount": 8.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Prodigi (PRODIGI.COM)",
+            "amount": 17.22,
+            "dir": "out",
+            "flag": "new — added Rudi 31 Oct; 28 Oct charge already left",
+            "kind": "dd"
+          },
+          {
+            "name": "Northumberland County Council tax (16 River View)",
+            "amount": 145,
+            "dir": "out",
+            "flag": "personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-07-29",
+        "whatFor": "Spotify",
+        "moneyIn": 0,
+        "moneyOut": 12.99,
+        "running": 6055.71,
+        "photoCumulative": 8250.0,
+        "items": [
+          {
+            "name": "Spotify",
+            "amount": 12.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-01",
+        "whatFor": "Food (weekly £50) £50.00 + Diesel pot £200.00",
+        "moneyIn": 0,
+        "moneyOut": 250,
+        "running": 5805.71,
+        "photoCumulative": 8250.0,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          },
+          {
+            "name": "Diesel pot",
+            "amount": 200,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-02",
+        "whatFor": "NatWest mortgage £292.12 + EDF gas + electric (DD) £110.00 [EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52] + EE Device payment £99.38 + Gym (VG Trading) £48.00 + Scottish Widows life insurance £30.76 [Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit] + EE Limited phone contract £81.73 [amount varies — £81.73 = Oct bill] + VitalityLife (kept in just in case – may have stopped) £15.99 [Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case] + TV Licence (…6465) £15.00",
+        "moneyIn": 0,
+        "moneyOut": 692.98,
+        "running": 5112.73,
+        "photoCumulative": 8250.0,
+        "items": [
+          {
+            "name": "NatWest mortgage",
+            "amount": 292.12,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "EDF gas + electric (DD)",
+            "amount": 110,
+            "dir": "out",
+            "flag": "EDF DD (acct A-F4C213EA) on the 1st from 1 Dec; £110/mo confirmed Rudi 11 Nov 16:52",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Device payment",
+            "amount": 99.38,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Gym (VG Trading)",
+            "amount": 48,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Scottish Widows life insurance",
+            "amount": 30.76,
+            "dir": "out",
+            "flag": "Nov statement £30.76 (Oct initial £35.76; £5 refunded 14 Oct) — 11 Nov audit",
+            "kind": "dd"
+          },
+          {
+            "name": "EE Limited phone contract",
+            "amount": 81.73,
+            "dir": "out",
+            "flag": "amount varies — £81.73 = Oct bill",
+            "kind": "dd"
+          },
+          {
+            "name": "VitalityLife (kept in just in case – may have stopped)",
+            "amount": 15.99,
+            "dir": "out",
+            "flag": "Rudi 11 Nov 16:52: thinks it has finished; kept in the forecast just in case",
+            "kind": "dd"
+          },
+          {
+            "name": "TV Licence (…6465)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-04",
+        "whatFor": "Photography — Sophie & Jason (your 50%)",
+        "moneyIn": 1131.25,
+        "moneyOut": 0,
+        "running": 6243.98,
+        "photoCumulative": 9381.25,
+        "items": [
+          {
+            "name": "Photography — Sophie & Jason (your 50%)",
+            "amount": 1131.25,
+            "dir": "in",
+            "flag": "",
+            "kind": "photo",
+            "wedding": "2027-08-29"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-08",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 6193.98,
+        "photoCumulative": 9381.25,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-09",
+        "whatFor": "Grok Bot / Cursor (AI) £56.67 [monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday] + Photography — Charlotte & Harry (your 50%) £1,500.00",
+        "moneyIn": 1500.0,
+        "moneyOut": 56.67,
+        "running": 7637.31,
+        "photoCumulative": 10881.25,
+        "items": [
+          {
+            "name": "Grok Bot / Cursor (AI)",
+            "amount": 56.67,
+            "dir": "out",
+            "flag": "monthly on the 7th — Rudi 9 Nov; 7 Nov £56.67 already taken; weekend 7ths move to Monday",
+            "kind": "dd"
+          },
+          {
+            "name": "Photography — Charlotte & Harry (your 50%)",
+            "amount": 1500.0,
+            "dir": "in",
+            "flag": "",
+            "kind": "photo",
+            "wedding": "2027-09-03"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-15",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 7587.31,
+        "photoCumulative": 10881.25,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-19",
+        "whatFor": "Google Home Premium £8.00 + Photography — Billy & Megan (your 50%) £625.00",
+        "moneyIn": 625.0,
+        "moneyOut": 8,
+        "running": 8204.31,
+        "photoCumulative": 11506.25,
+        "items": [
+          {
+            "name": "Google Home Premium",
+            "amount": 8,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Photography — Billy & Megan (your 50%)",
+            "amount": 625.0,
+            "dir": "in",
+            "flag": "",
+            "kind": "photo",
+            "wedding": "2027-09-13"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-22",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 8154.31,
+        "photoCumulative": 11506.25,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-25",
+        "whatFor": "WhisperFlow (Google Play) £15.00 + Transfer from joint (planned, monthly until old house sells) £760.00 [planned, confirm when landed]",
+        "moneyIn": 760,
+        "moneyOut": 15,
+        "running": 8899.31,
+        "photoCumulative": 11506.25,
+        "items": [
+          {
+            "name": "WhisperFlow (Google Play)",
+            "amount": 15,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Transfer from joint (planned, monthly until old house sells)",
+            "amount": 760,
+            "dir": "in",
+            "flag": "planned, confirm when landed",
+            "kind": "transfer"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-26",
+        "whatFor": "Lightroom (Adobe)",
+        "moneyIn": 0,
+        "moneyOut": 11.99,
+        "running": 8887.32,
+        "photoCumulative": 11506.25,
+        "items": [
+          {
+            "name": "Lightroom (Adobe)",
+            "amount": 11.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-29",
+        "whatFor": "Food (weekly £50)",
+        "moneyIn": 0,
+        "moneyOut": 50,
+        "running": 8837.32,
+        "photoCumulative": 11506.25,
+        "items": [
+          {
+            "name": "Food (weekly £50)",
+            "amount": 50,
+            "dir": "out",
+            "flag": "",
+            "kind": "pot"
+          }
+        ]
+      },
+      {
+        "date": "2027-08-30",
+        "whatFor": "EE LTD broadband £45.99 + Amazon Prime (Google Play) £8.99 + Prodigi (PRODIGI.COM) £17.22 [new — added Rudi 31 Oct; 28 Oct charge already left] + Northumberland County Council tax (16 River View) £145.00 [personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented] + Spotify £12.99",
+        "moneyIn": 0,
+        "moneyOut": 230.19,
+        "running": 8607.13,
+        "photoCumulative": 11506.25,
+        "items": [
+          {
+            "name": "EE LTD broadband",
+            "amount": 45.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Amazon Prime (Google Play)",
+            "amount": 8.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          },
+          {
+            "name": "Prodigi (PRODIGI.COM)",
+            "amount": 17.22,
+            "dir": "out",
+            "flag": "new — added Rudi 31 Oct; 28 Oct charge already left",
+            "kind": "dd"
+          },
+          {
+            "name": "Northumberland County Council tax (16 River View)",
+            "amount": 145,
+            "dir": "out",
+            "flag": "personal DD £145 on the 28th from 28 Nov 2026 (weekend → Monday; first payment Mon 30 Nov). Replaces the barcode/1st-of-month instalments. April 2027+ still £145 pending the new bill — real 2027/28 monthly amount may be slightly lower; not invented",
+            "kind": "dd"
+          },
+          {
+            "name": "Spotify",
+            "amount": 12.99,
+            "dir": "out",
+            "flag": "",
+            "kind": "dd"
+          }
+        ]
+      }
+    ],
+    "checkpoints": {
+      "End Oct 2026": 1430.0,
+      "End Nov 2026": 1824.82,
+      "End Dec 2026": 2548.99,
+      "End Jan 2027": 1823.16,
+      "End Feb 2027": 1377.52,
+      "End Mar 2027": 1350.03,
+      "End Apr 2027": 695.2,
+      "End May 2027": 3865.37,
+      "End Jun 2027": 3210.54,
+      "End Jul 2027": 6055.71,
+      "End Aug 2027": 8607.13
+    },
+    "lowest": {
+      "date": "2027-05-03",
+      "running": -247.78
+    },
+    "lowestToJan": {
+      "date": "2026-12-21",
+      "running": 696.17
+    },
+    "firstNegative": {
+      "date": "2027-05-03",
+      "running": -247.78
+    },
+    "openingLabel": "Confirmed bank £1,430 · 14:33 Thu 12 Nov (Rudi) · starting point",
+    "variance": {
+      "amount": 740.0,
+      "expected": 690.0,
+      "note": "£690 confirmed 16:55 Wed 11 Nov → £1,430 at 14:33 Thu 12 Nov. Rudi moved his own money in (not new income). No scheduled items 11–12 Nov, so the net +£740 is already inside the £1,430 — do not add a separate income event.",
+      "itemised": false,
+      "kind": "own-money transfer (not income)"
+    }
+  },
+  "photographyNoteShort": "Photography to come: £11,506.25 (your 50%) across 10 payments, first 1 Mar 2027.",
+  "ddReview": {
+    "date": "2026-10-02",
+    "source": "NatWest personal statement 2 Sep–1 Oct 2026 + Gmail (Protect Line, VitalityLife, Google Play receipts)",
+    "monthlyTotal": 789.95,
+    "firstOfMonth": 549.5,
+    "oneOffs": [
+      "Google Play £29.49 card on 29 Sep (posted 1 Oct) — one-off purchase (Rudi 2 Oct), not recurring"
+    ],
+    "collected2Oct": [
+      {
+        "name": "Scottish Widows life insurance",
+        "amount": 35.76
+      },
+      {
+        "name": "EE Limited phone contract",
+        "amount": 81.73
+      }
+    ],
+    "notSeenYet": [
+      "Gas + electricity"
+    ],
+    "excludedByRudi": [
+      "VitalityLife £15.99 — not wanted; life insurance is only Scottish Widows (Rudi 2 Oct)",
+      "LV= home insurance — being refunded; left off for now (Rudi 2 Oct)"
+    ],
+    "monthlyTotalNow": 1035.83,
+    "monthlyTotalFromApr2027": 1014.83,
+    "audit11Nov": "Scottish Widows ongoing £30.76 (not £35.76); TV 1sts weekend-adjusted (1 Jan 2027 not 4 Jan); Grok £56.67 included in monthly total; Vitality still collecting but not in forecast — asked.",
+    "audit12Nov": "Afternoon 12 Nov: Northumberland council tax is now a personal DD of £145 on the 28th from 28 Nov 2026 (first payment Mon 30 Nov; weekend 28ths → Monday). Barcode/1st-of-month instalments removed. The earlier 10-instalment application is not a payment. April 2027+ still £145 pending the new bill (may be slightly lower; not invented). Opening rebased to confirmed £1,430 at 14:33 Thu 12 Nov (own money moved in, not income; net +£740 from £690 already inside the £1,430). Newcastle £171 remains off."
+  },
+  "foodLog": [
+    {
+      "date": "2026-10-19",
+      "time": null,
+      "shop": "Lidl Ashington",
+      "card": "Card 1341",
+      "subtotal": null,
+      "clubcardSavings": 0,
+      "total": 48.55,
+      "week": "Sun 18 Oct – Sat 24 Oct 2026",
+      "items": [
+        {
+          "item": "MSC Fish Fingers",
+          "qty": 4,
+          "price": 0.8,
+          "clubcardSaving": 0,
+          "lineTotal": 3.2
+        },
+        {
+          "item": "Carrier Bag",
+          "qty": 3,
+          "price": 0.4,
+          "clubcardSaving": 0,
+          "lineTotal": 1.2
+        },
+        {
+          "item": "BBQ Sauce",
+          "qty": 1,
+          "price": 0.89,
+          "clubcardSaving": 0,
+          "lineTotal": 0.89
+        },
+        {
+          "item": "Wafer Thin Chicken",
+          "qty": 1,
+          "price": 2.19,
+          "clubcardSaving": 0,
+          "lineTotal": 2.19
+        },
+        {
+          "item": "All Purpose Spray with Bleach",
+          "qty": 1,
+          "price": 0.79,
+          "clubcardSaving": 0,
+          "lineTotal": 0.79
+        },
+        {
+          "item": "Window & Glass Cleaner",
+          "qty": 1,
+          "price": 0.79,
+          "clubcardSaving": 0,
+          "lineTotal": 0.79
+        },
+        {
+          "item": "Southern Fried Tenders",
+          "qty": 3,
+          "price": 2.59,
+          "clubcardSaving": 0,
+          "lineTotal": 7.77
+        },
+        {
+          "item": "High Protein Tikka",
+          "qty": 3,
+          "price": 2.99,
+          "clubcardSaving": 0,
+          "lineTotal": 8.97
+        },
+        {
+          "item": "Starbucks Latte Iced Coffee",
+          "qty": 1,
+          "price": 2.49,
+          "clubcardSaving": 0,
+          "lineTotal": 2.49
+        },
+        {
+          "item": "Real Mayonnaise",
+          "qty": 1,
+          "price": 0.95,
+          "clubcardSaving": 0,
+          "lineTotal": 0.95
+        },
+        {
+          "item": "Chicken & Bacon Slice",
+          "qty": 1,
+          "price": 1.65,
+          "clubcardSaving": 0,
+          "lineTotal": 1.65
+        },
+        {
+          "item": "Simply Chocolate Spread",
+          "qty": 1,
+          "price": 1.15,
+          "clubcardSaving": 0,
+          "lineTotal": 1.15
+        },
+        {
+          "item": "Tomato Ketchup",
+          "qty": 1,
+          "price": 0.89,
+          "clubcardSaving": 0,
+          "lineTotal": 0.89
+        },
+        {
+          "item": "Noodles Chicken",
+          "qty": 10,
+          "price": 0.39,
+          "clubcardSaving": 0,
+          "lineTotal": 3.9
+        },
+        {
+          "item": "High Protein Greek Style",
+          "qty": 2,
+          "price": 1.55,
+          "clubcardSaving": 0,
+          "lineTotal": 3.1
+        },
+        {
+          "item": "Braeburn Apples",
+          "qty": 1,
+          "price": 1.59,
+          "clubcardSaving": 0,
+          "lineTotal": 1.59
+        },
+        {
+          "item": "Milk Hazelnut Choco",
+          "qty": 2,
+          "price": 0.99,
+          "clubcardSaving": 0,
+          "lineTotal": 1.98
+        },
+        {
+          "item": "Fun Size Bananas",
+          "qty": 1,
+          "price": 0.88,
+          "clubcardSaving": 0,
+          "lineTotal": 0.88
+        },
+        {
+          "item": "Loose Courgettes (0.494kg @ £1.89/kg)",
+          "qty": 1,
+          "price": 1.37,
+          "clubcardSaving": 0,
+          "lineTotal": 1.37
+        },
+        {
+          "item": "Price Cut",
+          "qty": 1,
+          "price": -0.44,
+          "clubcardSaving": 0,
+          "lineTotal": -0.44
+        },
+        {
+          "item": "Tiger Bloomer",
+          "qty": 1,
+          "price": 1.49,
+          "clubcardSaving": 0,
+          "lineTotal": 1.49
+        },
+        {
+          "item": "Kitchen Towel 4pk",
+          "qty": 1,
+          "price": 1.75,
+          "clubcardSaving": 0,
+          "lineTotal": 1.75
+        }
+      ],
+      "note": "Inside the £844 balance (20 Oct snapshot). Includes £0.44 price cut."
+    },
+    {
+      "date": "2026-10-10",
+      "time": null,
+      "shop": "Lidl Ashington",
+      "card": null,
+      "subtotal": null,
+      "clubcardSavings": 0,
+      "total": 48.06,
+      "week": "Sun 11 Oct – Sat 17 Oct 2026",
+      "items": [
+        {
+          "item": "Weekly shop — itemised in Rudi's shopping sheet",
+          "qty": 1,
+          "price": 48.06,
+          "clubcardSaving": 0,
+          "lineTotal": 48.06
+        }
+      ],
+      "note": "Sat 10 Oct, counted as the 11–17 Oct week's shop (from Shopping). Items in the shopping sheet. Bank: card 1341 took £33.06 (rest presumably cash)."
+    },
+    {
+      "date": "2026-10-09",
+      "time": null,
+      "shop": "Uber Eats — Domino's Pizza Ashington",
+      "card": "Card 7531",
+      "subtotal": null,
+      "clubcardSavings": 0,
+      "total": 17.46,
+      "week": "Sun 4 Oct – Sat 10 Oct 2026",
+      "items": [
+        {
+          "item": "Pizza",
+          "qty": 1,
+          "price": 17.46,
+          "clubcardSaving": 0,
+          "lineTotal": 17.46
+        }
+      ],
+      "note": "Uber Eats receipt 9 Oct 21:15; on card, not food cash."
+    },
+    {
+      "date": "2026-10-04",
+      "time": null,
+      "shop": "Lidl GB Ashington (card 1341)",
+      "card": "Debit card 1341",
+      "subtotal": null,
+      "clubcardSavings": 0,
+      "total": 3.01,
+      "week": "Sun 4 Oct – Sat 10 Oct 2026",
+      "items": [
+        {
+          "item": "Items not stated",
+          "qty": 1,
+          "price": 3.01,
+          "clubcardSaving": 0,
+          "lineTotal": 3.01
+        }
+      ],
+      "note": "Seen on the statement (posted 5 Oct). Rudi 7 Oct: food."
+    },
+    {
+      "date": "2026-10-04",
+      "time": null,
+      "shop": "Shop not stated (paid cash — Rudi thinks Lidl)",
+      "card": "Cash (from £40 NoteMachine withdrawal, 4 Oct)",
+      "subtotal": null,
+      "clubcardSavings": 0,
+      "total": 22.11,
+      "week": "Sun 4 Oct – Sat 10 Oct 2026",
+      "items": [
+        {
+          "item": "Gluten-free cereal",
+          "qty": 1,
+          "price": 0.95,
+          "clubcardSaving": 0,
+          "lineTotal": 0.95
+        },
+        {
+          "item": "Bananas",
+          "qty": 1,
+          "price": 0.78,
+          "clubcardSaving": 0,
+          "lineTotal": 0.78
+        },
+        {
+          "item": "Bread",
+          "qty": 1,
+          "price": 1.49,
+          "clubcardSaving": 0,
+          "lineTotal": 1.49
+        },
+        {
+          "item": "Frozen pie",
+          "qty": 1,
+          "price": 1.99,
+          "clubcardSaving": 0,
+          "lineTotal": 1.99
+        },
+        {
+          "item": "Breaded goujons",
+          "qty": 2,
+          "price": 1.59,
+          "clubcardSaving": 0,
+          "lineTotal": 3.18
+        },
+        {
+          "item": "Nutella",
+          "qty": 2,
+          "price": 1.15,
+          "clubcardSaving": 0,
+          "lineTotal": 2.3
+        },
+        {
+          "item": "Chicken frankfurters",
+          "qty": 1,
+          "price": 1.69,
+          "clubcardSaving": 0,
+          "lineTotal": 1.69
+        },
+        {
+          "item": "Sweet milk slices",
+          "qty": 1,
+          "price": 1.49,
+          "clubcardSaving": 0,
+          "lineTotal": 1.49
+        },
+        {
+          "item": "Protein yoghurt",
+          "qty": 4,
+          "price": 0.89,
+          "clubcardSaving": 0,
+          "lineTotal": 3.56
+        },
+        {
+          "item": "Frozen chicken bites",
+          "qty": 1,
+          "price": 2.79,
+          "clubcardSaving": 0,
+          "lineTotal": 2.79
+        },
+        {
+          "item": "Hazelnut cake",
+          "qty": 1,
+          "price": 1.89,
+          "clubcardSaving": 0,
+          "lineTotal": 1.89
+        }
+      ],
+      "note": "From Rudi's weekly shopping sheet. Paid from the £40 food cash taken out on 4 Oct (Rudi 7 Oct) — not a card charge, nothing pending."
+    },
+    {
+      "date": "2026-10-02",
+      "time": "15:26",
+      "shop": "Tesco Express, Newcastle Chillingham Rd",
+      "card": "Mastercard ending 1341",
+      "subtotal": 15.74,
+      "clubcardSavings": 2.4,
+      "total": 13.34,
+      "week": "Sun 27 Sep – Sat 3 Oct 2026",
+      "items": [
+        {
+          "item": "Walkers Max Sizzling Flame Grilled Steak 140g",
+          "qty": 1,
+          "price": 2.75,
+          "clubcardSaving": 1.1,
+          "lineTotal": 1.65,
+          "note": "Clubcard price £1.65"
+        },
+        {
+          "item": "Tesco Quiche Lorraine 400g",
+          "qty": 1,
+          "price": 2.9,
+          "clubcardSaving": 0,
+          "lineTotal": 2.9
+        },
+        {
+          "item": "Tesco Wafer Thin Honey Roast Ham Slices 400g",
+          "qty": 1,
+          "price": 2.19,
+          "clubcardSaving": 0,
+          "lineTotal": 2.19
+        },
+        {
+          "item": "Tesco 10 Extra Mature Cheddar Slices 250g",
+          "qty": 1,
+          "price": 2.9,
+          "clubcardSaving": 0,
+          "lineTotal": 2.9
+        },
+        {
+          "item": "KitKat Hazelnut Chocolate Sharing Bar 99g",
+          "qty": 2,
+          "price": 2.3,
+          "clubcardSaving": 1.3,
+          "lineTotal": 3.3,
+          "note": "£2.30 each; Clubcard £1.65 each"
+        },
+        {
+          "item": "Tesco Universal Bag For Life",
+          "qty": 1,
+          "price": 0.4,
+          "clubcardSaving": 0,
+          "lineTotal": 0.4
+        }
+      ],
+      "note": "Rudi: regular buys. Logged 2 Oct 2026 from receipt photo."
+    }
+  ],
+  "regularBuys": [
+    {
+      "item": "Walkers Max Sizzling Flame Grilled Steak 140g",
+      "usualPrice": 2.75,
+      "clubcardPrice": 1.65,
+      "shop": "Tesco"
+    },
+    {
+      "item": "Tesco Quiche Lorraine 400g",
+      "usualPrice": 2.9,
+      "clubcardPrice": null,
+      "shop": "Tesco"
+    },
+    {
+      "item": "Tesco Wafer Thin Honey Roast Ham Slices 400g",
+      "usualPrice": 2.19,
+      "clubcardPrice": null,
+      "shop": "Tesco"
+    },
+    {
+      "item": "Tesco 10 Extra Mature Cheddar Slices 250g",
+      "usualPrice": 2.9,
+      "clubcardPrice": null,
+      "shop": "Tesco"
+    },
+    {
+      "item": "KitKat Hazelnut Chocolate Sharing Bar 99g",
+      "usualPrice": 2.3,
+      "clubcardPrice": 1.65,
+      "shop": "Tesco"
+    },
+    {
+      "item": "Gluten-free cereal",
+      "usualPrice": 0.95,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    },
+    {
+      "item": "Bananas",
+      "usualPrice": 0.78,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    },
+    {
+      "item": "Bread",
+      "usualPrice": 1.49,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    },
+    {
+      "item": "Frozen pie",
+      "usualPrice": 1.99,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    },
+    {
+      "item": "Breaded goujons",
+      "usualPrice": 1.59,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    },
+    {
+      "item": "Nutella",
+      "usualPrice": 1.15,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    },
+    {
+      "item": "Chicken frankfurters",
+      "usualPrice": 1.69,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    },
+    {
+      "item": "Sweet milk slices",
+      "usualPrice": 1.49,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    },
+    {
+      "item": "Protein yoghurt",
+      "usualPrice": 0.89,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    },
+    {
+      "item": "Frozen chicken bites",
+      "usualPrice": 2.79,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    },
+    {
+      "item": "Hazelnut cake",
+      "usualPrice": 1.89,
+      "clubcardPrice": null,
+      "shop": "not stated"
+    }
+  ],
+  "foodWeeks": [
+    {
+      "week": "Sun 27 Sep – Sat 3 Oct 2026",
+      "budget": 50,
+      "spent": 13.34,
+      "left": 36.66,
+      "status": "closed — £36.66 unspent",
+      "shops": "Tesco £13.34 (2 Oct)",
+      "leftToDate": 36.66
+    },
+    {
+      "week": "Sun 4 Oct – Sat 10 Oct 2026",
+      "budget": 50,
+      "spent": 53.03,
+      "left": -3.03,
+      "status": "closed — £3.03 over",
+      "shops": "£40 cash for food (4 Oct — £22.11 shop paid from it, ~£17.89 food cash still in hand) + Lidl card £3.01 (4 Oct) + pizza £18 (9 Oct, possibly food cash). Week ended £3.03 over (Chief of Staff).",
+      "leftToDate": 33.63
+    },
+    {
+      "week": "Sun 11 Oct – Sat 17 Oct 2026",
+      "budget": 50,
+      "spent": 48.06,
+      "left": 1.94,
+      "status": "closed",
+      "shops": "Lidl Ashington £48.06 (Sat 10 Oct, counted to this week)",
+      "leftToDate": 35.57
+    },
+    {
+      "week": "Sun 18 Oct – Sat 24 Oct 2026",
+      "budget": 50,
+      "spent": 48.55,
+      "left": 1.45,
+      "status": "closed",
+      "shops": "Lidl Ashington £48.55 (Mon 19 Oct, card 1341)",
+      "leftToDate": 37.02
+    },
+    {
+      "week": "Sun 25 Oct – Sat 31 Oct 2026",
+      "budget": 50,
+      "spent": 0,
+      "left": 50,
+      "status": "current",
+      "shops": "none logged yet — £50 reserved (assumption)",
+      "leftToDate": 87.02
+    }
+  ],
+  "foodWeeksNote": "Spent = money that left the bank for food (cash withdrawn for food counts when it's taken out). Left to date = unspent from closed weeks + what's left this week. The calendar reserves £50 every Sunday, so any underspend is extra cushion.",
+  "cashNote": "Confirmed by Rudi · 14:33 Thu 12 Nov",
+  "headline": {
+    "balance": 1430.0,
+    "balanceAt": "14:33 Thu 12 Nov 2026 (Rudi)",
+    "dueUntil": "2026-11-01",
+    "due": [],
+    "dueTotal": 0,
+    "note": "Bank £741 CONFIRMED by Rudi 07:57 Mon 9 Nov 2026. NatWest PDF close £1,006 (6 Nov) minus pending 7–8 Nov £183.20 minus RingGo £7 = £815.80; residual −£74.80 unexplained. Earlier −£132.18 closed by itemised 3–6 Nov statement lines (including Tesco diesel £101.34 actual). Boyd's £17.90 is haircut; Costco £21.58+£3.49 includes a gift £22 and food £3.07, not extra. Grok Bot / Cursor £56.67 monthly on the 7th from 7 Dec. Etsy listing £9.46: unconfirmed approx every 4 months, estimate 2 Mar 2027. Next food £50 Sun 15 Nov; week 8–14 Nov food exceeded pot. Sage pass-through; £760 on the 25th planned.",
+    "gap": {
+      "label": "Own money moved in 11–12 Nov",
+      "total": 740.0,
+      "items": [],
+      "adjustments": [],
+      "note": "£690 (16:55 Wed 11 Nov) → £1,430 (14:33 Thu 12 Nov) = net +£740. Own money between accounts, not new income. Already inside the £1,430 — do not add again."
+    },
+    "balanceMorning25Oct": 741.0,
+    "early": {
+      "label": "31 Oct – 2 Nov outgoings (1 Nov DDs — no diesel pot left, TV £36 on 2 Nov)",
+      "items": [],
+      "total": 0,
+      "balanceAfter1Nov": 741.0,
+      "balanceAfter2Nov": 741.0
+    },
+    "needs": {
+      "firstBelowZero": {
+        "date": "2027-05-03",
+        "running": -247.78
+      },
+      "firstBelowZeroInNov": null,
+      "endNovWithPlanned": 1824.82,
+      "endNovIfNothingIn": 520.82,
+      "toStayAboveZeroEndNov": 0,
+      "for500": 0,
+      "for600": 0,
+      "note": "Forecast from confirmed £1,430 (12 Nov 14:33). The +£740 since £690 on 11 Nov is Rudi's own money moved in (not income; already inside the £1,430). Includes planned £760 on the 25th, £1,400 bonus 22 Dec, planned wedding income, VitalityLife £15.99 from 2 Dec (just in case), EDF £110 confirmed from 1 Dec, and Northumberland council tax personal DD £145 on the 28th from 28 Nov (weekend → Monday; first payment Mon 30 Nov). Virgin Media off; ChatGPT cancelled; old-house Newcastle council tax £171 off. Barcode/1st-of-month instalments removed. After 1 Dec DDs: £1,039.32. After 2 Dec DDs: £910.84. First below zero: 3 May 2027 at −£247.78 (stays negative 3–5 May; Ame & Ben £1,375 lands 6 May). IMPORTANT: April 2027 onwards council tax is still modelled at £145 as a slightly cautious stand-in pending the new bill — the real 2027/28 monthly amount may be slightly lower; a lower figure has not been invented.",
+      "endDec": 2548.99,
+      "endJan": 1823.16,
+      "novLow": {
+        "date": "2026-11-19",
+        "running": 1372.0
+      },
+      "decLow": {
+        "date": "2026-12-21",
+        "running": 696.17
+      },
+      "janLow": {
+        "date": "2027-01-24",
+        "running": 1370.34
+      },
+      "lowestToApril": {
+        "date": "2027-04-19",
+        "running": 242.38
+      },
+      "overallLowest": {
+        "date": "2027-05-03",
+        "running": -247.78
+      },
+      "after1DecDDs": 1039.32,
+      "after2DecDDs": 910.84,
+      "aprilCouncilTaxNotIncluded": false,
+      "belowZeroStretches": [
+        {
+          "from": "2027-05-03",
+          "fromAmount": -247.78,
+          "to": "2027-05-05",
+          "toAmount": -247.78,
+          "lowDate": "2027-05-03",
+          "low": -247.78,
+          "recovers": "2027-05-06",
+          "recoverNote": "Ame & Ben photography £1,375"
+        }
+      ],
+      "aprilCouncilTaxAmount": 145,
+      "aprilCouncilTaxNote": "Still £145 from April 2027 as a slightly cautious stand-in pending the new bill; real 2027/28 monthly amount may be slightly lower — not invented."
+    },
+    "balanceAfter25Oct": 741.0,
+    "plannedTransfer": {
+      "date": "2026-10-23",
+      "amount": 760,
+      "label": "October £760 from joint — RECEIVED early (inside £1,113)",
+      "flag": "received 23 Oct; Nov onwards planned on the 25th"
+    },
+    "morningLabel": "Now (12 Nov, 14:33 · confirmed)",
+    "afterLabel": "Next: food £50 Sun 15 Nov (then £1,380)",
+    "taken": [
+      {
+        "name": "NatWest mortgage",
+        "amount": 292,
+        "expected": 292.12
+      },
+      {
+        "name": "Gym (VG Trading)",
+        "amount": 48,
+        "expected": 48
+      },
+      {
+        "name": "TV Licence",
+        "amount": 36,
+        "expected": 36
+      },
+      {
+        "name": "Scottish Widows life insurance",
+        "amount": 30,
+        "expected": 35.76
+      },
+      {
+        "name": "VitalityLife (not in forecast)",
+        "amount": 15.99,
+        "expected": 0
+      },
+      {
+        "name": "EE Device payment",
+        "amount": 99,
+        "expected": 99.38
+      },
+      {
+        "name": "EE Limited (phone)",
+        "amount": 129,
+        "expected": 81.73
+      },
+      {
+        "name": "EDF gas+electric (12 Sep–1 Nov)",
+        "amount": 205.82,
+        "expected": 110
+      },
+      {
+        "name": "Diesel 5 Nov (beyond Nov pot)",
+        "amount": 100,
+        "expected": 0
+      },
+      {
+        "name": "Food weekly pot 8 Nov",
+        "amount": 50,
+        "expected": 50
+      }
+    ]
+  },
+  "pendingFlags": [
+    {
+      "name": "Own money moved in — net +£740 already inside £1,430",
+      "amount": 740,
+      "status": "inside the confirmed balance — not income",
+      "note": "Confirmed £690 at 16:55 Wed 11 Nov → £1,430 at 14:33 Thu 12 Nov. Rudi moved his own money between accounts. No scheduled items 11–12 Nov. Do not add a separate income event or subtract anything dated 12 Nov or earlier again."
+    },
+    {
+      "name": "Northumberland council tax £145 DD on the 28th (first payment Mon 30 Nov)",
+      "amount": -145,
+      "status": "personal Direct Debit — from 28 Nov 2026",
+      "note": "Rudi 12 Nov after a call with the council. Weekend 28ths move to Monday (28 Nov Sat → Mon 30 Nov; 28 Feb 2027 Sun → Mon 1 Mar; 28 Mar 2027 Sun → Mon 29 Mar; 28 Aug 2027 Sat → Mon 30 Aug). Replaces the three barcode/1st-of-month instalments (removed) and the earlier 10-instalment application (not a payment). Old-house Newcastle £171 stays off."
+    },
+    {
+      "name": "April 2027+ council tax still £145 pending the new bill",
+      "status": "cautious stand-in — amount may be slightly lower",
+      "note": "Rudi said next year’s monthly bills should be slightly lower because the charge will be spread over a whole year, but there is no confirmed 2027/28 figure. £145 is kept from April 2027 as a slightly cautious stand-in; a lower amount has not been invented."
+    },
+    {
+      "name": "Unitemised spending £51 (9–11 Nov)",
+      "amount": -51,
+      "status": "unitemised",
+      "note": "Confirmed £741 at 07:57 Mon 9 Nov → £690 at 16:55 Wed 11 Nov. No scheduled items 9–11 Nov (ChatGPT cancelled). Already inside the £690 — do not subtract again."
+    },
+    {
+      "name": "VitalityLife £15.99 kept in just in case",
+      "note": "Rudi 11 Nov 16:52: thinks it has finished, but keep it in the forecast from 2 Dec just in case. Weekend 2nds move to Monday."
+    },
+    {
+      "name": "Virgin Media £50.50 — off personal forecast",
+      "note": "Rudi 11 Nov 16:52: paid from the joint/other bills account. Not added to the personal calendar."
+    },
+    {
+      "name": "Amazon Prime — not charging twice",
+      "note": "Google Play £8.99 on 28/29 Oct is the Prime membership (Amazon Music-with-Prime email 30 Oct). Amazon TrueLayer £8.99 on 27 Oct (FP 26/10) is a Quickeep iPhone charger order (8.99 GBP, 26 Oct). Forecast unchanged: one £8.99 on the 28th."
+    },
+    {
+      "name": "Unexplained −£74.80 (9 Nov)",
+      "note": "Residual after pending £183.20 and RingGo £7 from £1,006 statement close. Not itemised."
+    },
+    {
+      "name": "Unexplained −£12.01 (2 Nov)",
+      "note": "Bank £1,444 is about £12 lower than £2,106 minus the items listed. Not itemised."
+    },
+    {
+      "name": "Cash £80 (8 & 10 Oct)",
+      "amount": 80,
+      "status": "ask Rudi",
+      "note": "Two £40 Notemachine withdrawals. Food cash? Already inside the balance."
+    },
+    {
+      "name": "Ashington £119.17",
+      "amount": 119.17,
+      "status": "Unknown — Rudi checking",
+      "note": "Unknown — Rudi checking: '5187 ASHINGTON SERVICE' £119.17 on card 1341, 3 Oct (posted 6 Oct). Not diesel (contactless is capped at £99). Already inside the balance."
+    },
+    {
+      "name": "LV= Home Gold cancellation",
+      "amount": 7.78,
+      "status": "flagged — not booked",
+      "note": "LV= Home Gold cancellation, £7.78 refund — NOT yet confirmed by Rudi; not booked. Not on the statement up to 6 Oct."
+    },
+    {
+      "name": "Google Play Jul/Aug",
+      "amount": 0,
+      "status": "flagged — not booked",
+      "note": "Google Play Apps £23.99 (14 Jul) and £26.99 (2 Aug) — not repeated in Sep, so treated as one-offs. Check they aren't annual subs."
+    },
+    {
+      "name": "Diesel £100 beyond Nov pot (5 Nov)",
+      "note": "Nov pot was already used (Costco). This £100 is additional. Fresh £200 on 1 Dec."
+    }
+  ],
+  "statementCheck": {
+    "account": "NatWest Personal, account ending 6924 (sort code 60-02-13)",
+    "range": "7 Jul – 6 Oct 2026",
+    "downloaded": "7 Oct 2026 08:20",
+    "closing": {
+      "date": "2026-10-06",
+      "balance": 1581.82
+    },
+    "after4Oct": [
+      {
+        "posted": "2026-10-05",
+        "txn": "2026-09-29",
+        "what": "ASDA Petrol, Ashington (card)",
+        "amount": 99.0
+      },
+      {
+        "posted": "2026-10-05",
+        "txn": "2026-10-02",
+        "what": "Tesco Stores 5967, Newcastle (card) — already logged",
+        "amount": 13.34
+      },
+      {
+        "posted": "2026-10-05",
+        "txn": "2026-10-02",
+        "what": "McDonald's 8260542, Newcastle (card)",
+        "amount": 8.79
+      },
+      {
+        "posted": "2026-10-05",
+        "txn": "2026-10-03",
+        "what": "SQ *Fusion Event Hospi, York (card)",
+        "amount": 3.5
+      },
+      {
+        "posted": "2026-10-05",
+        "txn": "2026-10-04",
+        "what": "Amazon.co.uk via TrueLayer (pay by bank)",
+        "amount": 11.99
+      },
+      {
+        "posted": "2026-10-05",
+        "txn": "2026-10-04",
+        "what": "McDonald's, Cramlington (card)",
+        "amount": 7.97
+      },
+      {
+        "posted": "2026-10-05",
+        "txn": "2026-10-04",
+        "what": "Lidl GB Ashington (card) — food",
+        "amount": 3.01
+      },
+      {
+        "posted": "2026-10-05",
+        "txn": "2026-10-04",
+        "what": "RingGo parking (card)",
+        "amount": 2.9
+      },
+      {
+        "posted": "2026-10-05",
+        "txn": "2026-10-04",
+        "what": "Cash — NoteMachine (food money; £22.11 shop paid from it)",
+        "amount": 40.0
+      },
+      {
+        "posted": "2026-10-06",
+        "txn": "2026-10-03",
+        "what": "5187 Ashington Service (card 1341) — unknown, Rudi checking (not diesel)",
+        "amount": 119.17
+      },
+      {
+        "posted": "2026-10-06",
+        "txn": "2026-10-06",
+        "what": "Amazon.co.uk via TrueLayer (pay by bank)",
+        "amount": 13.29
+      },
+      {
+        "posted": "2026-10-06",
+        "txn": "2026-10-06",
+        "what": "SP Dog Friendly Co., Sans Souci AU (card ...7531)",
+        "amount": 50.99
+      }
+    ],
+    "notSeen": [
+      "Gas + electricity — supplier unknown; Rudi has written to them, no reply yet",
+      "Google Home Premium (trial to 19 Oct)",
+      "Amazon Prime (trial to 28 Oct)",
+      "LV= £7.78 refund",
+      "Old-house items (Barclays/Woolwich mortgage, Admiral, council £171, water £50) — none on this account"
+    ]
+  },
+  "resolvedFlags": [
+    {
+      "name": "£271.77 gap since 6 Oct",
+      "note": "Fully itemised from the NatWest export to 12 Oct (see headline)."
+    },
+    {
+      "name": "Pizza",
+      "note": "Uber Eats / Domino's Ashington £17.46 on card 7531, 9 Oct — not food cash. Inside the balance."
+    },
+    {
+      "name": "£22.11 food shop",
+      "note": "Resolved: paid from the £40 cash for food (4 Oct) — no pending card charge to expect."
+    },
+    {
+      "name": "Cash £40 (4 Oct)",
+      "note": "Resolved: food money. ~£20 went in Lidl (the £22.11 shop); the rest is food cash in hand."
+    },
+    {
+      "name": "Lidl £3.01 (4 Oct)",
+      "note": "Resolved: food — added to this week's food log."
+    },
+    {
+      "name": "ChatGPT July double charge",
+      "note": "Resolved: both July payments were real (one for a friend, now cancelled). Not a duplicate. Only Rudi's £20 on the 10th continues. (Update: that ChatGPT £20 is now cancelled too — Rudi 28 Oct 2026.)"
+    },
+    {
+      "name": "Electrician £120 (23 Oct)",
+      "amount": 120,
+      "status": "paid",
+      "note": "Confirmed inside the £1,459 (matches forecast). Rudi 25 Oct."
+    }
+  ],
+  "recentIncome": [
+    {
+      "date": "2026-10-31",
+      "name": "Mum £993 (received)",
+      "amount": 993,
+      "note": "Confirmed by Rudi 19:54 31 Oct; replaces planned £500"
+    }
+  ]
+}

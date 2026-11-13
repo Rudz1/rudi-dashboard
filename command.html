@@ -27,7 +27,7 @@ body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-i
     linear-gradient(180deg,#0b0b0c 0%,#121214 52%,#070708 100%);}
 #scene:before{content:"";position:absolute;inset:0;opacity:.28;mix-blend-mode:overlay;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
-.wrap{position:relative;z-index:3;max-width:1180px;margin:0 auto;padding:12px 14px 20px;}
+.wrap{position:relative;z-index:3;max-width:none;width:100%;margin:0 auto;padding:12px 14px 20px;}
 .top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;}
 .brand{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .brand b{display:block;font-size:15px;letter-spacing:.04em;color:var(--ink);font-weight:800;margin-top:2px;text-transform:none}
@@ -38,7 +38,7 @@ body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-i
   color:rgba(255,200,230,.8);border:1px solid rgba(255,110,199,.35);border-radius:999px;padding:2px 8px;
   background:rgba(255,110,199,.08)}
 .hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:4px 0 12px;position:relative;}
-.orb-wrap{position:relative;width:min(72vw,320px);aspect-ratio:1;margin:0 auto 6px;}
+.orb-wrap{position:relative;width:min(72vw,320px);aspect-ratio:1;margin:0 auto 18px;}
 .orb-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;}
 .brief{max-width:28rem;font-size:15px;line-height:1.4;font-weight:600;text-shadow:0 0 18px rgba(92,225,197,.25)}
 .brief span{display:block;margin-top:5px;font-size:12px;font-weight:500;color:var(--muted)}
@@ -145,15 +145,15 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
   font-size:10px;line-height:1.4;color:var(--muted)}
 .later b{color:#ddd0ff;font-weight:700}
 @media (min-width:900px){
-  .wrap{padding:8px 18px 8px;max-width:1280px;
-    display:grid;grid-template-columns:minmax(260px,1fr) minmax(240px,36%) minmax(260px,1fr);
+  .wrap{padding:8px clamp(12px,1.4vw,36px) 10px;max-width:none;width:100%;
+    display:grid;grid-template-columns:minmax(240px,1fr) minmax(220px,clamp(240px,30vw,640px)) minmax(240px,1fr);
     grid-template-rows:auto minmax(0,1fr) auto auto;
-    column-gap:14px;row-gap:6px;height:100dvh;max-height:100dvh;align-content:stretch;overflow:hidden;}
+    column-gap:clamp(12px,1.2vw,32px);row-gap:clamp(6px,0.6vh,14px);height:100dvh;max-height:100dvh;align-content:stretch;overflow:hidden;}
   .top{grid-column:1/-1;margin-bottom:0}
   .when .time{font-size:20px}
-  .hero{grid-column:2;grid-row:2;padding:0;align-self:center}
-  .orb-wrap{width:min(32vw,340px);margin:0 auto 4px}
-  .brief{font-size:14px}
+  .hero{grid-column:2;grid-row:2;padding:0;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
+  .orb-wrap{width:min(28vw,36vh,380px);margin:0 auto;flex:0 0 auto}
+  .brief{font-size:14px;margin-top:auto;padding:8px 8px 14px;max-width:36rem}
   .col.left,.col.right{align-self:stretch;margin:0;display:flex;flex-direction:column;overflow:hidden}
   .col.left{grid-column:1;grid-row:2}
   .col.right{grid-column:3;grid-row:2}
@@ -244,14 +244,15 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
 @media (min-width:900px){
   .col.left,.col.right{overflow:hidden;min-height:0}
   #secUsage,#secVideo{flex:0 0 auto;overflow:visible}
-  #secFin{display:flex;flex-direction:column;flex:1 1 210px;min-height:210px;overflow:hidden}
-  #secSched{display:flex;flex-direction:column;flex:1 1 140px;min-height:140px;overflow:hidden}
+  #secFin{display:flex;flex-direction:column;flex:1.7 1 280px;min-height:280px;overflow:hidden}
+  #secSched{display:flex;flex-direction:column;flex:1 1 120px;min-height:120px;overflow:hidden}
   #secTodo{display:flex;flex-direction:column;flex:1 1 160px;min-height:160px;overflow:hidden}
   #secSocial{display:flex;flex-direction:column;flex:1 1 140px;min-height:140px;overflow:hidden}
   #secInvest{display:flex;flex-direction:column;flex:0 1 auto;min-height:0;overflow:hidden;padding-top:6px;padding-bottom:5px}
-  #secFin .sec-scroll,#secTodo .sec-scroll,#secSocial .sec-scroll,#secSched .sec-scroll{max-height:none;flex:1 1 auto;min-height:80px}
+  #secFin .sec-scroll{max-height:none;flex:1 1 auto;min-height:160px;padding-bottom:10px;scroll-padding-bottom:10px}
+  #secTodo .sec-scroll,#secSocial .sec-scroll,#secSched .sec-scroll{max-height:none;flex:1 1 auto;min-height:80px}
   #secInvest .sec-scroll{max-height:none;flex:1 1 auto;min-height:0}
-  #secFin .hero-fig,#secFin>h2,#secFin>.food,#secSched>h2,#secTodo>h2,#secSocial>h2,#secInvest>h2{flex:0 0 auto}
+  #secFin .hero-fig,#secFin>h2,#secFin>.food,#secFin>.fin-note,#secSched>h2,#secTodo>h2,#secSocial>h2,#secInvest>h2{flex:0 0 auto}
   #secFin>.food{margin-top:3px;padding-top:3px}
   #secSched .ln{padding-top:1.5px;padding-bottom:1.5px}
   #secSched .ln .v small{display:inline;margin:0 0 0 .35em}
@@ -274,6 +275,14 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
 .sec-scroll::-webkit-scrollbar-thumb{background:rgba(92,225,197,.35);border-radius:6px}
 #secFin .sec-scroll .ln:first-of-type,#secSocial .sec-scroll .ln:first-of-type{border-top:1px solid rgba(255,255,255,.06);padding-top:5px}
 .sec-scroll .ln.is-today .k{color:var(--mint)}
+#secFin .sec-scroll .ln{grid-template-columns:1fr auto}
+#secFin .sec-scroll .ln .r{color:var(--mint);font-size:12px;font-weight:800}
+#secFin .sec-scroll .ln.is-empty .r{color:var(--muted);font-weight:700}
+#secFin .sec-scroll .ln.is-today .r{color:var(--mint)}
+#secFin .sec-scroll .ln .v{display:none}
+#secFin .sec-scroll .ln .k{font-size:11.5px}
+#secFin .sec-scroll .ln .k small{display:inline;margin-left:.4em;font-size:9px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);opacity:.85}
+.fin-note{font-size:9px;color:var(--muted);line-height:1.35;margin:4px 0 2px}
 .fin-mo{position:sticky;top:0;z-index:2;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
   font-weight:800;color:var(--gold);padding:5px 0 3px;background:#0e0f11;
   border-bottom:1px solid rgba(255,255,255,.06)}
@@ -306,6 +315,12 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
   .bar .soon{margin-top:2px}
   .bar h2{margin-bottom:2px}
 }
+@media (min-width:1600px){
+  .ops-list{grid-template-columns:1fr 1fr 1fr 1fr;column-gap:18px}
+}
+@media (min-width:2200px){
+  .ops-list{grid-template-columns:repeat(5,1fr);column-gap:20px}
+}
 
 
 /* full-finances overlay — FLIP from the button */
@@ -322,23 +337,23 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
   backface-visibility:hidden;-webkit-backface-visibility:hidden;
   border-radius:0;display:flex;flex-direction:column;overflow:hidden;
   box-shadow:0 0 0 1px rgba(92,225,197,.18), 0 20px 60px rgba(0,0,0,.45)}
-.fin-ov-body{flex:1 1 auto;min-height:0;height:100%;display:flex;flex-direction:column;padding:14px 16px 16px;
-  opacity:0;transform:translateZ(0);max-width:720px;width:100%;margin:0 auto;overflow:hidden;
-  transition:opacity 220ms ease}
+.fin-ov-body{flex:1 1 auto;min-height:0;height:100%;display:flex;flex-direction:column;padding:0;
+  opacity:0;transform:translateZ(0);max-width:none;width:100%;margin:0;overflow:hidden;
+  transition:opacity 220ms ease;background:#0c1416}
 .fin-ov.ready .fin-ov-body{opacity:1}
-.fin-ov-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;flex:none}
-.fin-ov-top h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin:0;
-  display:flex;align-items:baseline;gap:8px}
+.fin-ov-frame{flex:1 1 auto;min-height:0;width:100%;height:100%;border:0;background:#0c1416;display:block}
+.fin-ov-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0;flex:none;
+  position:absolute;top:10px;right:12px;z-index:2;pointer-events:none;width:auto}
+.fin-ov-top h2{display:none}
+.fin-ov-top .fin-ov-x{pointer-events:auto}
+.fin-ov-top h2{display:none}
 .fin-ov-x{appearance:none;background:rgba(255,255,255,.05);border:1px solid rgba(92,225,197,.35);
   color:var(--ink);border-radius:999px;width:36px;height:36px;display:inline-flex;align-items:center;
   justify-content:center;cursor:pointer;padding:0;flex:none}
 .fin-ov-x svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
 .fin-ov-x:hover{background:rgba(92,225,197,.12);border-color:rgba(92,225,197,.6)}
 .fin-ov-body .sec-scroll{max-height:none;flex:1 1 auto;min-height:0;height:auto}
-.fin-ov-body .hero-fig{margin-bottom:8px;flex:none}
-.fin-ov-foot{flex:none;position:relative;z-index:1;margin-top:8px;padding-top:8px;
-  border-top:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg,rgba(11,11,12,.94),#0b0b0c)}
-.fin-ov-site{margin-top:10px;align-self:flex-start}
+.fin-ov-foot{display:none}
 @media (prefers-reduced-motion:reduce){
   .fin-ov-back,.fin-ov-panel,.fin-ov-body{transition:opacity 280ms ease !important}
 }
@@ -561,10 +576,19 @@ function parseOutgoing(cell){
   });
   return {amount, names:parts};
 }
+function parseLeft(cell){
+  const raw=String(cell||"").replace(/,/g,"").trim();
+  if(!raw) return null;
+  const m=raw.match(/(?:£|GBP\s*)(-?[\d]+(?:\.\d+)?)/i) || raw.match(/^(-?[\d]+(?:\.\d+)?)$/);
+  if(!m) return null;
+  const n=parseFloat(m[1]);
+  return isNaN(n)?null:n;
+}
 function outDays(){
+  // Existing projection horizon on Command: 1 Nov 2026 through 31 Dec 2026.
   const start=new Date(2026,10,1), end=new Date(2026,11,31);
   const rows=(RAW.Finances||[]).slice(3);
-  const days=[];
+  const by={};
   let seenItem=false;
   rows.forEach(r=>{
     const a=g(r,0).trim();
@@ -573,26 +597,43 @@ function outDays(){
     if(seenItem) return;
     const d=parseFinDate(a,2026); if(!d) return;
     if(d<start||d>end) return;
-    const out=parseOutgoing(g(r,1)); if(!out) return;
-    const lab=out.names.join(" · ");
-    if(isLiz(lab+" "+g(r,1)+" "+g(r,2))){
-      const kept=out.names.filter(n=>!isLiz(n));
-      if(!kept.length) return;
-      out.names=kept;
-    }
-    days.push({d, day:fmtD(d), amount:out.amount, amt:money(out.amount), names:out.names, lab:out.names.join(" · "), left:g(r,2).trim()});
+    const cell=g(r,1), leftCell=g(r,2);
+    if(isLiz(cell+" "+leftCell+" "+a)) return;
+    const out=parseOutgoing(cell);
+    const left=parseLeft(leftCell);
+    const planned=/\bplanned\b/i.test(cell+" "+leftCell);
+    by[isoDay(d)]={d, out, left, planned, raw:cell, leftRaw:leftCell};
   });
-  days.sort((a,b)=>a.d-b.d);
+  const today=startOfDay(londonNow());
+  const from=today<start?start:today;
+  const days=[];
+  let run=null;
+  // Walk from the horizon start so a missing today still inherits the last known left.
+  for(let cur=new Date(start); cur<=end; cur=new Date(cur.getFullYear(),cur.getMonth(),cur.getDate()+1)){
+    const iso=isoDay(cur);
+    const row=by[iso];
+    if(row && row.left!=null) run=row.left;
+    if(cur<from) continue;
+    days.push({
+      d:new Date(cur.getFullYear(),cur.getMonth(),cur.getDate()),
+      day:fmtD(cur),
+      left:run,
+      leftTxt:run!=null?money(run):"",
+      empty:!(row && row.out),
+      planned:!!(row && row.planned)
+    });
+  }
   return days;
 }
 function isoDay(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function finDaysHTML(days, today){
   const hasNov=days.some(x=>x.d.getFullYear()===2026&&x.d.getMonth()===10);
   const hasDec=days.some(x=>x.d.getFullYear()===2026&&x.d.getMonth()===11);
-  let h='<div class="sec-scroll" id="finDays">';
-  if(!days.length) h+='<div class="ln"><div class="k gold"></div><div class="v">No outgoings are listed for 1 Nov to 31 Dec.</div><div class="r"></div></div>';
+  let h='<p class="fin-note">End-of-day running total · later days are a forecast · planned income is marked</p>';
+  h+='<div class="sec-scroll" id="finDays">';
+  if(!days.length) h+='<div class="ln"><div class="k gold"></div><div class="v">No forecast days are listed for the rest of the horizon (through 31 Dec).</div><div class="r"></div></div>';
   else{
-    if(!hasNov) h+='<p class="later">November outgoings are not on the sheet yet.</p>';
+    if(!hasNov) h+='<p class="later">November figures are not on the sheet yet.</p>';
     let lastMo=null;
     days.forEach(x=>{
       const mo=x.d.getFullYear()+"-"+String(x.d.getMonth()+1).padStart(2,"0");
@@ -602,9 +643,11 @@ function finDaysHTML(days, today){
         h+='<div class="fin-mo" data-month="'+mo+'">'+esc(label)+'</div>';
       }
       const isT=isoDay(x.d)===isoDay(today);
-      h+='<div class="ln'+(isT?" is-today":"")+'" data-iso="'+isoDay(x.d)+'"><div class="k gold">'+esc(x.day)+'</div><div class="v">'+esc(x.lab||x.amt)+'</div><div class="r">'+esc(x.amt||"")+'</div></div>';
+      const cls="ln"+(isT?" is-today":"")+(x.empty?" is-empty":"");
+      const mark=x.planned?' <small>planned</small>':"";
+      h+='<div class="'+cls+'" data-iso="'+isoDay(x.d)+'"><div class="k gold">'+esc(x.day)+mark+'</div><div class="v"></div><div class="r">'+esc(x.leftTxt||"—")+'</div></div>';
     });
-    if(!hasDec) h+='<p class="later">December outgoings are not on the sheet yet.</p>';
+    if(!hasDec) h+='<p class="later">December figures are not on the sheet yet.</p>';
   }
   h+='</div>';
   return h;
@@ -630,7 +673,7 @@ function renderFin(){
   const asof=(g(r,3).match(/^\d{4}-\d\d-\d\d[ \d:]*/)||[""])[0].trim();
   const today=startOfDay(londonNow());
   const days=outDays();
-  let h='<h2 class="gold"><span><i class="dot" style="background:var(--gold);color:var(--gold)"></i>Finances</span><a class="fin-link" id="btnFullFin" href="https://home.money-rudi.here.now/" target="_blank" rel="noopener">Full finances</a></h2>';
+  let h='<h2 class="gold"><span><i class="dot" style="background:var(--gold);color:var(--gold)"></i>Finances</span><a class="fin-link" id="btnFullFin" href="full-board/index.html" target="_blank" rel="noopener">Full finances</a></h2>';
   if(v) h+='<div class="hero-fig"><b>'+esc(v)+'</b><span>bank balance · confirmed'+(asof?" · as of "+esc(asofTxt(asof)):"")+'</span></div>';
   else h+='<div class="hero-fig"><b>—</b><span>bank balance · not yet updated</span></div>';
   h+=finDaysHTML(days, today);
@@ -1230,21 +1273,12 @@ setInterval(()=>{ if(RAW) render(); },30000);
   }
   function fillFinOverlay(){
     if(!body||!RAW) return;
-    const r=(RAW.Finances||[])[2]||[];
-    const v=money(g(r,1));
-    const asof=(g(r,3).match(/^\d{4}-\d\d-\d\d[ \d:]*/)||[""])[0].trim();
-    const today=startOfDay(londonNow());
-    const days=outDays();
-    let h='<div class="fin-ov-top"><h2 class="gold" id="finOvTitle"><span><i class="dot" style="background:var(--gold);color:var(--gold)"></i>Finances</span></h2>';
+    let h='<div class="fin-ov-top"><h2 class="gold" id="finOvTitle"><span>Full finances</span></h2>';
     h+='<button type="button" class="fin-ov-x" id="finOvClose" aria-label="Close finances"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
-    if(v) h+='<div class="hero-fig"><b>'+esc(v)+'</b><span>bank balance · confirmed'+(asof?" · as of "+esc(asofTxt(asof)):"")+'</span></div>';
-    else h+='<div class="hero-fig"><b>—</b><span>bank balance · not yet updated</span></div>';
-    h+=finDaysHTML(days, today);
-    h+='<div class="fin-ov-foot">'+foodHTML()+'<a class="fin-link fin-ov-site" href="https://home.money-rudi.here.now/" target="_blank" rel="noopener">Open full finances site</a></div>';
+    h+='<iframe class="fin-ov-frame" id="finOvFrame" title="Full finances" src="full-board/index.html"></iframe>';
     body.innerHTML=h;
     const x=document.getElementById("finOvClose");
     if(x) x.addEventListener("click",()=>closeFinOv(false));
-    scrollFinToToday(body);
   }
   function waitTrans(el, prop, ms){
     return new Promise(res=>{
@@ -1284,7 +1318,6 @@ setInterval(()=>{ if(RAW) render(); },30000);
     ov.classList.add("open");
     await waitTrans(panel,"transform",DUR);
     ov.classList.add("ready");
-    scrollFinToToday(body);
     st.open=true; st.busy=false;
     window.__finOvOpen=true;
     const x=document.getElementById("finOvClose"); if(x) x.focus();

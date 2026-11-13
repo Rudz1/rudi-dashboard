@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta http-equiv="Cache-Control" content="no-store">
+<meta name="theme-color" content="#042f33">
+<title>Rudi · Research</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="gate">
+  <h1>RUDI · RESEARCH</h1>
+  <p class="sub">A private research map of the people you care about. Nothing is shown until you unlock it. All personal data on this page is encrypted.</p>
+  <form id="unlock-form" autocomplete="off">
+    <input id="pw" type="password" autocomplete="current-password" placeholder="Passphrase" aria-label="Passphrase" autofocus>
+    <button type="submit" class="go" id="unlock-btn">Unlock</button>
+  </form>
+  <div class="err" id="err" role="status"></div>
+  <p class="hint">The passphrase is not stored in this page. Use the one you were given privately.</p>
+</div>
+
+<div id="app">
+  <div class="example-banner" id="example-banner">Example data only — fictional people, pets and places. This will be replaced when Duck publishes the real encrypted file.</div>
+  <div class="local-banner" id="local-banner" hidden>Using a local draft saved in this browser. <button type="button" class="textbtn" id="revert-published">Revert to published copy</button></div>
+  <header class="top">
+    <div class="brand">Rudi<b>Research</b></div>
+    <nav class="nav" aria-label="Views">
+      <button type="button" data-view="graph" class="on">Graph</button>
+      <button type="button" data-view="person">Person</button>
+      <button type="button" data-view="upcoming">Upcoming</button>
+    </nav>
+    <div class="search"><input id="search" type="search" placeholder="Search people, places, likes…" aria-label="Search"></div>
+    <button type="button" class="textbtn gold" id="btn-add">Add</button>
+    <button type="button" class="textbtn gold" id="btn-save">Save</button>
+    <button type="button" class="textbtn" id="btn-lock">Lock</button>
+  </header>
+
+  <div class="workspace" id="workspace">
+    <section class="view on" id="graph-view" data-view="graph">
+      <div class="filters" id="filters"></div>
+      <div id="cy" role="img" aria-label="Relationship graph"></div>
+    </section>
+    <section class="view" id="person-view" data-view="person">
+      <div class="page">
+        <div class="page-head">
+          <h2>Person profile</h2>
+          <label class="field" style="margin:0"><span style="position:absolute;left:-9999px">Choose a person</span>
+            <select id="person-select" aria-label="Choose a person"></select>
+          </label>
+        </div>
+        <div id="person-profile"></div>
+      </div>
+    </section>
+    <section class="view" id="upcoming-view" data-view="upcoming">
+      <div class="page">
+        <div class="page-head">
+          <h2>Upcoming in the next 30 days</h2>
+        </div>
+        <div class="blk" id="upcoming-list"></div>
+      </div>
+    </section>
+    <aside class="panel" id="panel">
+      <h2>Details</h2>
+      <p class="empty">Click a person, pet, place or like on the graph to see how they connect.</p>
+    </aside>
+  </div>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <h2 id="modal-title">Add</h2>
+    <form id="modal-form"></form>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="vendor/cytoscape.min.js"></script>
+<script src="crypto.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

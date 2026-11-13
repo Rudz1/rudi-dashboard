@@ -1807,8 +1807,12 @@
   $("btn-lock").addEventListener("click", () => lock("Locked."));
   $("btn-add").addEventListener("click", () => openEditor("chooser"));
   $("btn-save").addEventListener("click", saveAll);
-  $("btn-toggle-menu").addEventListener("click", () => toggleChrome(LS_MENU));
-  $("btn-toggle-filters").addEventListener("click", () => toggleChrome(LS_FILTERS));
+  document.addEventListener("click", (ev) => {
+    const t = ev.target && ev.target.closest ? ev.target.closest("#btn-toggle-menu, #btn-toggle-filters") : null;
+    if (!t) return;
+    ev.preventDefault();
+    toggleChrome(t.id === "btn-toggle-filters" ? LS_FILTERS : LS_MENU);
+  });
   window.addEventListener("resize", () => { if ($("app").classList.contains("show")) refitGraph(); }, { passive: true });
   $("btn-saving").addEventListener("click", () => openSaveSettings("settings"));
   $("save-settings-form").addEventListener("submit", (ev) => { ev.preventDefault(); storeTokenFromForm(); });

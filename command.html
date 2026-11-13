@@ -204,11 +204,11 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
 .td.on i{background:var(--teal);border-color:var(--teal);box-shadow:0 0 8px rgba(92,225,197,.45)}
 .td.on i:after{content:"";display:block;width:7px;height:4px;border-left:1.6px solid #08110f;border-bottom:1.6px solid #08110f;
   transform:rotate(-45deg) translate(1px,-1px);margin:3px auto 0}
-.orb-wrap{cursor:pointer}
+.orb-wrap{cursor:default}
 @media (min-width:900px){
   .ctl{margin-top:8px}
   .hint{margin-top:4px}
-  .orb-wrap{cursor:pointer}
+  .orb-wrap{cursor:default}
 }
 @media (prefers-reduced-motion:reduce){}
 
@@ -227,6 +227,72 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
 #gate input:focus{outline:none;box-shadow:0 0 0 .22rem rgba(92,225,197,.28)}
 #gate .err{color:#ffb3d4;font-size:13px;min-height:1.2rem}
 
+/* 13 Nov additions: stamps, food bar, inbox, investing, coming up */
+.sec h2 .stamp{font-size:9px;letter-spacing:.04em;text-transform:none;font-weight:600;color:var(--muted);margin-left:auto;padding-left:6px;white-space:nowrap}
+.sec h2 .stamp.stale,.sec h2 .asof.stale{color:#ffb3d4}
+.food{margin:6px 0 4px}
+.food-h{display:flex;justify-content:space-between;align-items:baseline;font-size:10px;color:var(--muted);font-weight:600}
+.food-h b{color:var(--mint);font-size:12px;font-weight:800}
+.food-track{height:7px;border-radius:4px;background:rgba(255,255,255,.06);border:1px solid rgba(123,224,176,.25);margin-top:3px;overflow:hidden}
+.food-fill{height:100%;background:linear-gradient(90deg,rgba(123,224,176,.55),var(--mint));box-shadow:0 0 8px rgba(123,224,176,.35)}
+.food small{display:block;font-size:9px;color:var(--muted);margin-top:2px}
+.td-sub{font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:#ffb3d4;margin:2px 0 2px}
+.td-sub.rest{margin-top:6px;color:var(--muted)}
+.chip.due{background:rgba(255,110,199,.08);border-color:rgba(255,110,199,.32);color:#ffd0ea}
+.soon{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center}
+.soon .lab{font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:#ffb3d4}
+.usage-meta .stale{color:#ffb3d4}
+@media (min-width:900px){.col.left,.col.right{overflow-y:auto;scrollbar-width:thin}}
+
+/* section scroll (finances days + socials actions) */
+.sec-scroll{position:relative;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(92,225,197,.35) transparent;
+  max-height:min(42vh,280px);margin:0;padding:0;min-height:0;contain:paint;clip-path:inset(0)}
+#secFin>.food{position:relative;z-index:1;margin-top:8px;padding-top:6px;
+  border-top:1px solid rgba(255,255,255,.06);background:#0e0f11}
+.sec-scroll::-webkit-scrollbar{width:6px}
+.sec-scroll::-webkit-scrollbar-thumb{background:rgba(92,225,197,.35);border-radius:6px}
+#secFin .sec-scroll .ln:first-of-type,#secSocial .sec-scroll .ln:first-of-type{border-top:1px solid rgba(255,255,255,.06);padding-top:5px}
+.sec-scroll .ln.is-today .k{color:var(--mint)}
+@media (min-width:900px){
+  #secFin,#secSocial{display:flex;flex-direction:column;min-height:0;flex:1 1 auto;overflow:hidden}
+  #secFin .sec-scroll,#secSocial .sec-scroll{max-height:none;flex:1 1 auto;min-height:0}
+}
+
+/* full-finances overlay — FLIP from the button */
+.fin-ov{position:fixed;inset:0;z-index:12000;display:flex;align-items:stretch;justify-content:stretch;
+  pointer-events:none;visibility:hidden}
+.fin-ov[hidden]{display:none !important;pointer-events:none !important;visibility:hidden !important}
+.fin-ov.show{pointer-events:auto;visibility:visible}
+.fin-ov-back{position:absolute;inset:0;background:rgba(5,5,6,.78);opacity:0;
+  transition:opacity 400ms cubic-bezier(0.2,0.8,0.2,1)}
+.fin-ov.open .fin-ov-back{opacity:1}
+.fin-ov-panel{position:absolute;inset:0;width:100%;height:100%;
+  background:linear-gradient(180deg,#0b0b0c 0%,#121214 52%,#070708 100%);
+  color:var(--ink);transform-origin:0 0;will-change:transform;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:0;display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(92,225,197,.18), 0 20px 60px rgba(0,0,0,.45)}
+.fin-ov-body{flex:1 1 auto;min-height:0;height:100%;display:flex;flex-direction:column;padding:14px 16px 16px;
+  opacity:0;transform:translateZ(0);max-width:720px;width:100%;margin:0 auto;overflow:hidden;
+  transition:opacity 220ms ease}
+.fin-ov.ready .fin-ov-body{opacity:1}
+.fin-ov-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;flex:none}
+.fin-ov-top h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin:0;
+  display:flex;align-items:baseline;gap:8px}
+.fin-ov-x{appearance:none;background:rgba(255,255,255,.05);border:1px solid rgba(92,225,197,.35);
+  color:var(--ink);border-radius:999px;width:36px;height:36px;display:inline-flex;align-items:center;
+  justify-content:center;cursor:pointer;padding:0;flex:none}
+.fin-ov-x svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.fin-ov-x:hover{background:rgba(92,225,197,.12);border-color:rgba(92,225,197,.6)}
+.fin-ov-body .sec-scroll{max-height:none;flex:1 1 auto;min-height:0;height:auto}
+.fin-ov-body .hero-fig{margin-bottom:8px;flex:none}
+.fin-ov-foot{flex:none;position:relative;z-index:1;margin-top:8px;padding-top:8px;
+  border-top:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg,rgba(11,11,12,.94),#0b0b0c)}
+.fin-ov-site{margin-top:10px;align-self:flex-start}
+@media (prefers-reduced-motion:reduce){
+  .fin-ov-back,.fin-ov-panel,.fin-ov-body{transition:opacity 280ms ease !important}
+}
 </style>
 </head>
 <body>
@@ -275,29 +341,24 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
   </header>
 
   <section class="hero">
-    <div class="orb-wrap" id="orbWrap" title="Tap for the rundown">
+    <div class="orb-wrap" id="orbWrap">
       <canvas id="orbCanvas" aria-hidden="true"></canvas>
     </div>
     <p class="brief" id="brief"> <span id="briefSub"></span></p>
-    <p class="cap" id="cap" hidden></p>
-    <div class="ctl">
-      <button type="button" id="btnListen" aria-pressed="false">Listen</button>
-      <button type="button" class="primary" id="btnTalk">Rundown</button>
-    </div>
-    <p class="hint" id="hint">Say “rundown” or “brief me”, or tap the orb. The first tap lets the microphone start listening.</p>
+
   </section>
 
   <div class="col left">
-    <section class="sec usage" style="--pct:39%">
+    <section class="sec usage" id="secUsage" style="--pct:44.6%">
       <h2 class="teal"><span><i class="dot" style="background:var(--teal);color:var(--teal)"></i>Grok Bot · Weekly usage</span></h2>
-      <div class="usage-pct"><b>39</b><span>% used</span></div>
-      <div class="meter-track" role="img" aria-label="39% of weekly usage used">
+      <div class="usage-pct"><b>44.6</b><span>% used</span></div>
+      <div class="meter-track" role="img" aria-label="44.6% of weekly usage used">
         <div class="meter-fill"></div>
         <div class="meter-cells"></div>
         <div class="meter-knob"></div>
       </div>
       <div class="meter-ticks"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
-      <p class="usage-meta">Snapshot as of 12 Nov evening · resets Fri 13 Nov, 13:11 UK time<span>Cursor Pro+ · <a class="fin-link" href="grokbot://app/v1/settings?id=usage" style="margin:0;padding:1px 7px;font-size:9px;display:inline-flex">Usage</a></span></p>
+      <p class="usage-meta"><span id="usageWhen">44.6% as of Fri 13 Nov, 09:33 UK · resets Fridays at 13:11 UK</span><span>Cursor Pro+ · <a class="fin-link" href="grokbot://app/v1/settings?id=usage" style="margin:0;padding:1px 7px;font-size:9px;display:inline-flex">Usage</a></span></p>
     </section>
     <section class="sec" id="secFin"></section>
     <section class="sec" id="secSched"></section>
@@ -307,11 +368,19 @@ h2 .orchid{color:#f0a8f0} h2 .orange{color:var(--orange)} h2 .mint{color:var(--m
     <section class="sec" id="secTodo"></section>
     <section class="sec" id="secSocial"></section>
     <section class="sec" id="secVideo"></section>
+    <section class="sec" id="secInvest"></section>
   </div>
 
   <section class="bar" id="secOps"></section>
   <p class="note" id="foot"></p>
 </main>
+
+<div id="finOv" class="fin-ov" hidden aria-hidden="true">
+  <div class="fin-ov-back" id="finOvBack"></div>
+  <div class="fin-ov-panel" id="finOvPanel" role="dialog" aria-modal="true" aria-labelledby="finOvTitle">
+    <div class="fin-ov-body" id="finOvBody"></div>
+  </div>
+</div>
 </div>
 
 <script>
@@ -377,6 +446,7 @@ function forecastDays(){
     let d=new Date(today.getFullYear(),mi,+m[1]);
     if(d<new Date(today.getFullYear(),today.getMonth()-6,1)) d=new Date(today.getFullYear()+1,mi,+m[1]);
     if(d<today) return;
+    if(!g(r,1).trim()) return;
     const out=g(r,1).split("\n");
     const lab=(out[1]||"").trim();
     const amt=out[0].trim();
@@ -408,24 +478,112 @@ function offUntil(ev, now){
   return "You're off.";
 }
 
+
+function parseFinDate(s, yearHint){
+  const raw=String(s||"").trim();
+  const iso=raw.match(/^(\d{4})-(\d\d)-(\d\d)/);
+  if(iso) return new Date(+iso[1],+iso[2]-1,+iso[3]);
+  const mon=raw.match(/^(?:[A-Za-z]{3}\s+)?(\d{1,2})\s+([A-Za-z]{3})(?:\s+(\d{4}))?$/);
+  if(!mon) return null;
+  const mo=["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"].indexOf(mon[2].toLowerCase());
+  if(mo<0) return null;
+  const y=mon[3]?+mon[3]:(yearHint||londonNow().getFullYear());
+  return new Date(y,mo,+mon[1]);
+}
+function parseOutgoing(cell){
+  const raw=String(cell||"").trim();
+  if(!raw) return null;
+  const lines=raw.split(/\n/).map(x=>x.trim()).filter(Boolean);
+  const first=lines[0]||"";
+  if(/^(own money moved in|income\b)/i.test(first) && !/^(?:£|GBP\s*)[\d]/.test(first)) return null;
+  const am=first.match(/^(?:£|GBP\s*)([\d,]+(?:\.\d+)?)/i);
+  if(!am) return null;
+  const amount=parseFloat(am[1].replace(/,/g,""));
+  if(!(amount>0)) return null;
+  const isIn=/^(income\b|own money moved in|work bonus\b|transfer from joint|transfer of rudi'?s own money)/i;
+  const parts=[];
+  lines.slice(1).forEach(line=>{
+    if(isIn.test(line) && !/\+/.test(line)) return;
+    line.split(/(?<=£[\d,]+(?:\.\d+)?)\s\+\s/).forEach(bit=>{
+      const b=bit.trim(); if(!b||isIn.test(b)) return;
+      const cleaned=b.replace(/\s*\([^)]{40,}\)\s*$/,"").trim();
+      parts.push(cleaned||b);
+    });
+  });
+  return {amount, names:parts};
+}
+function outDays(){
+  const start=new Date(2026,10,1), end=new Date(2026,11,31);
+  const rows=(RAW.Finances||[]).slice(3);
+  const days=[];
+  let seenItem=false;
+  rows.forEach(r=>{
+    const a=g(r,0).trim();
+    if(!a) return;
+    if(/^Item$/i.test(a) && /^Status$/i.test(g(r,1).trim())){ seenItem=true; return; }
+    if(seenItem) return;
+    const d=parseFinDate(a,2026); if(!d) return;
+    if(d<start||d>end) return;
+    const out=parseOutgoing(g(r,1)); if(!out) return;
+    const lab=out.names.join(" · ");
+    if(isLiz(lab+" "+g(r,1)+" "+g(r,2))){
+      const kept=out.names.filter(n=>!isLiz(n));
+      if(!kept.length) return;
+      out.names=kept;
+    }
+    days.push({d, day:fmtD(d), amount:out.amount, amt:money(out.amount), names:out.names, lab:out.names.join(" · "), left:g(r,2).trim()});
+  });
+  days.sort((a,b)=>a.d-b.d);
+  return days;
+}
+function isoDay(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function finDaysHTML(days, today){
+  const start=new Date(2026,10,1), end=new Date(2026,11,31);
+  const hasNov=days.some(x=>x.d.getFullYear()===2026&&x.d.getMonth()===10);
+  const hasDec=days.some(x=>x.d.getFullYear()===2026&&x.d.getMonth()===11);
+  let h='<div class="sec-scroll" id="finDays">';
+  if(!days.length) h+='<div class="ln"><div class="k gold"></div><div class="v">No outgoings are listed for 1 Nov to 31 Dec.</div><div class="r"></div></div>';
+  else{
+    if(!hasNov) h+='<p class="later">November outgoings are not on the sheet yet.</p>';
+    days.forEach(x=>{
+      const isT=isoDay(x.d)===isoDay(today);
+      h+='<div class="ln'+(isT?" is-today":"")+'" data-iso="'+isoDay(x.d)+'"><div class="k gold">'+esc(x.day)+'</div><div class="v">'+esc(x.lab||x.amt)+(x.lab&&x.amt?'':'')+'</div><div class="r">'+esc(x.amt||"")+'</div></div>';
+    });
+    if(!hasDec) h+='<p class="later">December outgoings are not on the sheet yet.</p>';
+  }
+  h+='</div>';
+  return h;
+}
+function scrollFinToToday(root){
+  const scope=root&&root.querySelector?root:document;
+  const box=scope.querySelector("#finDays")||scope.querySelector(".sec-scroll");
+  if(!box) return;
+  const today=isoDay(startOfDay(londonNow()));
+  const rows=[...box.querySelectorAll(".ln[data-iso]")];
+  const target=rows.find(r=>r.getAttribute("data-iso")>=today)||rows[0];
+  if(!target) return;
+  const top=target.getBoundingClientRect().top-box.getBoundingClientRect().top+box.scrollTop;
+  box.scrollTop=Math.max(0, Math.round(top));
+}
+
 function renderFin(){
   const el=document.getElementById("secFin"); if(!el) return;
   const r=(RAW.Finances||[])[2]||[];
   const v=money(g(r,1));
   const asof=(g(r,3).match(/^\d{4}-\d\d-\d\d[ \d:]*/)||[""])[0].trim();
-  const days=forecastDays();
-  const near=days.slice(0,3);
-  const later=days.slice(3,8);
-  let h='<h2 class="gold"><span><i class="dot" style="background:var(--gold);color:var(--gold)"></i>Finances</span><a class="fin-link" href="https://home.money-rudi.here.now/" target="_blank" rel="noopener">Full finances</a></h2>';
+  const today=startOfDay(londonNow());
+  const days=outDays();
+  let h='<h2 class="gold"><span><i class="dot" style="background:var(--gold);color:var(--gold)"></i>Finances</span><a class="fin-link" id="btnFullFin" href="https://home.money-rudi.here.now/" target="_blank" rel="noopener">Full finances</a></h2>';
   if(v) h+='<div class="hero-fig"><b>'+esc(v)+'</b><span>bank balance · confirmed'+(asof?" · as of "+esc(asofTxt(asof)):"")+'</span></div>';
   else h+='<div class="hero-fig"><b>—</b><span>bank balance · not yet updated</span></div>';
-  near.forEach(x=>{
-    h+='<div class="ln"><div class="k gold">'+esc(x.day.replace(/^[A-Za-z]{3}\s+/,"$&").replace(/^(\w{3})\s+/,"$1 "))+'</div><div class="v">'+esc(x.lab||x.amt)+(x.lab&&x.amt?'<small>'+esc(x.amt)+'</small>':'')+'</div><div class="r">'+esc(x.left)+'</div></div>';
-  });
-  if(later.length){
-    h+='<p class="later">Later · '+later.map(x=>'<b>'+esc(x.day)+'</b> '+(esc(x.lab||x.amt))+(x.left?" · "+esc(x.left):"")).join(" · ")+'</p>';
-  }
+  h+=finDaysHTML(days, today);
+  h+=foodHTML();
   el.innerHTML=h;
+  const btn=document.getElementById("btnFullFin");
+  if(btn&&!btn.dataset.wired){ btn.dataset.wired="1"; btn.addEventListener("click",onFullFinClick); }
+  else if(btn){ btn.onclick=onFullFinClick; }
+  scrollFinToToday(el);
+  if(window.__finOvOpen) fillFinOverlay();
 }
 function kClass(cat,item){
   if(/home|bin|meter|plant/i.test((cat||"")+" "+(item||""))) return "home";
@@ -501,13 +659,16 @@ function renderTodo(){
   const L=tdList(), left=L.filter(x=>!x.on).length;
   let h='<h2 class="pink"><span><i class="dot" style="background:var(--pink);color:var(--pink)"></i>To do</span><span class="asof" id="tdLeft">'+(L.length?(left?left+" left":"all done"):"")+'</span></h2>';
   h+='<div id="tdList">';
-  L.forEach(x=>{
+  const IB=L.filter(x=>isInbox(x.text)), RS=L.filter(x=>!isInbox(x.text));
+  const row=x=>{
     const label=prettyTodo(x.text);
     let small="";
     if(x.over) small='<small class="warn">Overdue since '+esc(x.over)+'</small>';
     else if(x.detail) small='<small>'+esc(x.detail.length>80?x.detail.slice(0,78)+"\u2026":x.detail)+'</small>';
     h+='<label class="td'+(x.on?" on":"")+'"><input type="checkbox" data-id="'+x.id+'" data-item="'+esc(x.text)+'" data-date="'+x.date+'"'+(x.on?" checked":"")+'><i></i><div>'+esc(label)+small+'</div></label>';
-  });
+  };
+  if(IB.length){ h+='<div class="td-sub">Inbox actions · emails to reply to</div>'; IB.forEach(row); if(RS.length) h+='<div class="td-sub rest">To do</div>'; }
+  RS.forEach(row);
   if(!L.length) h+='<div class="ln"><div class="k pink"></div><div class="v">Nothing open</div><div class="r"></div></div>';
   h+='</div>';
   el.innerHTML=h;
@@ -538,11 +699,30 @@ function igStats(detail){
   const p=String(detail||"").match(/(\d+)\s+posts/i);
   return {followers:f?f[1]:null, posts:p?p[1]:null};
 }
+function socialActions(detail){
+  let s=String(detail||"").replace(/^To action:\s*/i,"").replace(/\s*\(it got signed out[^)]*\)/,"").trim();
+  if(!s) return [];
+  const parts=[];
+  if(/(?:^|\s)\d+\)\s/.test(s)){
+    s.split(/(?:^|\s+)(?=\d+\)\s)/).forEach(bit=>{
+      const b=bit.replace(/^\d+\)\s*/,"").trim();
+      if(b) parts.push(b);
+    });
+  } else {
+    parts.push(s);
+  }
+  const out=[];
+  parts.forEach(p=>{
+    p.split(/\s*;\s+(?=[A-Z])/).forEach(x=>{ const y=x.trim(); if(y) out.push(y); });
+  });
+  return out.length?out:(s?[s]:[]);
+}
 function renderSocial(){
   const el=document.getElementById("secSocial"); if(!el) return;
   const t=T["Socials"]||{items:[],meta:{}};
   const upd=asofTxt(t.meta.updated||"");
   let h='<h2 class="orchid"><span><i class="dot" style="background:#f0a8f0;color:#f0a8f0"></i>Socials</span><span class="asof">'+(upd?("as of "+esc(upd)):"")+'</span></h2>';
+  h+='<div class="sec-scroll" id="socScroll">';
   const bus=t.items.find(i=>/^Business IG/i.test(i.item));
   const per=t.items.find(i=>/^Personal IG/i.test(i.item));
   const bs=igStats(bus&&bus.detail), ps=igStats(per&&per.detail);
@@ -566,10 +746,13 @@ function renderSocial(){
     h+='<div class="ln"><div class="k pink">YouTube</div><div class="v">'+(missing?"Not checked":esc(d.replace(/^YouTube:\s*/i,"").slice(0,90)))+(missing?'<small>Connection key missing on the bot’s computer</small>':'')+'</div><div class="r"></div></div>';
   }
   const act=t.items.find(i=>/to action/i.test(i.item));
-  if(act&&act.detail){
-    const short=act.detail.replace(/^To action:\s*/i,"").replace(/\s*\(it got signed out[^)]*\)/,"");
-    h+='<div class="ln"><div class="k pink">Action</div><div class="v">'+esc(short.slice(0,140))+'</div><div class="r"></div></div>';
+  const acts=act?socialActions(act.detail):[];
+  if(acts.length){
+    acts.forEach((a,i)=>{
+      h+='<div class="ln"><div class="k pink">'+(i===0?"Action":"")+'</div><div class="v">'+esc(a)+'</div><div class="r"></div></div>';
+    });
   }
+  h+='</div>';
   el.innerHTML=h;
 }
 function renderVideo(){
@@ -625,6 +808,7 @@ function renderOps(){
     h+='<span class="chip mute">'+esc(v.base)+(v.d?(" · "+fmtD(v.d).replace(/^[A-Za-z]{3}\s+/,"")):"")+' · all done</span>';
   });
   h+='</div>';
+  h+=soonHTML();
   el.innerHTML=h;
 }
 function refreshBrief(){
@@ -654,6 +838,80 @@ function refreshBrief(){
   brief.innerHTML=esc(off||"")+'<span id="briefSub">'+esc(sub)+'</span>';
   window.__brief = {off, next, ev};
 }
+const STALE_DAYS=7;
+const USAGE_FALLBACK={pct:44.6, asof:"2026-11-13 09:33"};
+function finItem(re){ const t=T["Finances"]; if(!t||!t.items) return null; return t.items.find(i=>re.test(i.item||""))||null; }
+function ageOf(s){ const m=String(s||"").match(/(\d{4})-(\d\d)-(\d\d)(?:[ T](\d\d):(\d\d))?/); if(!m) return null; const d=new Date(+m[1],+m[2]-1,+m[3],+(m[4]||0),+(m[5]||0)); return {d, days:Math.floor((londonNow()-d)/864e5)}; }
+function isInbox(t){ return /^\[Inbox\]/i.test(String(t||"").trim()); }
+function addStamps(){
+  // [section id, sheet tab, true = header already shows the sheet time]
+  [["secFin","Finances",false],["secSched","Calendar",false],["secTodo","To-do",false],["secSocial","Socials",true],["secVideo","Video & Projects",true],["secOps","Photo Ops",true]].forEach(([id,tab,has])=>{
+    const el=document.getElementById(id); if(!el) return; const h=el.querySelector("h2"); if(!h) return;
+    const t=T[tab]; if(!t) return; const a=ageOf(t.meta.updated); const stale=!a||a.days>STALE_DAYS;
+    const old=h.querySelector(".stamp"); if(old) old.remove();
+    let txt=a?(stale?"\u26a0 ":"")+"updated "+asofTxt(t.meta.updated)+(stale?" \u00b7 "+a.days+" days old":""):"\u26a0 no update time";
+    if(has&&!stale) return;
+    h.insertAdjacentHTML("beforeend",'<span class="stamp'+(stale?" stale":"")+'" title="Sheet tab \u201c'+esc(tab)+'\u201d last updated'+(stale?" (older than "+STALE_DAYS+" days)":"")+'">'+esc(txt)+'</span>');
+  });
+}
+function staleTabs(){
+  const out=[]; [["Photo Ops","Photo Ops"],["Video & Projects","Video"],["Books & Etsy","Books and Etsy"],["To-do","your to-do list"],["Socials","Socials"],["Finances","Finances"]].forEach(([tab,name])=>{ const t=T[tab]; if(!t) return; const a=ageOf(t.meta.updated); if(a&&a.days>STALE_DAYS) out.push(name); });
+  return out;
+}
+function nextReset(now){ const d=new Date(now.getFullYear(),now.getMonth(),now.getDate(),13,11); d.setDate(d.getDate()+((5-d.getDay()+7)%7)); if(d<=now) d.setDate(d.getDate()+7); return d; }
+function usageInfo(){
+  const it=finItem(/grok bot weekly usage/i); let pct=null, asof=null;
+  if(it){ const m=String(it.status||"").match(/(\d+(?:\.\d+)?)\s*%/); if(m){ pct=parseFloat(m[1]); asof=it.date||it.updated; } }
+  if(pct==null){ pct=USAGE_FALLBACK.pct; asof=USAGE_FALLBACK.asof; }
+  const now=londonNow(), nr=nextReset(now), last=new Date(nr.getTime()-7*864e5), a=ageOf(asof);
+  return {pct, asof, a, next:nr, old: !!(a && a.d<last)};
+}
+function renderUsage(){
+  const sec=document.getElementById("secUsage"); if(!sec) return; const u=usageInfo();
+  const p=Math.max(0,Math.min(100,u.pct)); const ps=(p%1?p.toFixed(1):String(p));
+  sec.style.setProperty("--pct",ps+"%");
+  const b=sec.querySelector(".usage-pct b"); if(b) b.textContent=ps;
+  const tr=sec.querySelector(".meter-track"); if(tr) tr.setAttribute("aria-label",ps+"% of weekly usage used");
+  const w=document.getElementById("usageWhen");
+  if(w) w.innerHTML=(u.old?'<b class="stale">\u26a0 Figure taken before the last reset \u00b7 </b>':'')+"As of "+esc(u.a?fmtD(u.a.d)+", "+hm(u.a.d):String(u.asof))+" UK \u00b7 resets Fridays at 13:11 UK \u00b7 next "+esc(fmtD(u.next))+", 13:11";
+}
+function foodInfo(){
+  const it=finItem(/^food budget/i); if(!it) return null;
+  const m=String(it.status||"").match(/\u00a3\s*([\d,]+(?:\.\d+)?)\s*left of\s*\u00a3\s*([\d,]+(?:\.\d+)?)/i); if(!m) return {raw:it.status, it};
+  return {left:parseFloat(m[1].replace(/,/g,"")), total:parseFloat(m[2].replace(/,/g,"")), it};
+}
+function foodHTML(){
+  const f=foodInfo(); if(!f) return "";
+  const when=asofTxt(f.it.date||f.it.updated);
+  if(f.raw!=null) return '<div class="food"><div class="food-h"><span>Food budget this week</span><b>'+esc(f.raw)+'</b></div><small>as of '+esc(when)+' UK</small></div>';
+  const pct=f.total>0?Math.max(0,Math.min(100,f.left/f.total*100)):0;
+  return '<div class="food" title="'+esc(f.it.detail||"")+'"><div class="food-h"><span>Food budget this week</span><b>'+esc(money(f.left))+' left of '+esc(money(f.total))+'</b></div><div class="food-track"><div class="food-fill" style="width:'+pct.toFixed(0)+'%"></div></div><small>as of '+esc(when)+' UK \u00b7 from the shopping list</small></div>';
+}
+function renderInvest(){
+  const el=document.getElementById("secInvest"); if(!el) return;
+  const it=finItem(/^investing/i);
+  let h='<h2 class="lav"><span><i class="dot" style="background:var(--lav);color:var(--lav)"></i>Investing</span>'+(it&&it.updated?'<span class="asof">'+esc("as of "+asofTxt(it.updated))+'</span>':'')+'</h2>';
+  if(!it||/no data/i.test(it.status||"")){
+    h+='<div class="ln"><div class="k lav">Trading 212</div><div class="v">No data yet<small>No portfolio figures on file yet. Nothing is estimated.</small></div><div class="r"></div></div>';
+  } else {
+    h+='<div class="ln"><div class="k lav">Trading 212</div><div class="v">'+esc(it.status)+(it.detail?'<small>'+esc(it.detail.slice(0,120))+'</small>':'')+'</div><div class="r">'+esc(it.date?asofTxt(it.date):"")+'</div></div>';
+  }
+  el.innerHTML=h;
+}
+function comingUp(){
+  const today=startOfDay(londonNow()), seen={}, out=[];
+  calendarEvents().forEach(e=>{
+    if(e.p.d<today) return;
+    if(!(/^deadline$/i.test((e.i.cat||"").trim())||/^renew\b/i.test(e.i.item||""))) return;
+    const name=String(e.i.item||"").split(":")[0].trim(); const k=name.toLowerCase()+"|"+dayKey(e.p.d); if(seen[k]) return; seen[k]=1;
+    out.push({name, d:e.p.d, days:Math.round((startOfDay(e.p.d)-today)/864e5)});
+  });
+  return out.slice(0,6);
+}
+function soonHTML(){
+  const L=comingUp(); if(!L.length) return "";
+  return '<div class="soon"><span class="lab">Coming up</span>'+L.map(x=>'<span class="chip due">'+esc(x.name)+' \u00b7 <b>'+esc(fmtD(x.d))+'</b> \u00b7 '+(x.days===0?"today":x.days===1?"tomorrow":x.days+" days")+'</span>').join("")+'</div>';
+}
 function footTxt(){
   return LIVEAT ? "Live from Google Sheet · last read "+LIVEAT.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})+" · refreshes every 5 min · ticks sync to the sheet" : "Snapshot "+(SNAP&&SNAP.generated?("updated "+SNAP.generated):"")+" · private page, ticks sync to the sheet";
 }
@@ -667,6 +925,9 @@ function render(){
   renderSocial();
   renderVideo();
   renderOps();
+  renderInvest();
+  renderUsage();
+  addStamps();
   refreshBrief();
   const foot=document.getElementById("foot");
   if(foot) foot.textContent=footTxt();
@@ -678,7 +939,7 @@ function showApp(){
   window.dispatchEvent(new Event("resize"));
 }
 function showGate(msg){
-  try{ if(window.__spStop) window.__spStop(); if(window.__stopListen) window.__stopListen(); }catch(e){}
+  try{ if(window.__closeFinOv) window.__closeFinOv(true); }catch(e){}
   RAW=null; SNAP=null; LIVEAT=null; clearInterval(liveT); clearTimeout(idleT);
   ["secFin","secSched","secTodo","secSocial","secVideo","secOps","foot","brief"].forEach(i=>{const el=document.getElementById(i); if(el) el.innerHTML="";});
   document.getElementById("app").style.display="none";
@@ -705,7 +966,9 @@ document.getElementById("f").onsubmit=async ev=>{
 };
 document.getElementById("pad").addEventListener("click",e=>{const k=e.target.closest("button")&&e.target.closest("button").dataset.k; if(k===undefined) return; const p=document.getElementById("pw"); if(k==="del") p.value=p.value.slice(0,-1); else if(k!=="") p.value+=k;});
 document.addEventListener("keydown",e=>{ if(document.getElementById("gate").style.display==="none") return; const p=document.getElementById("pw"); if(/^\d$/.test(e.key)) p.value+=e.key; else if(e.key==="Backspace") p.value=p.value.slice(0,-1); });
-async function pullLive(){ if(!SNAP||!SNAP.live||!RAW) return; try{ const r=await fetch(SNAP.live.url+"?k="+encodeURIComponent(SNAP.live.k),{cache:"no-store"}); const j=await r.json(); if(j&&j.ok&&j.tabs){ RAW=Object.assign({},SNAP.tabs,j.tabs); LIVEAT=new Date(); render(); } }catch(e){} }
+async function pullLive(){ if(!SNAP||!SNAP.live||!RAW) return false; try{ const r=await fetch(SNAP.live.url+"?k="+encodeURIComponent(SNAP.live.k)+"&t="+Date.now(),{cache:"no-store"}); const j=await r.json(); if(j&&j.ok&&j.tabs){ RAW=Object.assign({},SNAP.tabs,j.tabs); LIVEAT=new Date(); render(); return true; } }catch(e){} return false; }
+function freshPull(ms){ return Promise.race([pullLive(), new Promise(res=>setTimeout(()=>res(false), ms||8000))]); }
+window.__freshPull=freshPull;
 function startLive(){ LIVEAT=null; clearInterval(liveT); liveT=setInterval(pullLive,300000); pullLive(); }
 document.addEventListener("visibilitychange",()=>{ if(!document.hidden) pullLive(); });
 document.getElementById("lock").onclick=()=>showGate("Locked.");
@@ -858,206 +1121,148 @@ setInterval(()=>{ if(RAW) render(); },30000);
     if(document.fullscreenElement||document.webkitFullscreenElement) exitFS();
     else goFS();
   });
-  const SP={on:false,tok:0};
-  function cap(s){
-    const el=document.getElementById("cap");
-    if(!el) return;
-    if(!s){ el.hidden=true; el.textContent=""; return; }
-    el.hidden=false; el.textContent=s;
+
+  const ov=document.getElementById("finOv");
+  const panel=document.getElementById("finOvPanel");
+  const body=document.getElementById("finOvBody");
+  const EASE="cubic-bezier(0.2, 0.8, 0.2, 1)";
+  const DUR=400;
+  const reduce=()=>window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const st={open:false, busy:false, lastBtn:null};
+
+  function btnRect(){
+    const b=document.getElementById("btnFullFin")||st.lastBtn;
+    if(!b||!b.getBoundingClientRect) return null;
+    const r=b.getBoundingClientRect();
+    if(r.width<2||r.height<2) return null;
+    st.lastBtn=b;
+    return r;
   }
-  function voiceLabel(v){ return String(v&&v.name||"")+" "+String(v&&v.voiceURI||""); }
-  function isFemaleVoice(v){ return /female|woman|\bgirl\b/i.test(voiceLabel(v)); }
-  function isMaleVoice(v){
-    if(isFemaleVoice(v)) return false;
-    const s=voiceLabel(v);
-    return /\bmale\b|\bman\b|\bboy\b/i.test(s)
-      || /daniel|george|ryan|arthur|brian|thomas|malcolm|oliver|rishi|david|james|fred|exynos/i.test(s)
-      || /en-GB-x-gbc|en-GB-x-gbd|en-GB-x-rbg/i.test(s);
-  }
-  function pickVoice(){
-    try{
-      const vs=speechSynthesis.getVoices()||[];
-      const en=vs.filter(v=>/^en(-|$)/i.test(v.lang||""));
-      const gb=en.filter(v=>/en-GB/i.test(v.lang));
-      return gb.find(isMaleVoice)
-        || en.find(isMaleVoice)
-        || gb.find(v=>!isFemaleVoice(v))
-        || en.find(v=>!isFemaleVoice(v))
-        || gb[0]
-        || en[0]
-        || null;
-    }catch(e){ return null; }
-  }
-  function voicesReady(){
-    try{ if((speechSynthesis.getVoices()||[]).length) return Promise.resolve(); }catch(e){}
-    return new Promise(res=>{
-      let done=false;
-      const finish=()=>{ if(done) return; done=true; try{ speechSynthesis.removeEventListener("voiceschanged",finish); }catch(e){} res(); };
-      try{ speechSynthesis.addEventListener("voiceschanged",finish); }catch(e){}
-      setTimeout(finish,700);
-    });
-  }
-  function speakify(s){
-    return String(s||"")
-      .replace(/&amp;/g,"and")
-      .replace(/£/g,"")
-      .replace(/(\d),(\d)/g,"$1$2")
-      .replace(/\bIG\b/g,"Instagram")
-      .replace(/\bDM\b/g,"message")
-      .replace(/@_rg_memories/g,"the business Instagram")
-      .replace(/Composio \+ Cloudinary/g,"Composio and Cloudinary");
-  }
-  function openTodos(){
-    return tdList().filter(x=>!x.on).map(x=>prettyTodo(x.text));
-  }
-  function speakMoney(v){
-    const n=String(v||"").replace(/[^\d.]/g,"");
-    if(!n) return "";
-    const parts=n.split(".");
-    let s=Number(parts[0]).toLocaleString("en-GB")+" pounds";
-    if(parts[1]&&Number(parts[1])>0) s+=", "+Number(parts[1])+" pence";
-    return s;
-  }
-  function briefQueue(){
-    const now=londonNow();
-    const hr=now.getHours();
-    const part=hr<5?"Hello Rudi. It's just after midnight.":hr<12?"Good morning Rudi.":hr<18?"Good afternoon Rudi.":"Good evening Rudi.";
-    const date=new Intl.DateTimeFormat("en-GB",{weekday:"long",day:"numeric",month:"long",timeZone:TZ}).format(now);
-    const q=[{text:part+" It's "+date+". Here's your rundown."}];
-    const ev=calendarEvents();
-    const off=offUntil(ev, now);
-    if(off) q.push({text:off});
-    const next=ev.find(e=>e.p.d>now && !/rudi off|^off\b/i.test(e.i.item));
-    if(next){
-      const same=dayKey(next.p.d)===dayKey(now);
-      const tomorrow=dayKey(next.p.d)===dayKey(new Date(now.getFullYear(),now.getMonth(),now.getDate()+1));
-      const when=same?"This morning":(tomorrow?"Tomorrow":"On "+next.p.d.toLocaleDateString("en-GB",{weekday:"long"}));
-      let tm="";
-      if(next.p.t){
-        const hh=next.p.d.getHours(), mm=next.p.d.getMinutes();
-        if(mm===0 && hh===19) tm=" at 7pm";
-        else if(mm===0) tm=" at "+((hh%12)||12)+(hh<12?"am":"pm");
-        else tm=" at "+((hh%12)||12)+":"+String(mm).padStart(2,"0")+(hh<12?"am":"pm");
-      }
-      q.push({text:when+" you've got "+speakify(next.i.item)+tm+"."});
+  function applyFlipFromButton(reverse){
+    const r=btnRect();
+    if(!r||reduce()){ panel.style.transform="none"; return false; }
+    const sx=Math.max(0.04, r.width/window.innerWidth);
+    const sy=Math.max(0.04, r.height/window.innerHeight);
+    const t="translate("+r.left+"px,"+r.top+"px) scale("+sx+","+sy+")";
+    panel.style.transformOrigin="0 0";
+    if(!reverse){
+      panel.style.transition="none";
+      panel.style.transform=t;
+      panel.style.borderRadius="999px";
+    }else{
+      panel.style.transition="transform "+DUR+"ms "+EASE+", border-radius "+DUR+"ms "+EASE;
+      panel.style.transform=t;
+      panel.style.borderRadius="999px";
     }
+    return true;
+  }
+  function fillFinOverlay(){
+    if(!body||!RAW) return;
     const r=(RAW.Finances||[])[2]||[];
     const v=money(g(r,1));
     const asof=(g(r,3).match(/^\d{4}-\d\d-\d\d[ \d:]*/)||[""])[0].trim();
-    if(v){
-      let line="Your bank balance is "+speakMoney(v);
-      if(asof){
-        const m=asof.match(/(\d{4})-(\d\d)-(\d\d)(?:[ T](\d\d):(\d\d))?/);
-        if(m){
-          const d=new Date(+m[1],+m[2]-1,+m[3],+(m[4]||0),+(m[5]||0));
-          const day=d.toLocaleDateString("en-GB",{weekday:"long"});
-          if(m[4]){
-            const hh=+m[4], mm=+m[5];
-            const ap=hh>=12?"afternoon":"morning";
-            const h12=((hh+11)%12)+1;
-            line+=", as of "+h12+":"+String(mm).padStart(2,"0")+" on "+day+" "+ap;
-          } else line+=", as of "+day;
-        }
-      }
-      q.push({text:line+"."});
+    const today=startOfDay(londonNow());
+    const days=outDays();
+    let h='<div class="fin-ov-top"><h2 class="gold" id="finOvTitle"><span><i class="dot" style="background:var(--gold);color:var(--gold)"></i>Finances</span></h2>';
+    h+='<button type="button" class="fin-ov-x" id="finOvClose" aria-label="Close finances"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
+    if(v) h+='<div class="hero-fig"><b>'+esc(v)+'</b><span>bank balance · confirmed'+(asof?" · as of "+esc(asofTxt(asof)):"")+'</span></div>';
+    else h+='<div class="hero-fig"><b>—</b><span>bank balance · not yet updated</span></div>';
+    h+=finDaysHTML(days, today);
+    h+='<div class="fin-ov-foot">'+foodHTML()+'<a class="fin-link fin-ov-site" href="https://home.money-rudi.here.now/" target="_blank" rel="noopener">Open full finances site</a></div>';
+    body.innerHTML=h;
+    const x=document.getElementById("finOvClose");
+    if(x) x.addEventListener("click",()=>closeFinOv(false));
+    scrollFinToToday(body);
+  }
+  function waitTrans(el, prop, ms){
+    return new Promise(res=>{
+      let done=false;
+      const finish=()=>{ if(done) return; done=true; el.removeEventListener("transitionend",onEnd); res(); };
+      const onEnd=e=>{ if(!prop||e.propertyName===prop||(prop==="transform"&&e.propertyName.indexOf("transform")>=0)) finish(); };
+      el.addEventListener("transitionend",onEnd);
+      setTimeout(finish, (ms||DUR)+80);
+    });
+  }
+  async function openFinOv(ev){
+    if(ev){ ev.preventDefault(); ev.stopPropagation(); }
+    if(st.busy||st.open) return;
+    if(!ov||!panel||!RAW) return;
+    st.busy=true;
+    fillFinOverlay();
+    ov.hidden=false;
+    ov.setAttribute("aria-hidden","false");
+    ov.classList.remove("open","ready","show");
+    document.body.style.overflow="hidden";
+    if(reduce()){
+      panel.style.transition="none";
+      panel.style.transform="none";
+      ov.classList.add("show","open","ready");
+      st.open=true; st.busy=false;
+      window.__finOvOpen=true;
+      const x=document.getElementById("finOvClose"); if(x) x.focus();
+      return;
     }
-    const days=forecastDays();
-    if(days[0]){
-      let s="Next out is "+speakify(days[0].lab||days[0].amt)+" on "+days[0].day;
-      if(days[1]) s+=", then "+speakify(days[1].lab||days[1].amt)+" on "+days[1].day;
-      if(days[1]&&days[1].left) s+=", leaving "+speakMoney(days[1].left);
-      q.push({text:s+"."});
+    applyFlipFromButton(false);
+    void panel.offsetWidth;
+    ov.classList.add("show");
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+    panel.style.transition="transform "+DUR+"ms "+EASE+", border-radius "+DUR+"ms "+EASE;
+    panel.style.transform="none";
+    panel.style.borderRadius="0px";
+    ov.classList.add("open");
+    await waitTrans(panel,"transform",DUR);
+    ov.classList.add("ready");
+    scrollFinToToday(body);
+    st.open=true; st.busy=false;
+    window.__finOvOpen=true;
+    const x=document.getElementById("finOvClose"); if(x) x.focus();
+  }
+  async function closeFinOv(immediate){
+    if(!st.open&&!ov.classList.contains("show")){
+      ov.hidden=true; ov.setAttribute("aria-hidden","true");
+      ov.classList.remove("show","open","ready");
+      panel.style.transform="none";
+      document.body.style.overflow="";
+      window.__finOvOpen=false;
+      return;
     }
-    const open=openTodos();
-    if(!open.length) q.push({text:"Everything on your to-do list is done. Nothing left on it."});
-    else{
-      q.push({text:open.length===1?"You have one thing left on your to-do list.":"You have "+open.length+" things left on your to-do list."});
-      open.forEach(name=>{
-        let s=speakify(name)+".";
-        if(/Amanda/i.test(name)||/Prep notes/i.test(name)) s+=" That one is overdue.";
-        q.push({text:s});
-      });
+    if(st.busy&&!immediate) return;
+    st.busy=true;
+    ov.classList.remove("ready");
+    if(immediate||reduce()){
+      ov.classList.remove("open","show");
+      ov.hidden=true;
+      ov.setAttribute("aria-hidden","true");
+      panel.style.transition="none";
+      panel.style.transform="none";
+      document.body.style.overflow="";
+      st.open=false; st.busy=false; window.__finOvOpen=false;
+      return;
     }
-    q.push({text:"That's your rundown."});
-    return q;
+    ov.classList.remove("open");
+    applyFlipFromButton(true);
+    await waitTrans(panel,"transform",DUR);
+    ov.classList.remove("show");
+    ov.hidden=true;
+    ov.setAttribute("aria-hidden","true");
+    panel.style.transition="none";
+    panel.style.transform="none";
+    panel.style.borderRadius="";
+    document.body.style.overflow="";
+    st.open=false; st.busy=false; window.__finOvOpen=false;
   }
-  function spStop(){
-    SP.tok++; SP.on=false;
-    const wrap=document.getElementById("orbWrap");
-    if(wrap) wrap.classList.remove("speaking");
-    const b=document.getElementById("btnTalk");
-    if(b){ b.textContent="Rundown"; b.classList.add("primary"); }
-    try{ speechSynthesis.cancel(); }catch(e){}
-    cap("");
+  function onFullFinClick(ev){ openFinOv(ev); }
+  window.onFullFinClick=onFullFinClick;
+  window.__closeFinOv=closeFinOv;
+  window.__openFinOv=openFinOv;
+  window.fillFinOverlay=fillFinOverlay;
+  if(ov){
+    const back=document.getElementById("finOvBack");
+    if(back) back.addEventListener("click",()=>closeFinOv(false));
   }
-  window.__spStop=spStop;
-  function spNext(q,i,tok){
-    if(tok!==SP.tok||!SP.on) return;
-    if(i>=q.length){ spStop(); return; }
-    const line=q[i].text;
-    cap(line);
-    const u=new SpeechSynthesisUtterance(line);
-    u.lang="en-GB"; u.rate=0.98; u.pitch=1;
-    const v=pickVoice(); if(v) u.voice=v;
-    u.onend=()=>spNext(q,i+1,tok);
-    u.onerror=()=>spNext(q,i+1,tok);
-    try{ speechSynthesis.speak(u); }catch(e){ spStop(); }
-  }
-  function spStart(){
-    if(document.getElementById("app").style.display==="none"||!RAW) return;
-    if(SP.on){ spStop(); return; }
-    if(!("speechSynthesis" in window)){ cap("This browser can't speak out loud."); return; }
-    goFS();
-    const q=briefQueue();
-    try{ if(speechSynthesis.speaking||speechSynthesis.pending) speechSynthesis.cancel(); speechSynthesis.resume(); }catch(e){}
-    SP.tok++; SP.on=true;
-    const wrap=document.getElementById("orbWrap");
-    if(wrap) wrap.classList.add("speaking");
-    const b=document.getElementById("btnTalk");
-    if(b){ b.textContent="Stop"; b.classList.remove("primary"); }
-    const tok=SP.tok;
-    voicesReady().then(()=>{ if(tok!==SP.tok||!SP.on) return; spNext(q,0,tok); });
-  }
-  document.getElementById("btnTalk").addEventListener("click",spStart);
-  document.getElementById("orbWrap").addEventListener("click",spStart);
-  try{ speechSynthesis.addEventListener("voiceschanged",()=>{}); speechSynthesis.getVoices(); }catch(e){}
-  document.addEventListener("visibilitychange",()=>{ if(document.hidden&&SP.on) spStop(); });
-
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  let rec=null, listening=false;
-  const WAKE=/\b((run\s*down)|brief(\s+me)?|(tell|give)\s+me\s+(my\s+)?(day|brief|rundown)|what'?s\s+(my\s+)?(day|brief|rundown))\b/i;
-  function setListen(on){
-    listening=on;
-    const b=document.getElementById("btnListen");
-    if(b){ b.classList.toggle("on",on); b.setAttribute("aria-pressed",on?"true":"false"); b.textContent=on?"Listening":"Listen"; }
-    const h=document.getElementById("hint");
-    if(h) h.textContent=on?"Listening — say “rundown” or “brief me”.":"Say “rundown” or “brief me”, or tap the orb. The first tap lets the microphone start listening.";
-  }
-  function startListen(){
-    if(document.getElementById("app").style.display==="none"||!RAW) return;
-    if(!SR){ cap("Voice commands need Chrome or Safari, with the microphone allowed."); return; }
-    if(listening){ stopListen(); return; }
-    rec=new SR();
-    rec.lang="en-GB"; rec.continuous=true; rec.interimResults=true;
-    rec.onresult=ev=>{
-      let said="";
-      for(let i=ev.resultIndex;i<ev.results.length;i++) said+=ev.results[i][0].transcript+" ";
-      if(WAKE.test(said)){ if(!SP.on) spStart(); }
-    };
-    rec.onend=()=>{ if(listening){ try{ rec.start(); }catch(e){} } };
-    rec.onerror=e=>{
-      if(e.error==="not-allowed"){ cap("The microphone is blocked. You can still tap Rundown."); stopListen(); }
-    };
-    try{ rec.start(); setListen(true); goFS(); }
-    catch(e){ cap("Couldn't start the microphone."); setListen(false); }
-  }
-  function stopListen(){
-    listening=false;
-    try{ if(rec) rec.stop(); }catch(e){}
-    rec=null; setListen(false);
-  }
-  window.__stopListen=stopListen;
-  document.getElementById("btnListen").addEventListener("click",startListen);
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape" && (st.open||ov.classList.contains("show"))){ e.preventDefault(); closeFinOv(false); }
+  });
 })();
 </script>
 </body>

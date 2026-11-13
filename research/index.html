@@ -25,17 +25,25 @@
   <div class="example-banner" id="example-banner">Example data only — fictional people, pets and places. This will be replaced when Duck publishes the real encrypted file.</div>
   <div class="local-banner" id="local-banner" hidden>Using a local draft saved in this browser. <button type="button" class="textbtn" id="revert-published">Revert to published copy</button></div>
   <header class="top">
-    <div class="brand">Rudi<b>Research</b></div>
-    <nav class="nav" aria-label="Views">
-      <button type="button" data-view="graph" class="on">Graph</button>
-      <button type="button" data-view="person">Person</button>
-      <button type="button" data-view="upcoming">Upcoming</button>
-    </nav>
-    <div class="search"><input id="search" type="search" placeholder="Search people, places, likes…" aria-label="Search"></div>
-    <button type="button" class="textbtn gold" id="btn-add">Add</button>
-    <button type="button" class="textbtn gold" id="btn-save">Save</button>
-    <button type="button" class="textbtn" id="btn-saving">Saving</button>
-    <button type="button" class="textbtn" id="btn-lock">Lock</button>
+    <div class="title-row">
+      <div class="brand">Rudi<b>Research</b></div>
+      <div class="chrome-toggles">
+        <button type="button" class="textbtn" id="btn-toggle-menu" aria-controls="top-tools" aria-expanded="true">Menu ▴</button>
+        <button type="button" class="textbtn" id="btn-toggle-filters" aria-controls="filters" aria-expanded="true">Filters ▴</button>
+      </div>
+    </div>
+    <div class="top-tools" id="top-tools">
+      <nav class="nav" aria-label="Views">
+        <button type="button" data-view="graph" class="on">Graph</button>
+        <button type="button" data-view="person">Person</button>
+        <button type="button" data-view="upcoming">Upcoming</button>
+      </nav>
+      <div class="search"><input id="search" type="search" placeholder="Search people, places, likes…" aria-label="Search"></div>
+      <button type="button" class="textbtn gold" id="btn-add">Add</button>
+      <button type="button" class="textbtn gold" id="btn-save">Save</button>
+      <button type="button" class="textbtn" id="btn-saving">Saving</button>
+      <button type="button" class="textbtn" id="btn-lock">Lock</button>
+    </div>
   </header>
 
   <div class="workspace" id="workspace">

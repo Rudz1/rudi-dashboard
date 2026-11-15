@@ -422,10 +422,27 @@
     });
     return best;
   }
+  /* Hero plus direct neighbours. Links between those neighbours stay visible. */
+  function heroHood(id) {
+    const ids = new Set();
+    if (!id || !entityById(id)) return ids;
+    ids.add(id);
+    (graph.links || []).forEach((l) => {
+      if (!l || !l.from || !l.to || l.from === l.to) return;
+      if (l.from === id) ids.add(l.to);
+      else if (l.to === id) ids.add(l.from);
+    });
+    return ids;
+  }
   function graphElements(grouped) {
+    const hood = heroId && entityById(heroId) ? heroHood(heroId) : null;
     let visible = new Set(
       (graph.entities || [])
-        .filter((e) => typeFilter.has(e.type) && matchesSearch(e))
+        .filter((e) => {
+          if (hood && !hood.has(e.id)) return false;
+          if (heroId && e.id === heroId) return true;
+          return typeFilter.has(e.type) && matchesSearch(e);
+        })
         .map((e) => e.id)
     );
     if (grouped) return groupedElements(visible);
@@ -884,10 +901,6 @@
     cy.elements().remove();
     cy.add(graphElements(name === "grouped"));
     if (name === "grouped") {
-      if (cy.width() < 620) {
-        cy.edges().addClass("g-soft");
-        cy.nodes(".g-focus").connectedEdges().addClass("g-hub");
-      }
       layoutGrouped();
     } else if (name === "concentric") {
       layoutMap();
@@ -909,13 +922,17 @@
     redrawGraph();
     if (keepView) { cy.zoom(keepView.zoom); cy.pan(keepView.pan); }
   }
-  /* Grouped layout: the hero node in the focus slot, every category in its own labelled area. */
+  function narrowViewport() {
+    return window.innerWidth <= 820;
+  }
+  /* Grouped layout: hero in the centre, each category in its own labelled area. */
   function layoutGrouped() {
     if (!cy || cy.nodes().empty()) return;
-    const compact = cy.width() < 620;
-    const CELL_W = 104, CELL_H = 46, HEAD_H = 24, TL_ROW = 24, TL_COL_W = 228;
+    const narrow = narrowViewport();
+    const CELL_W = narrow ? 86 : 104, CELL_H = narrow ? 40 : 46, HEAD_H = narrow ? 20 : 24;
+    const TL_ROW = narrow ? 20 : 24, TL_COL_W = narrow ? 176 : 228;
     const PAD = 12; // must match the .grp padding style
-    const GAP_X = compact ? 0 : 56 + 2 * PAD, GAP_Y = 18 + 2 * PAD;
+    const GAP_X = narrow ? 36 : 56 + 2 * PAD, GAP_Y = narrow ? 20 : 18 + 2 * PAD;
     const boxes = {};
     cy.batch(() => {
       // Build each area's content at a local origin (0,0 = top-left of the content box).
@@ -928,7 +945,9 @@
         if (!kids.length) {
           w = 150; h = 4;
         } else if (def.timeline) {
-          const maxRows = compact ? 999 : Math.max(9, Math.min(16, Math.ceil(kids.length / 2)));
+          const maxRows = narrow
+            ? Math.max(5, Math.min(8, Math.ceil(kids.length / 2)))
+            : Math.max(9, Math.min(16, Math.ceil(kids.length / 2)));
           const cols = Math.max(1, Math.ceil(kids.length / maxRows));
           const rows = Math.ceil(kids.length / cols);
           kids.forEach((n, i) => {
@@ -937,7 +956,7 @@
           });
           w = cols * TL_COL_W; h = HEAD_H + 8 + (rows - 1) * TL_ROW + 10;
         } else {
-          const maxCols = compact ? 3 : (kids.length > 12 ? 4 : 3);
+          const maxCols = narrow ? 2 : (kids.length > 12 ? 4 : 3);
           const cols = Math.min(maxCols, Math.max(1, kids.length <= 3 ? kids.length : Math.ceil(Math.sqrt(kids.length * 1.6))));
           const rows = Math.ceil(kids.length / cols);
           kids.forEach((n, i) => {
@@ -956,15 +975,6 @@
       };
       const focus = cy.nodes(".g-focus");
       const has = (k) => !!boxes[k];
-      if (compact) {
-        // One column: focus on top, then every area stacked.
-        const order = ["people", "keyevents", "events", "likes", "dislikes", "pets", "places", "orgs", "notes", "other"].filter(has);
-        const W = Math.max(...order.map((k) => boxes[k].w), 150);
-        if (focus.length) focus.position({ x: 0, y: 0 });
-        let y = focus.length ? 44 + PAD : 0;
-        order.forEach((k) => { place(k, -W / 2, y); y += boxes[k].h + GAP_Y; });
-        return;
-      }
       const left = ["likes", "dislikes", "pets"].filter(has);
       const right = ["keyevents", "events", "notes"].filter(has);
       const top = ["people"].filter(has);
@@ -993,15 +1003,17 @@
   }
   function fitGrouped() {
     if (!cy || cy.nodes().empty()) return;
-    const compact = cy.width() < 620;
+    const narrow = narrowViewport();
     const bb = cy.elements().boundingBox({ includeLabels: true });
-    const m = compact ? 14 : 28;
+    const m = narrow ? 8 : 28;
     const zx = (cy.width() - 2 * m) / Math.max(bb.w, 1);
     const zy = (cy.height() - 2 * m) / Math.max(bb.h, 1);
-    if (compact) {
-      const z = Math.max(0.62, Math.min(1.05, zx));
+    if (narrow) {
+      const z = Math.max(cy.minZoom(), Math.min(1.2, zx, zy));
       cy.zoom(z);
-      cy.pan({ x: cy.width() / 2 - (bb.x1 + bb.w / 2) * z, y: m - bb.y1 * z });
+      const cx = bb.x1 + bb.w / 2;
+      const cy0 = bb.y1 + bb.h / 2;
+      cy.pan({ x: cy.width() / 2 - cx * z, y: cy.height() / 2 - cy0 * z });
       return;
     }
     const z = Math.max(0.6, Math.min(1.1, zx, zy));
@@ -1813,7 +1825,11 @@
   function refitGraph() {
     if (!cy) return;
     cy.resize();
-    requestAnimationFrame(() => { if (cy) cy.resize(); });
+    requestAnimationFrame(() => {
+      if (!cy) return;
+      cy.resize();
+      if (currentView === "graph" && currentLayout === "grouped") layoutGrouped();
+    });
   }
   function updatePanelChrome() {
     const ws = $("workspace");

@@ -65,6 +65,9 @@
   let usingLocalDraft = false;
   let idleTimer = null;
   let searchTerm = "";
+  /* View-only. Never written onto the graph and never part of Save. */
+  let heroId = null;
+  let heroSelectSilent = false;
 
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({
@@ -232,6 +235,7 @@
     passphrase = null;
     githubToken = null;
     selectedId = null;
+    heroId = null;
     dirty = false;
     usingLocalDraft = false;
     if (cy) {
@@ -297,6 +301,8 @@
     graph = next;
     usingLocalDraft = !!isLocal;
     graph.entities.forEach(normalizeEntity);
+    heroId = null;
+    heroId = findLizzieId() || focusId(graph.entities || []);
     currentView = "graph";
     showApp();
     $("local-banner").hidden = !usingLocalDraft;
@@ -384,7 +390,27 @@
     if (m) return `${mon[+m[2] - 1]} ${m[1]}`;
     return str;
   }
+  function heroNameKey(e) {
+    return String(displayName(e) || "").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+  /* Person named Lizzie: exact trimmed name, then a name that starts with it. */
+  function findLizzieId() {
+    const people = (graph.entities || []).filter((e) => e.type === "Person");
+    const ranked = (pred) => people.filter(pred).sort((a, b) => {
+      const c = heroNameKey(a).localeCompare(heroNameKey(b));
+      return c || String(a.id).localeCompare(String(b.id));
+    });
+    const exact = ranked((e) => heroNameKey(e) === "lizzie");
+    if (exact.length) return exact[0].id;
+    const starts = ranked((e) => heroNameKey(e).startsWith("lizzie"));
+    return starts.length ? starts[0].id : null;
+  }
+  function heroEntityOk(id) {
+    const e = id && entityById(id);
+    return !!(e && (e.type === "Person" || e.type === "Place"));
+  }
   function focusId(visibleEntities) {
+    if (heroId && visibleEntities.some((e) => e.id === heroId)) return heroId;
     const pref = graph.focus || ((graph.entities || []).find((e) => /^(yes|y|true|1)$/i.test(String((e.properties || {}).focus || "").trim())) || {}).id;
     if (pref && visibleEntities.some((e) => e.id === pref)) return pref;
     const deg = new Map();
@@ -883,7 +909,7 @@
     redrawGraph();
     if (keepView) { cy.zoom(keepView.zoom); cy.pan(keepView.pan); }
   }
-  /* Grouped layout: focus person in the middle, every category in its own labelled area. */
+  /* Grouped layout: the hero node in the focus slot, every category in its own labelled area. */
   function layoutGrouped() {
     if (!cy || cy.nodes().empty()) return;
     const compact = cy.width() < 620;
@@ -1393,7 +1419,32 @@
     }
   }
 
+  function renderHeroSelect() {
+    const sel = $("hero-select");
+    if (!sel || !graph) return;
+    const byName = (a, b) => heroNameKey(a).localeCompare(heroNameKey(b))
+      || String(a.id).localeCompare(String(b.id));
+    const people = (graph.entities || []).filter((e) => e.type === "Person").sort(byName);
+    const places = (graph.entities || []).filter((e) => e.type === "Place").sort(byName);
+    const group = (label, list) => {
+      const opts = list.map((e) => `<option value="${esc(e.id)}">${esc(displayName(e))}</option>`).join("");
+      return `<optgroup label="${label}">${opts || `<option value="" disabled>None</option>`}</optgroup>`;
+    };
+    heroSelectSilent = true;
+    try {
+      sel.innerHTML = group("People", people) + group("Places", places);
+      if (heroId && [...sel.options].some((o) => o.value === heroId)) sel.value = heroId;
+    } finally {
+      heroSelectSilent = false;
+    }
+  }
+
   function renderAll() {
+    if (!heroEntityOk(heroId)) {
+      heroId = null;
+      heroId = findLizzieId() || focusId(graph.entities || []);
+    }
+    renderHeroSelect();
     renderFilters();
     redrawGraph();
     renderUpcoming();
@@ -1826,6 +1877,14 @@
   $("search").addEventListener("input", (ev) => {
     searchTerm = ev.target.value.trim();
     redrawGraph();
+  });
+  $("hero-select").addEventListener("change", () => {
+    if (heroSelectSilent) return;
+    const id = $("hero-select").value;
+    if (!id || id === heroId || !heroEntityOk(id)) return;
+    heroId = id;
+    if (currentView === "graph") redrawGraph();
+    bumpIdle();
   });
   $("person-select").addEventListener("change", (ev) => renderPersonProfile(ev.target.value));
   $("revert-published").addEventListener("click", async () => {

@@ -47,14 +47,38 @@
     "friend of", "family of", "lives at", "owns", "loves", "likes",
     "looks after", "works at", "was at", "attending", "mentioned", "topic for", "fact about",
   ];
-  const LS_KEY = "people-map-blob";
   const LS_MENU = "people-map-chrome-menu";
   const LS_FILTERS = "people-map-chrome-filters";
   const IDLE_MS = 30 * 60 * 1000;
   const TZ = "Europe/London";
+  /* Two separate encrypted files. Never merged, never loaded together. */
+  const SUBJECTS = {
+    lizzie: {
+      id: "lizzie",
+      label: "Lizzie",
+      file: "data.enc.json",
+      remotePath: "research/data.enc.json",
+      draftKey: "people-map-blob",
+      downloadName: "research.enc.json",
+      allowMissing: false,
+    },
+    heather: {
+      id: "heather",
+      label: "Heather",
+      file: "data-heather.enc.json",
+      remotePath: "research/data-heather.enc.json",
+      draftKey: "people-map-blob-heather",
+      downloadName: "data-heather.enc.json",
+      allowMissing: true,
+    },
+  };
+  const LIZZIE_MISSING_MSG = "Encrypted data file is missing. Serve this folder over http and keep data.enc.json next to index.html.";
 
   let publishedBlob = null;
   let passphrase = null;
+  let subjectId = "lizzie";
+  let loadGen = 0;
+  let saveInFlight = false;
   let githubToken = null;
   let graph = null;
   let cy = null;
@@ -69,6 +93,21 @@
   let heroId = null;
   let heroSelectSilent = false;
 
+  function blankSession() {
+    return {
+      loaded: false,
+      graph: null,
+      publishedBlob: null,
+      usingLocalDraft: false,
+      dirty: false,
+      selectedId: null,
+      heroId: null,
+      searchTerm: "",
+      currentView: "graph",
+    };
+  }
+  const sessions = { lizzie: blankSession(), heather: blankSession() };
+
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
@@ -78,7 +117,41 @@
     return TYPES[t] || { label: t || "Unknown", color: "#b5c7d3", prefix: "X" };
   }
   function entityById(id) {
-    return (graph.entities || []).find((e) => e.id === id) || null;
+    return ((graph && graph.entities) || []).find((e) => e.id === id) || null;
+  }
+  function activeSubject() {
+    return SUBJECTS[subjectId] || SUBJECTS.lizzie;
+  }
+  function subjectFromHash() {
+    let h = "";
+    try { h = decodeURIComponent(String(location.hash || "").replace(/^#/, "")); }
+    catch (e) { h = String(location.hash || "").replace(/^#/, ""); }
+    h = h.trim().toLowerCase();
+    return h === "heather" ? "heather" : "lizzie";
+  }
+  function writeHash(id) {
+    const next = "#" + id;
+    if (String(location.hash || "").toLowerCase() === next) return;
+    location.hash = id;
+  }
+  function decryptFailMessage(id) {
+    const label = (SUBJECTS[id] || SUBJECTS.lizzie).label;
+    return "Could not decrypt " + label + "'s research. Check the passphrase.";
+  }
+  function pinRemotePath(id) {
+    const subject = SUBJECTS[id] || SUBJECTS.lizzie;
+    if (window.ResearchSave && ResearchSave.CONFIG) ResearchSave.CONFIG.path = subject.remotePath;
+    return subject;
+  }
+  function syncSubjectTabs() {
+    document.querySelectorAll(".subject-switch [data-subject]").forEach((btn) => {
+      const on = btn.dataset.subject === subjectId;
+      btn.setAttribute("aria-selected", on ? "true" : "false");
+      btn.tabIndex = on ? 0 : -1;
+    });
+  }
+  function gateIsOpen() {
+    return !$("app").classList.contains("show");
   }
   function displayName(e) {
     if (!e) return "";
@@ -120,7 +193,7 @@
     return "confirmed";
   }
   function bumpIdle() {
-    if (!graph) return;
+    if (!passphrase) return;
     clearTimeout(idleTimer);
     idleTimer = setTimeout(() => lock("Locked after 30 minutes without use."), IDLE_MS);
   }
@@ -214,23 +287,50 @@
   /* ---------- lock / unlock ---------- */
   function showGate(msg) {
     $("err").textContent = msg || "";
-    $("app").classList.remove("show");
+    $("app").classList.remove("show", "note-on");
     $("app").style.display = "none";
     $("app").style.visibility = "hidden";
     $("gate").style.display = "flex";
+    const note = $("subject-note");
+    if (note) {
+      note.hidden = true;
+      note.classList.remove("error");
+    }
     $("pw").value = "";
     $("pw").focus();
   }
-  function showApp() {
+  function showShell() {
     $("gate").style.display = "none";
     $("app").style.display = "flex";
     $("app").style.visibility = "visible";
     $("app").classList.add("show");
     $("pw").value = "";
-    $("err").textContent = "";
     applyChrome();
   }
+  function hideNote() {
+    $("app").classList.remove("note-on");
+    const note = $("subject-note");
+    if (!note) return;
+    note.hidden = true;
+    note.classList.remove("error");
+    $("subject-note-text").textContent = "";
+  }
+  function showNote(kind, text) {
+    showShell();
+    $("app").classList.add("note-on");
+    const note = $("subject-note");
+    note.hidden = false;
+    note.classList.toggle("error", kind === "error");
+    $("subject-note-text").textContent = text;
+  }
+  function showApp() {
+    hideNote();
+    showShell();
+    $("err").textContent = "";
+  }
   function lock(msg) {
+    sessions.lizzie = blankSession();
+    sessions.heather = blankSession();
     graph = null;
     passphrase = null;
     githubToken = null;
@@ -238,6 +338,7 @@
     heroId = null;
     dirty = false;
     usingLocalDraft = false;
+    publishedBlob = null;
     if (cy) {
       cy.destroy();
       cy = null;
@@ -245,6 +346,17 @@
     $("panel").innerHTML = "<h2>Details</h2><p class=\"empty\">Click a person, pet, place, like or event to see how they connect. Tap an area heading to fold it away.</p>";
     $("person-profile").innerHTML = "";
     $("upcoming-list").innerHTML = "";
+    const search = $("search");
+    if (search) search.value = "";
+    heroSelectSilent = true;
+    try {
+      const hero = $("hero-select");
+      const person = $("person-select");
+      if (hero) hero.innerHTML = "";
+      if (person) person.innerHTML = "";
+    } finally {
+      heroSelectSilent = false;
+    }
     currentView = "graph";
     document.querySelectorAll(".nav [data-view]").forEach((b) => b.classList.toggle("on", b.dataset.view === "graph"));
     document.querySelectorAll(".view").forEach((v) => v.classList.toggle("on", v.dataset.view === "graph"));
@@ -258,10 +370,19 @@
     return PeopleCrypto.decrypt(blob, pw);
   }
 
-  async function loadPublishedFromPages() {
-    const res = await fetch("data.enc.json?t=" + Date.now(), { cache: "no-store" });
+  async function loadPublishedFromPages(subject) {
+    const res = await fetch(subject.file + "?t=" + Date.now(), { cache: "no-store" });
+    if (res.status === 404) {
+      const err = new Error("missing");
+      err.code = "missing";
+      throw err;
+    }
     if (!res.ok) throw new Error("Could not load the encrypted data file.");
-    return res.json();
+    try {
+      return await res.json();
+    } catch (e) {
+      throw new Error("Could not read the encrypted data file.");
+    }
   }
 
   async function loadTokenFromDevice(pw) {
@@ -278,93 +399,280 @@
     }
   }
 
-  async function loadFreshestPublished(pw) {
-    let pagesBlob = publishedBlob;
-    try {
-      pagesBlob = await loadPublishedFromPages();
-      publishedBlob = pagesBlob;
-    } catch (e) {
-      if (!publishedBlob) throw e;
-    }
-    if (githubToken) {
-      try {
-        const remote = await ResearchSave.getRemoteFile(githubToken);
-        publishedBlob = remote.blob;
-      } catch (e) {
-        // Fall back to the Pages copy if GitHub cannot be reached.
-      }
-    }
-    return publishedBlob;
+  function rememberSession() {
+    const s = sessions[subjectId];
+    if (!s) return;
+    s.loaded = !!graph;
+    s.graph = graph;
+    s.publishedBlob = publishedBlob;
+    s.usingLocalDraft = usingLocalDraft;
+    s.dirty = dirty;
+    s.selectedId = selectedId;
+    s.heroId = heroId;
+    s.searchTerm = searchTerm;
+    s.currentView = currentView;
   }
 
-  function applyUnlockedGraph(next, isLocal) {
-    graph = next;
+  function clearVisibleData() {
+    if (cy) {
+      cy.destroy();
+      cy = null;
+    }
+    graph = null;
+    publishedBlob = null;
+    usingLocalDraft = false;
+    dirty = false;
+    selectedId = null;
+    heroId = null;
+    searchTerm = "";
+    collapsedAreas.clear();
+    touchedAreas.clear();
+    currentView = "graph";
+    const search = $("search");
+    if (search) search.value = "";
+    $("panel").innerHTML = "<h2>Details</h2><p class=\"empty\">Click a person, pet, place, like or event to see how they connect. Tap an area heading to fold it away.</p>";
+    $("person-profile").innerHTML = "";
+    $("upcoming-list").innerHTML = "";
+    heroSelectSilent = true;
+    try {
+      $("hero-select").innerHTML = "";
+      $("person-select").innerHTML = "";
+    } finally {
+      heroSelectSilent = false;
+    }
+    $("example-banner").style.display = "none";
+    $("local-banner").hidden = true;
+    document.querySelectorAll(".nav [data-view]").forEach((b) => b.classList.toggle("on", b.dataset.view === "graph"));
+    document.querySelectorAll(".view").forEach((v) => v.classList.toggle("on", v.dataset.view === "graph"));
+    $("workspace").classList.remove("no-panel");
+    $("panel").style.display = "";
+    closeModal();
+    closeSaveSettings();
+    closeDraftOffer();
+  }
+
+  function adoptSession(id) {
+    const s = sessions[id];
+    graph = s.graph;
+    publishedBlob = s.publishedBlob;
+    usingLocalDraft = s.usingLocalDraft;
+    dirty = s.dirty;
+    selectedId = s.selectedId;
+    heroId = s.heroId;
+    searchTerm = s.searchTerm || "";
+    currentView = s.currentView || "graph";
+    const search = $("search");
+    if (search) search.value = searchTerm;
+  }
+
+  async function hintIfLizzieMissing(gen) {
+    if (subjectId !== "lizzie" || passphrase) {
+      if (subjectId === "heather" && !passphrase && gen === loadGen) $("err").textContent = "";
+      return;
+    }
+    try {
+      const res = await fetch(SUBJECTS.lizzie.file + "?t=" + Date.now(), { cache: "no-store" });
+      if (gen !== loadGen || subjectId !== "lizzie" || passphrase) return;
+      if (!res.ok) $("err").textContent = LIZZIE_MISSING_MSG;
+      else if ($("err").textContent === LIZZIE_MISSING_MSG) $("err").textContent = "";
+    } catch (e) {
+      if (gen !== loadGen || subjectId !== "lizzie" || passphrase) return;
+      $("err").textContent = LIZZIE_MISSING_MSG;
+    }
+  }
+
+  /* Load and decrypt only `id`'s file. The other subject's graph is never read here. */
+  async function readSubject(id, pw) {
+    const subject = pinRemotePath(id);
+    let localGraph = null;
+    let localOk = false;
+    const localRaw = localStorage.getItem(subject.draftKey);
+    if (localRaw) {
+      try {
+        localGraph = await tryDecrypt(JSON.parse(localRaw), pw);
+        localOk = !!(localGraph && typeof localGraph === "object" && !Array.isArray(localGraph));
+      } catch (e) {
+        localOk = false;
+      }
+    }
+
+    await loadTokenFromDevice(pw);
+    pinRemotePath(id);
+
+    let fileBlob = null;
+    let missing = false;
+    try {
+      fileBlob = await loadPublishedFromPages(subject);
+    } catch (e) {
+      if (e && e.code === "missing") missing = true;
+      else throw e;
+    }
+
+    if (githubToken) {
+      try {
+        pinRemotePath(id);
+        const remote = await ResearchSave.getRemoteFile(githubToken);
+        if (remote && remote.blob) {
+          fileBlob = remote.blob;
+          missing = false;
+        }
+      } catch (e) {
+        // Stay with this subject's Pages copy. A miss here is not the other file.
+      }
+    }
+
+    if (missing && !fileBlob) {
+      if (localOk) return { kind: "ok", graph: localGraph, publishedBlob: null, usingLocalDraft: true };
+      if (subject.allowMissing) return { kind: "empty" };
+      return { kind: "error", message: LIZZIE_MISSING_MSG };
+    }
+
+    let published = null;
+    if (fileBlob) {
+      try {
+        published = await tryDecrypt(fileBlob, pw);
+      } catch (e) {
+        if (!localOk) return { kind: "error", message: decryptFailMessage(id) };
+      }
+    }
+    if (published && (typeof published !== "object" || Array.isArray(published))) {
+      if (!localOk) return { kind: "error", message: decryptFailMessage(id) };
+      published = null;
+    }
+
+    if (localOk && published) {
+      const lu = ResearchSave.graphTime(localGraph);
+      const pu = ResearchSave.graphTime(published);
+      if (lu > pu) {
+        return {
+          kind: "ok",
+          graph: published,
+          publishedBlob: fileBlob,
+          usingLocalDraft: false,
+          offerDraft: { local: localGraph, published: published },
+        };
+      }
+      return { kind: "ok", graph: published, publishedBlob: fileBlob, usingLocalDraft: false };
+    }
+    if (localOk) return { kind: "ok", graph: localGraph, publishedBlob: fileBlob, usingLocalDraft: true };
+    if (!published) return { kind: "error", message: decryptFailMessage(id) };
+    return { kind: "ok", graph: published, publishedBlob: fileBlob, usingLocalDraft: false };
+  }
+
+  function applyUnlockedGraph(next, isLocal, opts) {
+    const keep = !!(opts && opts.keepIds);
+    graph = next || { entities: [], links: [] };
+    if (!graph.entities || !Array.isArray(graph.entities)) graph.entities = [];
+    if (!graph.links || !Array.isArray(graph.links)) graph.links = [];
     usingLocalDraft = !!isLocal;
     graph.entities.forEach(normalizeEntity);
-    heroId = null;
-    heroId = findLizzieId() || focusId(graph.entities || []);
-    currentView = "graph";
+    if (!keep) {
+      selectedId = null;
+      heroId = null;
+      heroId = findLizzieId() || focusId(graph.entities || []);
+      currentView = "graph";
+      searchTerm = "";
+      const search = $("search");
+      if (search) search.value = "";
+    } else if (!heroEntityOk(heroId)) {
+      heroId = findLizzieId() || focusId(graph.entities || []);
+    }
     showApp();
     $("local-banner").hidden = !usingLocalDraft;
     const isExample = /EXAMPLE/i.test(graph.title || "") || /EXAMPLE/i.test(graph.disclaimer || "");
     $("example-banner").style.display = isExample ? "block" : "none";
     renderAll();
-    setView("graph");
+    setView(keep ? (currentView || "graph") : "graph");
     bumpIdle();
     updateSavingButton();
+    rememberSession();
   }
 
-  async function unlock(pw) {
-    const btn = $("unlock-btn");
-    const err = $("err");
-    btn.disabled = true;
-    err.textContent = "Checking…";
-    try {
-      let used = null;
-      let localOk = false;
-      const localRaw = localStorage.getItem(LS_KEY);
-      if (localRaw) {
-        try {
-          used = await tryDecrypt(JSON.parse(localRaw), pw);
-          localOk = true;
-        } catch (e) {
-          localOk = false;
-        }
-      }
-      await loadTokenFromDevice(pw);
-      await loadFreshestPublished(pw);
-      let published;
+  async function loadSubject(id) {
+    if (id !== "lizzie" && id !== "heather") id = "lizzie";
+    if (saveInFlight && id !== subjectId) {
+      toast("Save is still finishing.");
+      writeHash(subjectId);
+      return;
+    }
+    const gen = ++loadGen;
+    if (gateIsOpen()) {
+      const typed = ($("pw").value || "").trim();
+      if (typed) passphrase = typed;
+    }
+    if (id !== subjectId) {
+      if (sessions[subjectId] && sessions[subjectId].loaded) rememberSession();
+      subjectId = id;
+    }
+    syncSubjectTabs();
+    writeHash(id);
+    pinRemotePath(id);
+
+    const cached = sessions[id];
+    if (passphrase && cached && cached.loaded && cached.graph) {
+      clearVisibleData();
+      adoptSession(id);
       try {
-        published = await tryDecrypt(publishedBlob, pw);
+        applyUnlockedGraph(cached.graph, cached.usingLocalDraft, { keepIds: true });
       } catch (e) {
-        if (!localOk) {
-          if (e && e.name === "OperationError") throw new Error("Wrong passphrase — try again.");
-          throw e;
-        }
+        sessions[id] = blankSession();
+        showNote("error", decryptFailMessage(id));
       }
-      passphrase = pw;
-      if (localOk && published) {
-        const lu = ResearchSave.graphTime(used);
-        const pu = ResearchSave.graphTime(published);
-        if (lu > pu) {
-          applyUnlockedGraph(published, false);
-          offerLocalDraft(used, published);
+      return;
+    }
+
+    clearVisibleData();
+    hideNote();
+
+    if (!passphrase) {
+      if ($("app").classList.contains("show")) showGate("");
+      else if (id === "heather") $("err").textContent = "";
+      void hintIfLizzieMissing(gen);
+      return;
+    }
+
+    const fromGate = gateIsOpen();
+    if (fromGate) {
+      $("unlock-btn").disabled = true;
+      $("err").textContent = "Checking…";
+    } else {
+      showNote("pending", "Checking…");
+    }
+
+    try {
+      const result = await readSubject(id, passphrase);
+      if (gen !== loadGen || subjectId !== id) return;
+      if (result.kind === "empty") {
+        sessions[id] = blankSession();
+        showNote("empty", "No entries yet");
+        bumpIdle();
+        return;
+      }
+      if (result.kind === "error") {
+        sessions[id] = blankSession();
+        if (fromGate && gateIsOpen()) {
+          $("err").textContent = result.message;
           return;
         }
-        applyUnlockedGraph(published, false);
-      } else if (localOk) {
-        applyUnlockedGraph(used, true);
-      } else {
-        applyUnlockedGraph(published, false);
+        showNote("error", result.message);
+        bumpIdle();
+        return;
+      }
+      publishedBlob = result.publishedBlob;
+      sessions[id] = blankSession();
+      sessions[id].publishedBlob = result.publishedBlob;
+      applyUnlockedGraph(result.graph, result.usingLocalDraft);
+      if (result.offerDraft && subjectId === id && gen === loadGen) {
+        offerLocalDraft(result.offerDraft.local, result.offerDraft.published);
       }
     } catch (e) {
-      passphrase = null;
-      githubToken = null;
-      err.textContent = (e && e.name === "OperationError")
-        ? "Wrong passphrase — try again."
-        : (e.message || "Could not unlock.");
+      if (gen !== loadGen || subjectId !== id) return;
+      sessions[id] = blankSession();
+      const msg = (e && e.message) || decryptFailMessage(id);
+      if (fromGate && gateIsOpen()) $("err").textContent = msg;
+      else showNote("error", msg);
     } finally {
-      btn.disabled = false;
+      if (gen === loadGen) $("unlock-btn").disabled = false;
     }
   }
 
@@ -1417,6 +1725,7 @@
   }
 
   function setView(name) {
+    if (!graph) return;
     currentView = name;
     document.querySelectorAll(".nav [data-view]").forEach((b) => b.classList.toggle("on", b.dataset.view === name));
     document.querySelectorAll(".view").forEach((v) => v.classList.toggle("on", v.dataset.view === name));
@@ -1452,6 +1761,7 @@
   }
 
   function renderAll() {
+    if (!graph) return;
     if (!heroEntityOk(heroId)) {
       heroId = null;
       heroId = findLizzieId() || focusId(graph.entities || []);
@@ -1468,7 +1778,8 @@
   /* ---------- editing ---------- */
   function markDirty() {
     dirty = true;
-    graph.updated = new Date().toISOString();
+    if (graph) graph.updated = new Date().toISOString();
+    if (sessions[subjectId]) sessions[subjectId].dirty = true;
   }
   function optionsForEntities(selected) {
     return (graph.entities || [])
@@ -1662,50 +1973,82 @@
     toast("Deleted. Click Save to encrypt a new copy.");
   }
 
-  function downloadEncryptedText(text) {
+  function downloadEncryptedText(text, filename) {
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([text], { type: "application/json" }));
-    a.download = "research.enc.json";
+    a.download = filename || activeSubject().downloadName;
     document.body.appendChild(a);
     a.click();
     a.remove();
   }
 
-  async function encryptCurrent() {
-    const blob = await PeopleCrypto.encrypt(graph, passphrase);
+  async function encryptFor(subject, graphObj, pw) {
+    const blob = await PeopleCrypto.encrypt(graphObj, pw);
     const text = JSON.stringify(blob);
-    localStorage.setItem(LS_KEY, text);
+    localStorage.setItem(subject.draftKey, text);
     return { blob, text };
   }
 
+  async function encryptCurrent() {
+    return encryptFor(activeSubject(), graph, passphrase);
+  }
+
   async function saveAll() {
-    if (!passphrase || !graph) return;
+    if (!passphrase || !graph || saveInFlight) return;
+    const id = subjectId;
+    const subject = SUBJECTS[id];
+    const graphSnap = graph;
+    const pw = passphrase;
+    saveInFlight = true;
     let blob, text;
     try {
-      ({ blob, text } = await encryptCurrent());
+      ({ blob, text } = await encryptFor(subject, graphSnap, pw));
     } catch (e) {
-      toast(e.message || "Could not encrypt.");
+      saveInFlight = false;
+      if (subjectId === id) toast(e.message || "Could not encrypt.");
       return;
     }
-    dirty = false;
+    if (sessions[id]) {
+      sessions[id].dirty = false;
+      sessions[id].graph = graphSnap;
+    }
+    if (subjectId === id) dirty = false;
     if (!githubToken) {
-      usingLocalDraft = true;
-      $("local-banner").hidden = false;
-      openSaveSettings("connect");
-      toast("Encrypted draft kept in this browser. Connect saving to put it online, or download a copy.");
+      saveInFlight = false;
+      if (subjectId === id) {
+        usingLocalDraft = true;
+        if (sessions[id]) sessions[id].usingLocalDraft = true;
+        $("local-banner").hidden = false;
+        openSaveSettings("connect");
+        toast("Encrypted draft kept in this browser. Connect saving to put it online, or download a copy.");
+      }
       return;
     }
     try {
+      pinRemotePath(id);
       await ResearchSave.putRemoteFile(githubToken, text);
-      publishedBlob = blob;
-      usingLocalDraft = false;
-      $("local-banner").hidden = true;
-      toast("Saved online. Live in about a minute.", 4500);
+      if (sessions[id]) {
+        sessions[id].publishedBlob = blob;
+        sessions[id].usingLocalDraft = false;
+        sessions[id].dirty = false;
+      }
+      if (subjectId === id) {
+        publishedBlob = blob;
+        usingLocalDraft = false;
+        dirty = false;
+        $("local-banner").hidden = true;
+        toast("Saved online. Live in about a minute.", 4500);
+      }
     } catch (e) {
-      usingLocalDraft = true;
-      $("local-banner").hidden = false;
-      openSaveSettings("failed", e.message || "Could not save online.");
-      toast(e.message || "Could not save online.");
+      if (subjectId === id) {
+        usingLocalDraft = true;
+        if (sessions[id]) sessions[id].usingLocalDraft = true;
+        $("local-banner").hidden = false;
+        openSaveSettings("failed", e.message || "Could not save online.");
+        toast(e.message || "Could not save online.");
+      }
+    } finally {
+      saveInFlight = false;
     }
   }
 
@@ -1867,12 +2210,25 @@
   $("unlock-form").addEventListener("submit", (ev) => {
     ev.preventDefault();
     const pw = $("pw").value;
-    if (!pw) return;
-    unlock(pw.trim());
+    if (!pw || !pw.trim() || $("unlock-btn").disabled) return;
+    passphrase = pw.trim();
+    sessions[subjectId] = blankSession();
+    loadSubject(subjectId);
+  });
+  document.querySelectorAll(".subject-switch [data-subject]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.subject;
+      if (!id || id === subjectId) return;
+      loadSubject(id);
+    });
+  });
+  window.addEventListener("hashchange", () => {
+    const id = subjectFromHash();
+    if (id !== subjectId) loadSubject(id);
   });
   document.querySelectorAll(".nav [data-view]").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view)));
   $("btn-lock").addEventListener("click", () => lock("Locked."));
-  $("btn-add").addEventListener("click", () => openEditor("chooser"));
+  $("btn-add").addEventListener("click", () => { if (graph) openEditor("chooser"); });
   $("btn-save").addEventListener("click", saveAll);
   document.addEventListener("click", (ev) => {
     const t = ev.target && ev.target.closest ? ev.target.closest("#btn-toggle-menu, #btn-toggle-filters") : null;
@@ -1892,26 +2248,41 @@
   $("draft-offer").addEventListener("click", (ev) => { if (ev.target === $("draft-offer")) useOfferedDraft(false); });
   $("search").addEventListener("input", (ev) => {
     searchTerm = ev.target.value.trim();
+    if (sessions[subjectId]) sessions[subjectId].searchTerm = searchTerm;
+    if (!graph) return;
     redrawGraph();
   });
   $("hero-select").addEventListener("change", () => {
-    if (heroSelectSilent) return;
+    if (heroSelectSilent || !graph) return;
     const id = $("hero-select").value;
     if (!id || id === heroId || !heroEntityOk(id)) return;
     heroId = id;
+    if (sessions[subjectId]) sessions[subjectId].heroId = heroId;
     if (currentView === "graph") redrawGraph();
     bumpIdle();
   });
-  $("person-select").addEventListener("change", (ev) => renderPersonProfile(ev.target.value));
+  $("person-select").addEventListener("change", (ev) => {
+    if (!graph) return;
+    renderPersonProfile(ev.target.value);
+  });
   $("revert-published").addEventListener("click", async () => {
-    if (!passphrase || !publishedBlob) return;
+    if (!passphrase || !publishedBlob || !graph) return;
+    const id = subjectId;
     try {
-      graph = await tryDecrypt(publishedBlob, passphrase);
+      const next = await tryDecrypt(publishedBlob, passphrase);
+      if (subjectId !== id) return;
+      graph = next;
+      if (!graph.entities || !Array.isArray(graph.entities)) graph.entities = [];
+      if (!graph.links || !Array.isArray(graph.links)) graph.links = [];
       graph.entities.forEach(normalizeEntity);
-      localStorage.removeItem(LS_KEY);
+      localStorage.removeItem(SUBJECTS[id].draftKey);
       usingLocalDraft = false;
       dirty = false;
+      heroId = null;
+      heroId = findLizzieId() || focusId(graph.entities || []);
+      selectedId = null;
       $("local-banner").hidden = true;
+      rememberSession();
       renderAll();
       toast("Reverted to the published encrypted copy.");
     } catch (e) {
@@ -1935,9 +2306,7 @@
   window.__pmOpenSaving = (mode) => openSaveSettings(mode || "settings");
   window.__pmOpenDraftOffer = () => offerLocalDraft(graph, graph);
 
-  // Fetch the blob early so the lock screen can fail clearly, but do not decrypt.
-  fetch("data.enc.json?t=" + Date.now(), { cache: "no-store" })
-    .then((r) => { if (!r.ok) throw new Error("missing"); return r.json(); })
-    .then((b) => { publishedBlob = b; })
-    .catch(() => { $("err").textContent = "Encrypted data file is missing. Serve this folder over http and keep data.enc.json next to index.html."; });
+  subjectId = subjectFromHash();
+  syncSubjectTabs();
+  loadSubject(subjectId);
 })();

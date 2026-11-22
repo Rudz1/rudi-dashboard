@@ -7,21 +7,35 @@
 <meta http-equiv="Cache-Control" content="no-store">
 <meta name="theme-color" content="#042f33">
 <title>Rudi · Research</title>
-<link rel="stylesheet" href="styles.css?v=20261115a">
+<link rel="stylesheet" href="styles.css?v=20261122a">
 </head>
 <body>
 <div id="gate">
-  <h1>RUDI · RESEARCH</h1>
-  <p class="sub">A private research map of the people you care about. Nothing is shown until you unlock it. All personal data on this page is encrypted.</p>
-  <form id="unlock-form" autocomplete="off">
-    <input id="pw" type="password" autocomplete="current-password" placeholder="Passphrase" aria-label="Passphrase" autofocus>
-    <button type="submit" class="go" id="unlock-btn">Unlock</button>
-  </form>
-  <div class="err" id="err" role="status"></div>
-  <p class="hint">The passphrase is not stored in this page. Use the one you were given privately.</p>
+  <div class="subject-bar">
+    <div class="subject-switch" role="tablist" aria-label="Research">
+      <button type="button" class="subject-tab" role="tab" data-subject="lizzie" aria-selected="true">Lizzie</button>
+      <button type="button" class="subject-tab" role="tab" data-subject="heather" aria-selected="false">Heather</button>
+    </div>
+  </div>
+  <div class="gate-main">
+    <h1>RUDI · RESEARCH</h1>
+    <p class="sub">A private research map of the people you care about. Nothing is shown until you unlock it. All personal data on this page is encrypted.</p>
+    <form id="unlock-form" autocomplete="off">
+      <input id="pw" type="password" autocomplete="current-password" placeholder="Passphrase" aria-label="Passphrase" autofocus>
+      <button type="submit" class="go" id="unlock-btn">Unlock</button>
+    </form>
+    <div class="err" id="err" role="status"></div>
+    <p class="hint">The passphrase is not stored in this page. Use the one you were given privately.</p>
+  </div>
 </div>
 
 <div id="app">
+  <div class="subject-bar">
+    <div class="subject-switch" role="tablist" aria-label="Research">
+      <button type="button" class="subject-tab" role="tab" data-subject="lizzie" aria-selected="true">Lizzie</button>
+      <button type="button" class="subject-tab" role="tab" data-subject="heather" aria-selected="false">Heather</button>
+    </div>
+  </div>
   <div class="example-banner" id="example-banner">Example data only — fictional people, pets and places. This will be replaced when Duck publishes the real encrypted file.</div>
   <div class="local-banner" id="local-banner" hidden>Using a local draft saved in this browser. <button type="button" class="textbtn" id="revert-published">Revert to published copy</button></div>
   <header class="top">
@@ -49,6 +63,10 @@
       <button type="button" class="textbtn" id="btn-lock">Lock</button>
     </div>
   </header>
+
+  <div id="subject-note" class="subject-note" hidden>
+    <p id="subject-note-text" role="status"></p>
+  </div>
 
   <div class="workspace" id="workspace">
     <section class="view on" id="graph-view" data-view="graph">
@@ -122,6 +140,6 @@
 <script src="vendor/cytoscape.min.js?v=20261113c"></script>
 <script src="crypto.js?v=20261113c"></script>
 <script src="save-online.js?v=20261113c"></script>
-<script src="app.js?v=20261115b"></script>
+<script src="app.js?v=20261122a"></script>
 </body>
 </html>
